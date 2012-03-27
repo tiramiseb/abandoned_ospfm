@@ -5,9 +5,25 @@ OSPFM global architecture
 OSPFM is divided into multiple different subparts, implemented as Django
 applications.
 
-The following schema explains interaction between them:
+The following schema explains interaction between them::
 
-.. image:: global-schema.png
+                    +-----------------------+
+                    | +-----------------------+
+                    | | +-----------------------+
+                    | | |                       |
+                    +-| | back-end applications |
+                      +-|                       |
+                        +-----------------------+
+
+                      /              |            \
+                     /               |             \
+                    /                |              \
+                   /                 |               \
+ +----------------------+ +--------------------+ +---------------------+
+ |                      | |                    | |  subscription and   |
+ | mobile web interface | | rich web interface | | billing application |
+ |                      | |                    | |  (not Open Source)  |
+ +----------------------+ +--------------------+ +---------------------+
 
 Back-end applications
 =====================
