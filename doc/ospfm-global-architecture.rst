@@ -35,13 +35,13 @@ Data storage and manipulation is done in Django applications.
 
 These applications are:
 
-* ``ospfm-automation``: automatic transformations or creations
-* ``ospfm-core``: core data, not belonging to any other part
-* ``ospfm-debt``: debts between users
-* ``ospfm-envelope``: envelope-oriented budgeting
-* ``ospfm-programmed``: programmed transactions
-* ``ospfm-refund``: refunds management (like social protection reimbursements)
-* ``ospfm-transaction``: transactions, accounts, categories
+* ``ospfm_automation``: automatic transformations or creations
+* ``ospfm_core``: core data, not belonging to any other part
+* ``ospfm_debt``: debts between users
+* ``ospfm_envelope``: envelope-oriented budgeting
+* ``ospfm_programmed``: programmed transactions
+* ``ospfm_refund``: refunds management (like social protection reimbursements)
+* ``ospfm_transaction``: transactions, accounts, categories
 
 Rich web interface
 ------------------
