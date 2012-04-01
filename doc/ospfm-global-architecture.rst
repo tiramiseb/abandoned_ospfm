@@ -25,24 +25,48 @@ The following schema explains interaction between them::
  |                      | |                    | |  (not Open Source)  |
  +----------------------+ +--------------------+ +---------------------+
 
+List of applications
+====================
+
 Back-end applications
-=====================
+---------------------
 
 Data storage and manipulation is done in Django applications.
 
+These applications are:
+
+* ``ospfm-automation``: automatic transformations or creations
+* ``ospfm-core``: core data, not belonging to any other part
+* ``ospfm-debt``: debts between users
+* ``ospfm-envelope``: envelope-oriented budgeting
+* ``ospfm-programmed``: programmed transactions
+* ``ospfm-refund``: refunds management (like social protection reimbursements)
+* ``ospfm-transaction``: transactions, accounts, categories
+
 Rich web interface
-==================
+------------------
 
 The rich web interface is oriented toward users on computers (and maybe on
 tablets).
 
 Mobile web interface
-====================
+--------------------
 
 The mobile web interface is optimized for smartphones (and maybe tablets).
 
 Subscription and billing application
-====================================
+------------------------------------
 
 A subscription and billing application should manage users and their
-authorizations. This part is not distributed as an Open Source product.
+authorizations. This is not a part of OSPFM, it is not distributed as an
+Open Source product.
+
+Django models
+=============
+
+Django models for OSPFM are described in the ``ospfm-django-models-schema.dia``
+Dia file (``ospfm-django-models-schema.png`` for an easily readable image).
+
+
+
+
