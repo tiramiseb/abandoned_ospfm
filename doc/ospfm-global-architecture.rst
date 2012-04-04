@@ -39,6 +39,7 @@ These applications are:
 * ``ospfm_core``: core data, not belonging to any other part
 * ``ospfm_debt``: debts between users
 * ``ospfm_envelope``: envelope-oriented budgeting
+* ``ospfm_preconfigured``: preset transactions for easy add
 * ``ospfm_programmed``: programmed transactions
 * ``ospfm_refund``: refunds management (like social protection reimbursements)
 * ``ospfm_transaction``: transactions, accounts, categories
