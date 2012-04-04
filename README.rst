@@ -26,3 +26,9 @@ Manifesto
 
 To understand the motivation behind OSPFM, please read the manifesto in
 ``MANIFESTO.rst``.
+
+License
+=======
+
+OSPFM is published under the terms of the GNU Affero General Public License
+version 3.
