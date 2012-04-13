@@ -1,0 +1,728 @@
+#    Copyright 2012 Sebastien Maccagnoni-Munch
+#
+#    This file is part of OSPFM.
+#
+#    OSPFM is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    OSPFM is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
+msgid ""
+msgstr ""
+"Project-Id-Version: OSPFM\n"
+"Report-Msgid-Bugs-To: Sébastien Maccagnoni-Munch <sebastien@tiramiseb.fr>\n"
+"POT-Creation-Date: 2012-04-13 18:52+0200\n"
+"PO-Revision-Date: Y2012-04-13 18:53+0200\n"
+"Last-Translator: Sébastien Maccagnoni-Munch <sebastien@tiramiseb.fr>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:85
+msgid "currency"
+msgstr "monnaie"
+
+#: models.py:86
+msgid "currencies"
+msgstr "monnaies"
+
+#: models.py:123
+#, python-format
+msgid "%s's profile"
+msgstr "profil de %s"
+
+#: models.py:126
+msgid "user profile"
+msgstr "profil d'utilisateur"
+
+#: models.py:127
+msgid "users profiles"
+msgstr "profils d'utilisateurs"
+
+#: models.py:139
+#, python-format
+msgid "%(contact)s is one of %(user)s's contacts"
+msgstr "%(contact)s est un des contacts de %(user)s"
+
+#: models.py:145
+msgid "user contact"
+msgstr "contact d'utilisateur"
+
+#: models.py:146
+msgid "users contacts"
+msgstr "contacts d'utilisateurs"
+
+#: fixtures/currencies_list.txt:28
+msgid "AED currency name"
+msgstr "dirham émirati"
+
+#: fixtures/currencies_list.txt:29
+msgid "AFN currency name"
+msgstr "afghani"
+
+#: fixtures/currencies_list.txt:30
+msgid "ALL currency name"
+msgstr "lek"
+
+#: fixtures/currencies_list.txt:31
+msgid "AMD currency name"
+msgstr "dram"
+
+#: fixtures/currencies_list.txt:32
+msgid "ANG currency name"
+msgstr "florin des Antilles néerlandaises"
+
+#: fixtures/currencies_list.txt:33
+msgid "AOA currency name"
+msgstr "kwanza"
+
+#: fixtures/currencies_list.txt:34
+msgid "ARS currency name"
+msgstr "peso argentin"
+
+#: fixtures/currencies_list.txt:35
+msgid "AUD currency name"
+msgstr "dollar australien"
+
+#: fixtures/currencies_list.txt:36
+msgid "AWG currency name"
+msgstr "florin arubais"
+
+#: fixtures/currencies_list.txt:37
+msgid "AZN currency name"
+msgstr "manat azerbaïdjanais"
+
+#: fixtures/currencies_list.txt:38
+msgid "BAM currency name"
+msgstr "mark convertible"
+
+#: fixtures/currencies_list.txt:39
+msgid "BBD currency name"
+msgstr "dollar barbadien"
+
+#: fixtures/currencies_list.txt:40
+msgid "BDT currency name"
+msgstr "taka"
+
+#: fixtures/currencies_list.txt:41
+msgid "BGN currency name"
+msgstr "lev"
+
+#: fixtures/currencies_list.txt:42
+msgid "BHD currency name"
+msgstr "dinar bahreïni"
+
+#: fixtures/currencies_list.txt:43
+msgid "BIF currency name"
+msgstr "franc burundais"
+
+#: fixtures/currencies_list.txt:44
+msgid "BMD currency name"
+msgstr "dollar bermudien"
+
+#: fixtures/currencies_list.txt:45
+msgid "BND currency name"
+msgstr "dollar de Brunei"
+
+#: fixtures/currencies_list.txt:46
+msgid "BOB currency name"
+msgstr "boliviano"
+
+#: fixtures/currencies_list.txt:47
+msgid "BRL currency name"
+msgstr "réal brésilien"
+
+#: fixtures/currencies_list.txt:48
+msgid "BSD currency name"
+msgstr "dollar bahaméen"
+
+#: fixtures/currencies_list.txt:49
+msgid "BTN currency name"
+msgstr "ngultrum"
+
+#: fixtures/currencies_list.txt:50
+msgid "BWP currency name"
+msgstr "pula"
+
+#: fixtures/currencies_list.txt:51
+msgid "BYR currency name"
+msgstr "rouble biélorusse"
+
+#: fixtures/currencies_list.txt:52
+msgid "BZD currency name"
+msgstr "dollar bélizien"
+
+#: fixtures/currencies_list.txt:53
+msgid "CAD currency name"
+msgstr "dollar canadien"
+
+#: fixtures/currencies_list.txt:54
+msgid "CDF currency name"
+msgstr "franc congolais"
+
+#: fixtures/currencies_list.txt:55
+msgid "CHF currency name"
+msgstr "franc suisse"
+
+#: fixtures/currencies_list.txt:56
+msgid "CLF currency name"
+msgstr "unité d'investissement du Chili"
+
+#: fixtures/currencies_list.txt:57
+msgid "CLP currency name"
+msgstr "peso chilien"
+
+#: fixtures/currencies_list.txt:58
+msgid "CNY currency name"
+msgstr "yuan"
+
+#: fixtures/currencies_list.txt:59
+msgid "COP currency name"
+msgstr "peso colombien"
+
+#: fixtures/currencies_list.txt:60
+msgid "COU currency name"
+msgstr "unité de valeur réelle colombienne"
+
+#: fixtures/currencies_list.txt:61
+msgid "CRC currency name"
+msgstr "colon costaricain"
+
+#: fixtures/currencies_list.txt:62
+msgid "CUC currency name"
+msgstr "peso cubain convertible"
+
+#: fixtures/currencies_list.txt:63
+msgid "CUP currency name"
+msgstr "peso cubain"
+
+#: fixtures/currencies_list.txt:64
+msgid "CVE currency name"
+msgstr "escudo"
+
+#: fixtures/currencies_list.txt:65
+msgid "CZK currency name"
+msgstr "couronne tchèque"
+
+#: fixtures/currencies_list.txt:66
+msgid "DJF currency name"
+msgstr "franc djiboutien"
+
+#: fixtures/currencies_list.txt:67
+msgid "DKK currency name"
+msgstr "couronne danoise"
+
+#: fixtures/currencies_list.txt:68
+msgid "DOP currency name"
+msgstr "peso dominicain"
+
+#: fixtures/currencies_list.txt:69
+msgid "DZD currency name"
+msgstr "dinar algérien"
+
+#: fixtures/currencies_list.txt:70
+msgid "EGP currency name"
+msgstr "livre égyptienne"
+
+#: fixtures/currencies_list.txt:71
+msgid "ERN currency name"
+msgstr "nakfa"
+
+#: fixtures/currencies_list.txt:72
+msgid "ETB currency name"
+msgstr "birr"
+
+#: fixtures/currencies_list.txt:73
+msgid "EUR currency name"
+msgstr "Euro"
+
+#: fixtures/currencies_list.txt:74
+msgid "FJD currency name"
+msgstr "dollar fidjien"
+
+#: fixtures/currencies_list.txt:75
+msgid "FKP currency name"
+msgstr "livre des Îles Malouines"
+
+#: fixtures/currencies_list.txt:76
+msgid "GBP currency name"
+msgstr "livre sterling"
+
+#: fixtures/currencies_list.txt:77
+msgid "GEL currency name"
+msgstr "lari"
+
+#: fixtures/currencies_list.txt:78
+msgid "GHS currency name"
+msgstr "cédi"
+
+#: fixtures/currencies_list.txt:79
+msgid "GIP currency name"
+msgstr "livre de Gibraltar"
+
+#: fixtures/currencies_list.txt:80
+msgid "GMD currency name"
+msgstr "dalasi"
+
+#: fixtures/currencies_list.txt:81
+msgid "GNF currency name"
+msgstr "franc guinéen"
+
+#: fixtures/currencies_list.txt:82
+msgid "GTQ currency name"
+msgstr "quetzal"
+
+#: fixtures/currencies_list.txt:83
+msgid "GYD currency name"
+msgstr "dollar du Guyana"
+
+#: fixtures/currencies_list.txt:84
+msgid "HKD currency name"
+msgstr "dollar de Hong Kong"
+
+#: fixtures/currencies_list.txt:85
+msgid "HNL currency name"
+msgstr "lempira"
+
+#: fixtures/currencies_list.txt:86
+msgid "HRK currency name"
+msgstr "kuna"
+
+#: fixtures/currencies_list.txt:87
+msgid "HTG currency name"
+msgstr "gourde"
+
+#: fixtures/currencies_list.txt:88
+msgid "HUF currency name"
+msgstr "forint"
+
+#: fixtures/currencies_list.txt:89
+msgid "IDR currency name"
+msgstr "roupie indonésienne"
+
+#: fixtures/currencies_list.txt:90
+msgid "ILS currency name"
+msgstr "shekel"
+
+#: fixtures/currencies_list.txt:91
+msgid "INR currency name"
+msgstr "roupie indienne"
+
+#: fixtures/currencies_list.txt:92
+msgid "IQD currency name"
+msgstr "dinar irakien"
+
+#: fixtures/currencies_list.txt:93
+msgid "IRR currency name"
+msgstr "rial iranien"
+
+#: fixtures/currencies_list.txt:94
+msgid "ISK currency name"
+msgstr "couronne islandaise"
+
+#: fixtures/currencies_list.txt:95
+msgid "JMD currency name"
+msgstr "dollar jamaïcain"
+
+#: fixtures/currencies_list.txt:96
+msgid "JOD currency name"
+msgstr "dinar jordanien"
+
+#: fixtures/currencies_list.txt:97
+msgid "JPY currency name"
+msgstr "yen"
+
+#: fixtures/currencies_list.txt:98
+msgid "KES currency name"
+msgstr "shiling kényan"
+
+#: fixtures/currencies_list.txt:99
+msgid "KGS currency name"
+msgstr "som"
+
+#: fixtures/currencies_list.txt:100
+msgid "KHR currency name"
+msgstr "riel"
+
+#: fixtures/currencies_list.txt:101
+msgid "KMF currency name"
+msgstr "franc comorien"
+
+#: fixtures/currencies_list.txt:102
+msgid "KPW currency name"
+msgstr "won de Corée du Nord"
+
+#: fixtures/currencies_list.txt:103
+msgid "KRW currency name"
+msgstr "won de Corée du Sud"
+
+#: fixtures/currencies_list.txt:104
+msgid "KWD currency name"
+msgstr "dinar koweïtien"
+
+#: fixtures/currencies_list.txt:105
+msgid "KYD currency name"
+msgstr "dollar des Îles Caïmans"
+
+#: fixtures/currencies_list.txt:106
+msgid "KZT currency name"
+msgstr "tenge"
+
+#: fixtures/currencies_list.txt:107
+msgid "LAK currency name"
+msgstr "kip"
+
+#: fixtures/currencies_list.txt:108
+msgid "LBP currency name"
+msgstr "livre libanaise"
+
+#: fixtures/currencies_list.txt:109
+msgid "LKR currency name"
+msgstr "roupie srilankaise"
+
+#: fixtures/currencies_list.txt:110
+msgid "LRD currency name"
+msgstr "dollar libérien"
+
+#: fixtures/currencies_list.txt:111
+msgid "LSL currency name"
+msgstr "loti"
+
+#: fixtures/currencies_list.txt:112
+msgid "LTL currency name"
+msgstr "litas"
+
+#: fixtures/currencies_list.txt:113
+msgid "LVL currency name"
+msgstr "lats"
+
+#: fixtures/currencies_list.txt:114
+msgid "LYD currency name"
+msgstr "dinar lybien"
+
+#: fixtures/currencies_list.txt:115
+msgid "MAD currency name"
+msgstr "dirham marocain"
+
+#: fixtures/currencies_list.txt:116
+msgid "MDL currency name"
+msgstr "leu moldave"
+
+#: fixtures/currencies_list.txt:117
+msgid "MGA currency name"
+msgstr "ariary"
+
+#: fixtures/currencies_list.txt:118
+msgid "MKD currency name"
+msgstr "denar"
+
+#: fixtures/currencies_list.txt:119
+msgid "MMK currency name"
+msgstr "kyat"
+
+#: fixtures/currencies_list.txt:120
+msgid "MNT currency name"
+msgstr "tugrik"
+
+#: fixtures/currencies_list.txt:121
+msgid "MOP currency name"
+msgstr "pataka"
+
+#: fixtures/currencies_list.txt:122
+msgid "MRO currency name"
+msgstr "ouguiya"
+
+#: fixtures/currencies_list.txt:123
+msgid "MUR currency name"
+msgstr "roupie mauricienne"
+
+#: fixtures/currencies_list.txt:124
+msgid "MVR currency name"
+msgstr "rufiyaa"
+
+#: fixtures/currencies_list.txt:125
+msgid "MWK currency name"
+msgstr "kwacha malawien"
+
+#: fixtures/currencies_list.txt:126
+msgid "MXN currency name"
+msgstr "peso mexicain"
+
+#: fixtures/currencies_list.txt:127
+msgid "MXV currency name"
+msgstr "unité de conversion mexicaine"
+
+#: fixtures/currencies_list.txt:128
+msgid "MYR currency name"
+msgstr "ringgit"
+
+#: fixtures/currencies_list.txt:129
+msgid "MZN currency name"
+msgstr "metical"
+
+#: fixtures/currencies_list.txt:130
+msgid "NAD currency name"
+msgstr "dollar namibien"
+
+#: fixtures/currencies_list.txt:131
+msgid "NGN currency name"
+msgstr "naira"
+
+#: fixtures/currencies_list.txt:132
+msgid "NIO currency name"
+msgstr "cordoba d'or"
+
+#: fixtures/currencies_list.txt:133
+msgid "NOK currency name"
+msgstr "couronne norvégienne"
+
+#: fixtures/currencies_list.txt:134
+msgid "NPR currency name"
+msgstr "roupie népalaise"
+
+#: fixtures/currencies_list.txt:135
+msgid "NZD currency name"
+msgstr "dollar néo-zélandais"
+
+#: fixtures/currencies_list.txt:136
+msgid "OMR currency name"
+msgstr "rial omanais"
+
+#: fixtures/currencies_list.txt:137
+msgid "PAB currency name"
+msgstr "balboa"
+
+#: fixtures/currencies_list.txt:138
+msgid "PEN currency name"
+msgstr "sol"
+
+#: fixtures/currencies_list.txt:139
+msgid "PGK currency name"
+msgstr "kina"
+
+#: fixtures/currencies_list.txt:140
+msgid "PHP currency name"
+msgstr "peso philippin"
+
+#: fixtures/currencies_list.txt:141
+msgid "PKR currency name"
+msgstr "roupie pakistanaise"
+
+#: fixtures/currencies_list.txt:142
+msgid "PLN currency name"
+msgstr "zloty"
+
+#: fixtures/currencies_list.txt:143
+msgid "PYG currency name"
+msgstr "guarani"
+
+#: fixtures/currencies_list.txt:144
+msgid "QAR currency name"
+msgstr "rial qatari"
+
+#: fixtures/currencies_list.txt:145
+msgid "RON currency name"
+msgstr "leu roumain"
+
+#: fixtures/currencies_list.txt:146
+msgid "RSD currency name"
+msgstr "dinar serbe"
+
+#: fixtures/currencies_list.txt:147
+msgid "RUB currency name"
+msgstr "rouble russe"
+
+#: fixtures/currencies_list.txt:148
+msgid "RWF currency name"
+msgstr "franc rwandais"
+
+#: fixtures/currencies_list.txt:149
+msgid "SAR currency name"
+msgstr "riyal"
+
+#: fixtures/currencies_list.txt:150
+msgid "SBD currency name"
+msgstr "dollar des Îles Salomon"
+
+#: fixtures/currencies_list.txt:151
+msgid "SCR currency name"
+msgstr "roupie seychelloise"
+
+#: fixtures/currencies_list.txt:152
+msgid "SDG currency name"
+msgstr "livre soudanaise"
+
+#: fixtures/currencies_list.txt:153
+msgid "SEK currency name"
+msgstr "couronne suédoise"
+
+#: fixtures/currencies_list.txt:154
+msgid "SGD currency name"
+msgstr "dollar singapourien"
+
+#: fixtures/currencies_list.txt:155
+msgid "SHP currency name"
+msgstr "livre de Sainte-Hélène"
+
+#: fixtures/currencies_list.txt:156
+msgid "SLL currency name"
+msgstr "leone"
+
+#: fixtures/currencies_list.txt:157
+msgid "SOS currency name"
+msgstr "shilling somalien"
+
+#: fixtures/currencies_list.txt:158
+msgid "SRD currency name"
+msgstr "dollar surinamien"
+
+#: fixtures/currencies_list.txt:159
+msgid "SSP currency name"
+msgstr "livre sud-soudanaise"
+
+#: fixtures/currencies_list.txt:160
+msgid "STD currency name"
+msgstr "dobra"
+
+#: fixtures/currencies_list.txt:161
+msgid "SYP currency name"
+msgstr "livre syrienne"
+
+#: fixtures/currencies_list.txt:162
+msgid "SZL currency name"
+msgstr "lilangeni"
+
+#: fixtures/currencies_list.txt:163
+msgid "THB currency name"
+msgstr "baht"
+
+#: fixtures/currencies_list.txt:164
+msgid "TJS currency name"
+msgstr "somoni"
+
+#: fixtures/currencies_list.txt:165
+msgid "TMT currency name"
+msgstr "manat turkmène"
+
+#: fixtures/currencies_list.txt:166
+msgid "TND currency name"
+msgstr "dinar tunisien"
+
+#: fixtures/currencies_list.txt:167
+msgid "TOP currency name"
+msgstr "pa'anga"
+
+#: fixtures/currencies_list.txt:168
+msgid "TRY currency name"
+msgstr "livre turque"
+
+#: fixtures/currencies_list.txt:169
+msgid "TTD currency name"
+msgstr "dollar de Trinité-et-Tobago"
+
+#: fixtures/currencies_list.txt:170
+msgid "TWD currency name"
+msgstr "dollar taïwanais"
+
+#: fixtures/currencies_list.txt:171
+msgid "TZS currency name"
+msgstr "shilling tanzanien"
+
+#: fixtures/currencies_list.txt:172
+msgid "UAH currency name"
+msgstr "hryvnia"
+
+#: fixtures/currencies_list.txt:173
+msgid "UGX currency name"
+msgstr "shilling ougandais"
+
+#: fixtures/currencies_list.txt:174
+msgid "USD currency name"
+msgstr "dollar US"
+
+#: fixtures/currencies_list.txt:175
+msgid "UYI currency name"
+msgstr "peso uruguayen en unités indexées"
+
+#: fixtures/currencies_list.txt:176
+msgid "UYU currency name"
+msgstr "peso uruguayen"
+
+#: fixtures/currencies_list.txt:177
+msgid "UZS currency name"
+msgstr "sum"
+
+#: fixtures/currencies_list.txt:178
+msgid "VEF currency name"
+msgstr "bolívar fuerte"
+
+#: fixtures/currencies_list.txt:179
+msgid "VND currency name"
+msgstr "dong"
+
+#: fixtures/currencies_list.txt:180
+msgid "VUV currency name"
+msgstr "vatu"
+
+#: fixtures/currencies_list.txt:181
+msgid "WST currency name"
+msgstr "tala"
+
+#: fixtures/currencies_list.txt:182
+msgid "XAF currency name"
+msgstr "franc CFA"
+
+#: fixtures/currencies_list.txt:183
+msgid "XAG currency name"
+msgstr "onces d'argent"
+
+#: fixtures/currencies_list.txt:184
+msgid "XAU currency name"
+msgstr "onces d'or"
+
+#: fixtures/currencies_list.txt:185
+msgid "XCD currency name"
+msgstr "dollar est-caribéen"
+
+#: fixtures/currencies_list.txt:186
+msgid "XOF currency name"
+msgstr "franc CFA"
+
+#: fixtures/currencies_list.txt:187
+msgid "XPD currency name"
+msgstr "onces de palladium"
+
+#: fixtures/currencies_list.txt:188
+msgid "XPF currency name"
+msgstr "franc CFP"
+
+#: fixtures/currencies_list.txt:189
+msgid "XPT currency name"
+msgstr "onces de platine"
+
+#: fixtures/currencies_list.txt:190
+msgid "YER currency name"
+msgstr "rial yéménite"
+
+#: fixtures/currencies_list.txt:191
+msgid "ZAR currency name"
+msgstr "rand"
+
+#: fixtures/currencies_list.txt:192
+msgid "ZMK currency name"
+msgstr "kwacha zambien"
+
+#: fixtures/currencies_list.txt:193
+msgid "ZWL currency name"
+msgstr "dollar zimbabwéen"
+
+#~ msgid "BOV currency name"
+#~ msgstr "mvdol"

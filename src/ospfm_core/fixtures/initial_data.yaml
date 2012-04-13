@@ -1,0 +1,668 @@
+#    Copyright 2012 Sebastien Maccagnoni-Munch
+#
+#    This file is part of OSPFM.
+#
+#    OSPFM is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    OSPFM is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
+
+
+# Don't forget to update the "currencies_list.txt" file when changing the
+# currencies list in this file.
+
+# The following currencies are not created because they are not taken into
+# account by OSPFM's exchange rates source, open source Exchange Rates:
+# http://josscrowcroft.github.com/open-exchange-rates/
+#
+# BOV (Bolivian Mvdol)
+# COU (Colombian Unidad de Valor Real)
+# CUC (Cuban convertible peso)
+# ERN (Eritrean nakfa)
+# KYD (Cayman Islands dollar)
+# MXV (Mexican Unidad de Inversion)
+# SSP (South Sudanese pound)
+# XAG (Silver (ounce))
+# XAU (Gold (ounce))
+# XPD (Palladieu (ounce))
+# XPT (Platinium (ounce))
+#
+# Sorry to those who would have wanted to use these currencies.
+# Users may still define them and manage their rates as user-defined currencies
+#
+# Some of these currencies are pegged (fixed) to another currency, but
+# supporting fixed-rate global currencies is not planned yet, so they cannot be
+# globally defined.
+
+- model: ospfm_core.currency
+  pk: 1
+  fields:
+    symbol: AED
+- model: ospfm_core.currency
+  pk: 2
+  fields:
+    symbol: AFN
+- model: ospfm_core.currency
+  pk: 3
+  fields:
+    symbol: ALL
+- model: ospfm_core.currency
+  pk: 4
+  fields:
+    symbol: AMD
+- model: ospfm_core.currency
+  pk: 5
+  fields:
+    symbol: ANG
+- model: ospfm_core.currency
+  pk: 6
+  fields:
+    symbol: AOA
+- model: ospfm_core.currency
+  pk: 7
+  fields:
+    symbol: ARS
+- model: ospfm_core.currency
+  pk: 8
+  fields:
+    symbol: AUD
+- model: ospfm_core.currency
+  pk: 9
+  fields:
+    symbol: AWG
+- model: ospfm_core.currency
+  pk: 10
+  fields:
+    symbol: AZN
+- model: ospfm_core.currency
+  pk: 11
+  fields:
+    symbol: BAM
+- model: ospfm_core.currency
+  pk: 12
+  fields:
+    symbol: BBD
+- model: ospfm_core.currency
+  pk: 13
+  fields:
+    symbol: BDT
+- model: ospfm_core.currency
+  pk: 14
+  fields:
+    symbol: BGN
+- model: ospfm_core.currency
+  pk: 15
+  fields:
+    symbol: BHD
+- model: ospfm_core.currency
+  pk: 16
+  fields:
+    symbol: BIF
+- model: ospfm_core.currency
+  pk: 17
+  fields:
+    symbol: BMD
+- model: ospfm_core.currency
+  pk: 18
+  fields:
+    symbol: BND
+- model: ospfm_core.currency
+  pk: 19
+  fields:
+    symbol: BOB
+- model: ospfm_core.currency
+  pk: 20
+  fields:
+    symbol: BRL
+- model: ospfm_core.currency
+  pk: 21
+  fields:
+    symbol: BSD
+- model: ospfm_core.currency
+  pk: 22
+  fields:
+    symbol: BTN
+- model: ospfm_core.currency
+  pk: 23
+  fields:
+    symbol: BWP
+- model: ospfm_core.currency
+  pk: 24
+  fields:
+    symbol: BYR
+- model: ospfm_core.currency
+  pk: 25
+  fields:
+    symbol: BZD
+- model: ospfm_core.currency
+  pk: 26
+  fields:
+    symbol: CAD
+- model: ospfm_core.currency
+  pk: 27
+  fields:
+    symbol: CDF
+- model: ospfm_core.currency
+  pk: 28
+  fields:
+    symbol: CHF
+- model: ospfm_core.currency
+  pk: 29
+  fields:
+    symbol: CLF
+- model: ospfm_core.currency
+  pk: 30
+  fields:
+    symbol: CLP
+- model: ospfm_core.currency
+  pk: 31
+  fields:
+    symbol: CNY
+- model: ospfm_core.currency
+  pk: 32
+  fields:
+    symbol: COP
+- model: ospfm_core.currency
+  pk: 33
+  fields:
+    symbol: CRC
+- model: ospfm_core.currency
+  pk: 34
+  fields:
+    symbol: CUP
+- model: ospfm_core.currency
+  pk: 35
+  fields:
+    symbol: CVE
+- model: ospfm_core.currency
+  pk: 36
+  fields:
+    symbol: CZK
+- model: ospfm_core.currency
+  pk: 37
+  fields:
+    symbol: DJF
+- model: ospfm_core.currency
+  pk: 38
+  fields:
+    symbol: DKK
+- model: ospfm_core.currency
+  pk: 39
+  fields:
+    symbol: DOP
+- model: ospfm_core.currency
+  pk: 40
+  fields:
+    symbol: DZD
+- model: ospfm_core.currency
+  pk: 41
+  fields:
+    symbol: EGP
+- model: ospfm_core.currency
+  pk: 42
+  fields:
+    symbol: ETB
+- model: ospfm_core.currency
+  pk: 43
+  fields:
+    symbol: EUR
+- model: ospfm_core.currency
+  pk: 44
+  fields:
+    symbol: FJD
+- model: ospfm_core.currency
+  pk: 45
+  fields:
+    symbol: FKP
+- model: ospfm_core.currency
+  pk: 46
+  fields:
+    symbol: GBP
+- model: ospfm_core.currency
+  pk: 47
+  fields:
+    symbol: GEL
+- model: ospfm_core.currency
+  pk: 48
+  fields:
+    symbol: GHS
+- model: ospfm_core.currency
+  pk: 49
+  fields:
+    symbol: GIP
+- model: ospfm_core.currency
+  pk: 50
+  fields:
+    symbol: GMD
+- model: ospfm_core.currency
+  pk: 51
+  fields:
+    symbol: GNF
+- model: ospfm_core.currency
+  pk: 52
+  fields:
+    symbol: GTQ
+- model: ospfm_core.currency
+  pk: 53
+  fields:
+    symbol: GYD
+- model: ospfm_core.currency
+  pk: 54
+  fields:
+    symbol: HKD
+- model: ospfm_core.currency
+  pk: 55
+  fields:
+    symbol: HNL
+- model: ospfm_core.currency
+  pk: 56
+  fields:
+    symbol: HRK
+- model: ospfm_core.currency
+  pk: 57
+  fields:
+    symbol: HTG
+- model: ospfm_core.currency
+  pk: 58
+  fields:
+    symbol: HUF
+- model: ospfm_core.currency
+  pk: 59
+  fields:
+    symbol: IDR
+- model: ospfm_core.currency
+  pk: 60
+  fields:
+    symbol: ILS
+- model: ospfm_core.currency
+  pk: 61
+  fields:
+    symbol: INR
+- model: ospfm_core.currency
+  pk: 62
+  fields:
+    symbol: IQD
+- model: ospfm_core.currency
+  pk: 63
+  fields:
+    symbol: IRR
+- model: ospfm_core.currency
+  pk: 64
+  fields:
+    symbol: ISK
+- model: ospfm_core.currency
+  pk: 65
+  fields:
+    symbol: JMD
+- model: ospfm_core.currency
+  pk: 66
+  fields:
+    symbol: JOD
+- model: ospfm_core.currency
+  pk: 67
+  fields:
+    symbol: JPY
+- model: ospfm_core.currency
+  pk: 68
+  fields:
+    symbol: KES
+- model: ospfm_core.currency
+  pk: 69
+  fields:
+    symbol: KGS
+- model: ospfm_core.currency
+  pk: 70
+  fields:
+    symbol: KHR
+- model: ospfm_core.currency
+  pk: 71
+  fields:
+    symbol: KMF
+- model: ospfm_core.currency
+  pk: 72
+  fields:
+    symbol: KPW
+- model: ospfm_core.currency
+  pk: 73
+  fields:
+    symbol: KRW
+- model: ospfm_core.currency
+  pk: 74
+  fields:
+    symbol: KWD
+- model: ospfm_core.currency
+  pk: 75
+  fields:
+    symbol: KZT
+- model: ospfm_core.currency
+  pk: 76
+  fields:
+    symbol: LAK
+- model: ospfm_core.currency
+  pk: 77
+  fields:
+    symbol: LBP
+- model: ospfm_core.currency
+  pk: 78
+  fields:
+    symbol: LKR
+- model: ospfm_core.currency
+  pk: 79
+  fields:
+    symbol: LRD
+- model: ospfm_core.currency
+  pk: 80
+  fields:
+    symbol: LSL
+- model: ospfm_core.currency
+  pk: 81
+  fields:
+    symbol: LTL
+- model: ospfm_core.currency
+  pk: 82
+  fields:
+    symbol: LVL
+- model: ospfm_core.currency
+  pk: 83
+  fields:
+    symbol: LYD
+- model: ospfm_core.currency
+  pk: 84
+  fields:
+    symbol: MAD
+- model: ospfm_core.currency
+  pk: 85
+  fields:
+    symbol: MDL
+- model: ospfm_core.currency
+  pk: 86
+  fields:
+    symbol: MGA
+- model: ospfm_core.currency
+  pk: 87
+  fields:
+    symbol: MKD
+- model: ospfm_core.currency
+  pk: 88
+  fields:
+    symbol: MMK
+- model: ospfm_core.currency
+  pk: 89
+  fields:
+    symbol: MNT
+- model: ospfm_core.currency
+  pk: 90
+  fields:
+    symbol: MOP
+- model: ospfm_core.currency
+  pk: 91
+  fields:
+    symbol: MRO
+- model: ospfm_core.currency
+  pk: 92
+  fields:
+    symbol: MUR
+- model: ospfm_core.currency
+  pk: 93
+  fields:
+    symbol: MVR
+- model: ospfm_core.currency
+  pk: 94
+  fields:
+    symbol: MWK
+- model: ospfm_core.currency
+  pk: 95
+  fields:
+    symbol: MXN
+- model: ospfm_core.currency
+  pk: 96
+  fields:
+    symbol: MYR
+- model: ospfm_core.currency
+  pk: 97
+  fields:
+    symbol: MZN
+- model: ospfm_core.currency
+  pk: 98
+  fields:
+    symbol: NAD
+- model: ospfm_core.currency
+  pk: 99
+  fields:
+    symbol: NGN
+- model: ospfm_core.currency
+  pk: 100
+  fields:
+    symbol: NIO
+- model: ospfm_core.currency
+  pk: 101
+  fields:
+    symbol: NOK
+- model: ospfm_core.currency
+  pk: 102
+  fields:
+    symbol: NPR
+- model: ospfm_core.currency
+  pk: 103
+  fields:
+    symbol: NZD
+- model: ospfm_core.currency
+  pk: 104
+  fields:
+    symbol: OMR
+- model: ospfm_core.currency
+  pk: 105
+  fields:
+    symbol: PAB
+- model: ospfm_core.currency
+  pk: 106
+  fields:
+    symbol: PEN
+- model: ospfm_core.currency
+  pk: 107
+  fields:
+    symbol: PGK
+- model: ospfm_core.currency
+  pk: 108
+  fields:
+    symbol: PHP
+- model: ospfm_core.currency
+  pk: 109
+  fields:
+    symbol: PKR
+- model: ospfm_core.currency
+  pk: 110
+  fields:
+    symbol: PLN
+- model: ospfm_core.currency
+  pk: 111
+  fields:
+    symbol: PYG
+- model: ospfm_core.currency
+  pk: 112
+  fields:
+    symbol: QAR
+- model: ospfm_core.currency
+  pk: 113
+  fields:
+    symbol: RON
+- model: ospfm_core.currency
+  pk: 114
+  fields:
+    symbol: RSD
+- model: ospfm_core.currency
+  pk: 115
+  fields:
+    symbol: RUB
+- model: ospfm_core.currency
+  pk: 116
+  fields:
+    symbol: RWF
+- model: ospfm_core.currency
+  pk: 117
+  fields:
+    symbol: SAR
+- model: ospfm_core.currency
+  pk: 118
+  fields:
+    symbol: SBD
+- model: ospfm_core.currency
+  pk: 119
+  fields:
+    symbol: SCR
+- model: ospfm_core.currency
+  pk: 120
+  fields:
+    symbol: SDG
+- model: ospfm_core.currency
+  pk: 121
+  fields:
+    symbol: SEK
+- model: ospfm_core.currency
+  pk: 122
+  fields:
+    symbol: SGD
+- model: ospfm_core.currency
+  pk: 123
+  fields:
+    symbol: SHP
+- model: ospfm_core.currency
+  pk: 124
+  fields:
+    symbol: SLL
+- model: ospfm_core.currency
+  pk: 125
+  fields:
+    symbol: SOS
+- model: ospfm_core.currency
+  pk: 126
+  fields:
+    symbol: SRD
+- model: ospfm_core.currency
+  pk: 127
+  fields:
+    symbol: STD
+- model: ospfm_core.currency
+  pk: 128
+  fields:
+    symbol: SYP
+- model: ospfm_core.currency
+  pk: 129
+  fields:
+    symbol: SZL
+- model: ospfm_core.currency
+  pk: 130
+  fields:
+    symbol: THB
+- model: ospfm_core.currency
+  pk: 131
+  fields:
+    symbol: TJS
+- model: ospfm_core.currency
+  pk: 132
+  fields:
+    symbol: TMT
+- model: ospfm_core.currency
+  pk: 133
+  fields:
+    symbol: TND
+- model: ospfm_core.currency
+  pk: 134
+  fields:
+    symbol: TOP
+- model: ospfm_core.currency
+  pk: 135
+  fields:
+    symbol: TRY
+- model: ospfm_core.currency
+  pk: 136
+  fields:
+    symbol: TTD
+- model: ospfm_core.currency
+  pk: 137
+  fields:
+    symbol: TWD
+- model: ospfm_core.currency
+  pk: 138
+  fields:
+    symbol: TZS
+- model: ospfm_core.currency
+  pk: 139
+  fields:
+    symbol: UAH
+- model: ospfm_core.currency
+  pk: 140
+  fields:
+    symbol: UGX
+- model: ospfm_core.currency
+  pk: 141
+  fields:
+    symbol: USD
+- model: ospfm_core.currency
+  pk: 142
+  fields:
+    symbol: UYI
+- model: ospfm_core.currency
+  pk: 143
+  fields:
+    symbol: UYU
+- model: ospfm_core.currency
+  pk: 144
+  fields:
+    symbol: UZS
+- model: ospfm_core.currency
+  pk: 145
+  fields:
+    symbol: VEF
+- model: ospfm_core.currency
+  pk: 146
+  fields:
+    symbol: VND
+- model: ospfm_core.currency
+  pk: 147
+  fields:
+    symbol: VUV
+- model: ospfm_core.currency
+  pk: 148
+  fields:
+    symbol: WST
+- model: ospfm_core.currency
+  pk: 149
+  fields:
+    symbol: XAF
+- model: ospfm_core.currency
+  pk: 150
+  fields:
+    symbol: XCD
+- model: ospfm_core.currency
+  pk: 151
+  fields:
+    symbol: XOF
+- model: ospfm_core.currency
+  pk: 152
+  fields:
+    symbol: XPF
+- model: ospfm_core.currency
+  pk: 153
+  fields:
+    symbol: YER
+- model: ospfm_core.currency
+  pk: 154
+  fields:
+    symbol: ZAR
+- model: ospfm_core.currency
+  pk: 155
+  fields:
+    symbol: ZMK
+- model: ospfm_core.currency
+  pk: 156
+  fields:
+    symbol: ZWL
