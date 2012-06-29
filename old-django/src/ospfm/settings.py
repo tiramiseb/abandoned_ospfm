@@ -45,7 +45,15 @@ USE_TZ = True
 MEDIA_ROOT = ''
 MEDIA_URL = ''
 
+STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
 SECRET_KEY = 'this is not a random key :-)'
+
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -64,6 +72,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'ospfm.urls'
 
 TEMPLATE_DIRS = (
+    os.path.join(os.getcwd(), 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -71,6 +80,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'django.contrib.admin',
     'ospfm_core'
 )

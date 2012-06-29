@@ -104,8 +104,6 @@ class CurrencyTestCase(unittest.TestCase):
         currency1.save()
         profile = user.get_profile()
         profile.preferred_currency = currency1
-        profile.theme = 'no'
-        profile.language = 'no'
         profile.full_clean()
         profile.save()
         currency2 = Currency(owner=user,
@@ -130,8 +128,6 @@ class CurrencyTestCase(unittest.TestCase):
         currency.full_clean()
         profile = user.get_profile()
         profile.preferred_currency = euro
-        profile.theme = 'no'
-        profile.language = 'no'
         profile.full_clean()
         profile.save()
         allrates_json = urllib.urlopen(OPEN_EXCHANGE_RATES_LATEST_VALUES_URL)
@@ -156,8 +152,6 @@ class CurrencyTestCase(unittest.TestCase):
         )
         profile = user.get_profile()
         profile.preferred_currency = euro
-        profile.theme = 'no'
-        profile.language = 'no'
         profile.full_clean()
         profile.save()
         allrates_json = urllib.urlopen(OPEN_EXCHANGE_RATES_LATEST_VALUES_URL)
@@ -201,8 +195,6 @@ class UserProfileTestCase(unittest.TestCase):
         )
         profile = user.get_profile()
         profile.preferred_currency = currency
-        profile.theme = 'no'
-        profile.language = 'no'
         with self.assertRaises(ValidationError):
             profile.full_clean()
 

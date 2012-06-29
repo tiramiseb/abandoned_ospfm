@@ -23,7 +23,7 @@ from decimal import Decimal
 from django.core.cache import cache
 
 OPEN_EXCHANGE_RATES_LATEST_VALUES_URL = (
-    'https://raw.github.com/currencybot/open-exchange-rates/master/latest.json'
+    'http://openexchangerates.org/latest.json'
 )
 
 def getrate(from_currency, to_currency, amount='1'):

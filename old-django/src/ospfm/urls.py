@@ -16,14 +16,29 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
+from django.views.generic import RedirectView, TemplateView
+
+from ospfm_core import urls as core_urls
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'ospfm.views.home', name='home'),
-    # url(r'^ospfm/', include('ospfm.foo.urls')),
-
+    # Admin
     url(r'^admin/', include(admin.site.urls)),
+
+    # Login and stuff
+    url(r'^accounts/login/', 'django.contrib.auth.views.login',
+        {'template_name':'login.html'}, name='login'),
+    url(r'^accounts/logout/', 'django.contrib.auth.views.logout_then_login',
+        name='logout'),
+    url('^accounts/$', RedirectView.as_view(url='/')),
+    url('^accounts/profile/$', RedirectView.as_view(url='/')),
+
+    # Home
+    url(r'^$', login_required(TemplateView.as_view(template_name="index.html")), name='home'),
+
+    # OSPFM apps
+    url(r'^ospfm_core/', include(core_urls)),
 )

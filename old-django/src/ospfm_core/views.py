@@ -14,3 +14,24 @@
 #
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
+
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import UpdateView, View
+
+from ospfm_core import forms, models
+
+class ProfileView(UpdateView):
+    model = models.UserProfile
+    form_class = forms.ProfileForm
+    template_name = 'ospfm_core/profile.html'
+    success_url = reverse_lazy('core-profile')
+
+    def get_object(self):
+        return models.UserProfile.objects.get(user=self.request.user)
+
+
+class ContactsView(View):
+    pass
+
+class CurrenciesView(View):
+    pass

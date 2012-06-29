@@ -79,7 +79,7 @@ class Currency(models.Model):
         else:
             currencyname = '%s currency name' % self.symbol
             name = _(currencyname)
-        return '(%s) %s' % (self.symbol, name)
+        return '%(symbol)s: %(name)s' % {'symbol':self.symbol, 'name':name}
 
     class Meta:
         verbose_name = _('currency')
@@ -88,11 +88,18 @@ class Currency(models.Model):
         unique_together = ('owner', 'symbol')
 
 
+def get_euro():
+    try:
+        euro = Currency.objects.get(symbol='EUR')
+    except:
+        # If the "EUR" currency is not defined, there will be no default
+        # currency automatically assigned to a new user
+        euro = None
+    return euro
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    preferred_currency = models.ForeignKey(Currency, null=True)
-    theme = models.CharField(max_length=50, null=True)
-    language = models.CharField(max_length=5, null=True)
+    preferred_currency = models.ForeignKey(Currency, null=True,
+                                           default=get_euro)
 
     def __init__(self, *args, **kwargs):
         super(UserProfile, self).__init__(*args, **kwargs)
