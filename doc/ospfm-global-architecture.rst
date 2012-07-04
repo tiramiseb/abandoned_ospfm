@@ -2,72 +2,37 @@
 OSPFM global architecture
 #########################
 
-OSPFM is divided into multiple different subparts, implemented as Django
-applications.
+OSPFM is  a RESTful  pplication serving information  and answering  to requests
+in the JSON format.
 
-The following schema explains interaction between them::
+OSPFM may be divided in differents subparts.
 
-                    +-----------------------+
-                    | +-----------------------+
-                    | | +-----------------------+
-                    | | |                       |
-                    +-| | back-end applications |
-                      +-|                       |
-                        +-----------------------+
+List of subparts
+================
 
-                      /              |            \
-                     /               |             \
-                    /                |              \
-                   /                 |               \
- +----------------------+ +--------------------+ +---------------------+
- |                      | |                    | |  subscription and   |
- | mobile web interface | | rich web interface | | billing application |
- |                      | |                    | |  (not Open Source)  |
- +----------------------+ +--------------------+ +---------------------+
+* ``automation``: automatic transformations or creations
+* ``core``: core data, not belonging to any other part
+* ``debt``: debts between users
+* ``envelope``: envelope-oriented budgeting
+* ``preconfigured``: preset transactions for easy add
+* ``programmed``: programmed transactions
+* ``refund``: refunds management (like social protection reimbursements)
+* ``transaction``: transactions, accounts, categories
 
-List of applications
-====================
+Choice of framework
+===================
 
-Back-end applications
----------------------
+At first, the name "OSPFM" represented all parts of the project : the database,
+the back-end, the interfaces.  And everything would have been made with Django.
+But this  choice  was too  restrictive.  That's why  the name "OSPFM"  now only
+applies to the  back-end server, and  Django is not used for  this part because
+many of its features are not used in the back-end: templates, etc.
 
-Data storage and manipulation is done in Django applications.
+Flask has been  chosen because it is lightweight;  and, of course,  because its
+programming language is Python.
 
-These applications are:
+SQL schema
+==========
 
-* ``ospfm_automation``: automatic transformations or creations
-* ``ospfm_core``: core data, not belonging to any other part
-* ``ospfm_debt``: debts between users
-* ``ospfm_envelope``: envelope-oriented budgeting
-* ``ospfm_preconfigured``: preset transactions for easy add
-* ``ospfm_programmed``: programmed transactions
-* ``ospfm_refund``: refunds management (like social protection reimbursements)
-* ``ospfm_transaction``: transactions, accounts, categories
-
-Rich web interface
-------------------
-
-The rich web interface is oriented toward users on computers (and maybe on
-tablets).
-
-Mobile web interface
---------------------
-
-The mobile web interface is optimized for smartphones (and maybe tablets).
-
-Subscription and billing application
-------------------------------------
-
-A subscription and billing application should manage users and their
-authorizations. This is not a part of OSPFM, it is not distributed as an
-Open Source product.
-
-Django models
-=============
-
-Django models for OSPFM are described in the ``ospfm-django-models-schema.dia``
-Dia file (``ospfm-django-models-schema.png`` for an easily readable image).
-
-
-
-
+The database SQL  schema is described in the  ``ospfm-sql-schema.dia`` Dia file
+(``ospfm-sql-schema.png`` for an easily readable image).
