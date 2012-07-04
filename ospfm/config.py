@@ -22,4 +22,4 @@ SQLDEBUG=True
 DEVEL_USERNAME='alice'
 
 # Database URI
-DATABASE='sqlite:///devel.db'
+DATABASE='sqlite:///devel.sqlite3'
