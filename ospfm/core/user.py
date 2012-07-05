@@ -34,15 +34,22 @@ class User(Object):
         self.forbidden()
 
     def read(self, username):
-        user = models.User.query.filter(
-            models.User.username == username
-        ).first()
-        if not user:
-            self.notfound()
         if username == self.username:
             # When requesting his own information, a user gets more details
+            user = models.User.query.options(
+                joinedload(models.User.contacts),
+                joinedload(models.User.emails),
+                joinedload(models.User.preferred_currency)
+            ).filter(
+                models.User.username == username
+            ).one()
             return user.as_dict(own=True)
         else:
+            user = models.User.query.filter(
+                models.User.username == username
+            ).first()
+            if not user:
+                self.notfound()
             return user.as_dict()
 
     def update(self, username):

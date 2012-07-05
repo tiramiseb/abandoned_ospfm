@@ -50,16 +50,15 @@ class Currency(Object):
         currency_exists = self.__own_currency(symbol).all()
         if currency_exists:
             self.badrequest()
-        else:
-            c = models.Currency(
-                    owner_username = self.username,
-                    symbol = symbol,
-                    name = self.args['name'],
-                    rate = self.args['rate']
-            )
-            session.add(c)
-            session.commit()
-            return c.as_dict()
+        c = models.Currency(
+                owner_username = self.username,
+                symbol = symbol,
+                name = self.args['name'],
+                rate = self.args['rate']
+        )
+        session.add(c)
+        session.commit()
+        return c.as_dict()
 
     def read(self, symbol):
         currency = self.__own_currency(symbol).first()

@@ -31,7 +31,7 @@ class Currency(Base):
     name = Column(String(50), nullable=False)
     rate = Column(Numeric(16, 4))
 
-    owner = relationship("User",
+    owner = relationship('User',
                          primaryjoin='Currency.owner_username==User.username')
 
     def as_dict(self, with_rate=False):
@@ -54,9 +54,14 @@ class User(Base):
     preferred_currency_id = Column(ForeignKey('currency.id'), nullable=False)
 
     preferred_currency = relationship(
-                            'Currency',
+                          'Currency',
                           primaryjoin='User.preferred_currency_id==Currency.id'
                          )
+
+    contacts = relationship(
+                    'UserContact',
+                    primaryjoin='UserContact.user_username==User.username'
+               )
 
     def as_dict(self, own=False):
         info = {
@@ -88,7 +93,6 @@ class UserContact(Base):
 
     user = relationship(
                 'User',
-                backref='contacts',
                 primaryjoin='UserContact.user_username==User.username'
            )
 
