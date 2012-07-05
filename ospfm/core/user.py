@@ -65,6 +65,7 @@ class User(Object):
                 if currency:
                     # When preferred currency is changed, all owner's
                     # currencies rates must be changed
+                    # XXX Debts amounts should also be changed
                     multiplier = user.preferred_currency
                     multiplier = exchangerate.getrate(
                         user.preferred_currency.symbol,
