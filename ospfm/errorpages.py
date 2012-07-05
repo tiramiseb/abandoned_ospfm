@@ -48,3 +48,9 @@ def error405(e):
     response = jsonify(status=405, response='Method not allowed')
     response.status_code = 405
     return response
+
+@app.errorhandler(NotImplementedError)
+def error405(e):
+    response = jsonify(status=500, response='Not implemented')
+    response.status_code = 500
+    return response
