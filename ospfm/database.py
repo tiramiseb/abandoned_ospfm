@@ -36,4 +36,5 @@ Base.query = session.query_property()
 def init_db():
     """Create the database tables"""
     import ospfm.core.models
+    import ospfm.transaction.models
     Base.metadata.create_all(bind=engine)

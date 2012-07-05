@@ -22,6 +22,7 @@ import sys
 
 from ospfm import database as db
 from ospfm.core import models as core
+from ospfm.transaction import models as transaction
 
 def populate_test_db():
     euro = core.Currency.query.filter(core.Currency.symbol=='EUR').one()
@@ -51,6 +52,12 @@ def populate_test_db():
     bob_carol = core.UserContact(user=bob, contact=carol)
     carol_alice = core.UserContact(user=carol, contact=alice)
     db.session.add_all((alice_bob, alice_carol, bob_carol, carol_alice))
+
+    # Accounts
+    acct1 = transaction.Account(name='Default account', currency=euro,
+                                start_balance=0)
+    alice_acct1 = transaction.AccountOwner(account=acct1, owner=alice)
+    db.session.add_all((acct1, alice_acct1))
 
     db.session.commit()
 

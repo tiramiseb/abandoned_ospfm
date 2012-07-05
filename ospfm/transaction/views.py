@@ -16,10 +16,11 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from ospfm import app
+from ospfm.transaction.account import Account
 
-@app.route('/')
-def root():
-    return 'This is an OSPFM server. More documentation will come later.'
+# ACCOUNTS
 
-from ospfm.core import views
-from ospfm.transaction import views
+@app.route('/accounts', methods=['GET', 'POST'])
+@app.route('/accounts/<accountid>', methods=['GET', 'PUT', 'DELETE'])
+def accounts(accountid=None):
+    return Account().http_request(accountid)
