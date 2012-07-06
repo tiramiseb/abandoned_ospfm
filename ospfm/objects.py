@@ -35,6 +35,9 @@ class Object:
     "update" methods
     """
 
+    def __init__(self, **kwargs):
+        self.args = kwargs
+
     def __init_http(self):
         self.username = http_helpers.get_username()
         if not self.username:
@@ -55,8 +58,9 @@ class Object:
             response = self.create()
         elif request.method == 'PUT':
             response = self.update(arg)
-        elif method == 'DELETE':
-            response = self.delete(arg)
+        elif request.method == 'DELETE':
+            self.delete(arg)
+            response = 'OK Deleted'
         # JSON response
         return jsonify(status=200, response=response)
 
