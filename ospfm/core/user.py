@@ -171,6 +171,7 @@ class UserContact(Object):
         if not contact:
             self.notfound()
         session.delete(contact)
+        session.commit()
 
 
 class UserEmail(Object):
@@ -226,3 +227,4 @@ class UserEmail(Object):
         if not email:
             self.notfound()
         session.delete(email)
+        session.commit()

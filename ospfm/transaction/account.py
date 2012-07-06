@@ -31,12 +31,12 @@ class Account(Object):
     def __own_account(self, accountid):
         return models.Account.query.options(
                         joinedload(models.Account.currency)
-        ).join(models.AccountOwner).filter(
-            and_(
-                models.AccountOwner.owner_username == self.username,
-                models.Account.id == accountid
-            )
-        ).first()
+               ).join(models.AccountOwner).filter(
+                    and_(
+                        models.AccountOwner.owner_username == self.username,
+                        models.Account.id == accountid
+                    )
+               ).first()
 
     def list(self):
         accounts = models.Account.query.options(
@@ -109,3 +109,4 @@ class Account(Object):
         if not account:
             self.notfound()
         session.delete(account)
+        session.commit()

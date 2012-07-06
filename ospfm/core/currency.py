@@ -91,6 +91,7 @@ class Currency(Object):
         if not currency.owner_username:
             self.forbidden()
         session.delete(currency)
+        session.commit()
 
     def __rate(self, fromsymbol, tosymbol):
         fromcurrency = self.__own_currency(fromsymbol).first()
