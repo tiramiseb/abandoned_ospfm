@@ -56,8 +56,45 @@ def populate_test_db():
     # Accounts
     acct1 = transaction.Account(name='Default account', currency=euro,
                                 start_balance=0)
+    acct2 = transaction.Account(name='Shared account', currency=euro,
+                                start_balance=100)
+    acct3 = transaction.Account(name='Default account', currency=euro,
+                                start_balance=12.34)
     alice_acct1 = transaction.AccountOwner(account=acct1, owner=alice)
-    db.session.add_all((acct1, alice_acct1))
+    alice_acct2 = transaction.AccountOwner(account=acct2, owner=alice)
+    bob_acct2 = transaction.AccountOwner(account=acct2, owner=bob)
+    carol_acct3 = transaction.AccountOwner(account=acct3, owner=carol)
+    db.session.add_all((acct1, acct2, acct3,
+                        alice_acct1, alice_acct2, bob_acct2, carol_acct3))
+
+    # Categories
+    alicecat1 = transaction.Category(owner=alice, name='Car')
+    alicecat2 = transaction.Category(owner=alice, name='House')
+    alicecat3 = transaction.Category(owner=alice, name='Fun')
+    alicecat4 = transaction.Category(owner=alice, parent=alicecat1,
+                                     name='Insurance')
+    alicecat5 = transaction.Category(owner=alice, parent=alicecat1,
+                                     name='Fuel')
+    alicecat6 = transaction.Category(owner=alice, parent=alicecat2,
+                                     name='Invoices')
+    alicecat7 = transaction.Category(owner=alice, parent=alicecat6,
+                                     name='Electricity')
+    alicecat8 = transaction.Category(owner=alice, parent=alicecat6,
+                                     name='Internet access')
+    alicecat9 = transaction.Category(owner=alice, parent=alicecat3,
+                                     name='Danceclub')
+    bobcat1 = transaction.Category(owner=bob, name='Car')
+    bobcat2 = transaction.Category(owner=bob, name='Fun')
+    bobcat3 = transaction.Category(owner=bob, parent=bobcat1, name='Fuel')
+    bobcat4 = transaction.Category(owner=bob, parent=bobcat2, name='Books')
+    bobcat5 = transaction.Category(owner=bob, parent=bobcat2, name='Music')
+    carolcat1 = transaction.Category(owner=carol, name='House')
+
+    db.session.add_all((
+        alicecat1, alicecat2, alicecat3, alicecat4, alicecat5, alicecat6,
+        alicecat7, alicecat8, alicecat9, bobcat1, bobcat2, bobcat3, bobcat4,
+        bobcat5, carolcat1
+    ))
 
     db.session.commit()
 

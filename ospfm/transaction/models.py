@@ -17,7 +17,7 @@
 
 from sqlalchemy import Boolean, Column, Date, ForeignKey,\
                        Integer, Numeric, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import UniqueConstraint
 
 from ospfm.database import Base
@@ -61,7 +61,31 @@ class Category(Base):
     name = Column(String(50), nullable=False)
 
     owner = relationship('User')
-    parent = relationship('Category')
+    children = relationship('Category',
+                            backref=backref('parent', remote_side=[id]),
+                            order_by='Category.name')
+
+    # XXX When defining relationships, don't forget "DELETE CASCADE"
+
+    def as_dict(self, parent=True):
+        desc = {
+            'id': self.id,
+            'name': self.name,
+        }
+        if parent and self.parent_id:
+            desc['parent'] = self.parent_id
+        if self.children:
+            desc['children'] = [c.as_dict(False) for c in self.children]
+        return desc
+
+    def contains_category(self, categoryid):
+        if self.id == categoryid:
+            return True
+        if self.children:
+            for c in self.children:
+                if c.contains_category(categoryid):
+                    return True
+        return False
 
 
 class Transaction(Base):
