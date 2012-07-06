@@ -24,7 +24,7 @@ from ospfm import config
 engine = create_engine(
             config.DATABASE,
             convert_unicode=True,
-            echo=config.SQLDEBUG
+            echo=(config.DEVEL and config.SQLDEBUG)
          )
 session = scoped_session(sessionmaker(autocommit=False,
                                       autoflush=False,
