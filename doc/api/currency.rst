@@ -18,7 +18,9 @@ List all currencies available to the user
 Request
 -------
 
-``GET /currencies``
+::
+
+    GET /currencies
 
 Response
 --------
@@ -47,7 +49,9 @@ Create a new user-defined currency
 Request
 -------
 
-``POST /currencies``
+::
+
+    POST /currencies
 
 Data
 ----
@@ -79,7 +83,9 @@ Read a currency
 Request
 -------
 
-``GET /currencies/<symbol>``
+::
+
+    GET /currencies/<symbol>
 
 * ``<symbol>``: symbol of the currency to read
 
@@ -116,7 +122,9 @@ Update a user-defined currency
 Request
 -------
 
-``PUT /currencies/<symbol>``
+::
+
+    PUT /currencies/<symbol>
 
 * ``<symbol>``: symbol of the currency to update
 
@@ -153,7 +161,9 @@ Only unused currencies can be deleted.
 Request
 -------
 
-``DELETE /currencies/<symbol>``
+::
+
+    DELETE /currencies/<symbol>
 
 * ``<symbol>``: symbol of the currency to delete
 
@@ -175,7 +185,9 @@ Get exchange rate from a currency to another currency
 Request
 -------
 
-``GET /currencies/<symbol1>/rate/<symbol2>``
+::
+
+    GET /currencies/<symbol1>/rate/<symbol2>
 
 * ``<symbol1>``: symbol of the "from" currency
 * ``<symbol2>``: symbol of the "to" currency

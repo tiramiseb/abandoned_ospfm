@@ -27,6 +27,7 @@ then
 else
 
     RST2HTML=`which rst2html`
+    CSS="doc/ospfm.css"
 
     if [ -z "$RST2HTML" ]
     then
@@ -39,7 +40,7 @@ else
     find . -name "*.rst" | while read file
     do
       echo "Converting $file"
-      $RST2HTML "$file" "$(echo $file | sed 's/.rst$/.html/')"
+      $RST2HTML --stylesheet $CSS "$file" "$(echo $file | sed 's/.rst$/.html/')"
     done
 
     echo "All \".rst\" file have been converted to HTML."
