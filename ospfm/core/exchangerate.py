@@ -28,7 +28,6 @@ OPEN_EXCHANGE_RATES_LATEST_VALUES_URL = (
 )
 
 def getrate(from_currency, to_currency, amount='1'):
-    # Using "Decimal(str(<value>))" in order to get exact results
     rates = cache.get('open-exchange-rates')
     if not rates:
         exchanges_json = urllib.urlopen(OPEN_EXCHANGE_RATES_LATEST_VALUES_URL)
@@ -38,6 +37,7 @@ def getrate(from_currency, to_currency, amount='1'):
         # duration = 1 hour - (now - timestamp) + 10 seconds security window)
         duration = 3600 - (int(time.time()) - rates['timestamp']) + 10
         cache.set('open-exchange-rates', rates, duration)
+    # Using "Decimal(str(<value>))" in order to get exact results
     base_to_from = Decimal(str(rates['rates'][from_currency]))
     base_to_to = Decimal(str(rates['rates'][to_currency]))
     # Return the association of both rates
