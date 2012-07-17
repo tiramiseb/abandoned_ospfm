@@ -7,5 +7,5 @@ This documentation details the OSPFM REST API...
 Core stuff
 ==========
 
-* `Currency <currency.html>`_
-* `User <user.html>`_
+* `Currency <core/currency.html>`_
+* `User <core/user.html>`_
