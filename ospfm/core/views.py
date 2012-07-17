@@ -17,7 +17,7 @@
 
 from ospfm import app, http_helpers
 from ospfm.core.currency import Currency
-from ospfm.core.user import User, UserContact, UserEmail
+from ospfm.core.user import User, UserContact
 
 # CURRENCIES
 
@@ -51,10 +51,3 @@ def users_search(criteria):
 @app.route('/contacts/<username>', methods=['GET', 'PUT', 'DELETE'])
 def contacts(username=None):
     return UserContact().http_request(username)
-
-# USEREMAILS
-
-@app.route('/emails', methods=['GET', 'POST'])
-@app.route('/emails/<email_address>', methods=['GET', 'PUT', 'DELETE'])
-def emails(email_address=None):
-    return UserEmail().http_request(email_address)

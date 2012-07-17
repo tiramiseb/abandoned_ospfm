@@ -54,7 +54,9 @@ class User(Object):
 
     def update(self, username):
         if username == self.username:
-            user = models.User.query.filter(
+            user = models.User.query.options(
+                joinedload(models.User.emails)
+            ).filter(
                 models.User.username == username
             ).one()
             # A user can only modify his own information
@@ -83,6 +85,30 @@ class User(Object):
                     ):
                         c.rate = c.rate * multiplier
                     user.preferred_currency = currency
+            if self.args.has_key('emails'):
+                emails = set(self.args['emails'].split('&'))
+                previous_emails = [mail.email_address for mail in user.emails]
+
+                for mail in emails:
+                    instruction = mail[0]
+                    address = mail[1:]
+                    if instruction == '+' and address not in previous_emails:
+                        session.add(
+                            models.UserEmail(
+                                user_username=self.username,
+                                email_address=address
+                            )
+                        )
+                    if instruction == '-' and address in previous_emails:
+                        session.delete(
+                            models.UserEmail.query.filter(
+                              and_(
+                               models.UserEmail.user_username == self.username,
+                               models.UserEmail.email_address == address
+                              )
+                            ).first()
+                        )
+                session.commit()
             return self.read(username)
         else:
             self.forbidden()
@@ -171,60 +197,4 @@ class UserContact(Object):
         if not contact:
             self.notfound()
         session.delete(contact)
-        session.commit()
-
-
-class UserEmail(Object):
-
-    def list(self):
-        emails = models.UserEmail.query.filter(
-                    models.UserEmail.user_username == self.username
-        )
-        return [e.email_address for e in emails.all()]
-
-    def create(self):
-        # XXX Address creation should be validated
-        address = self.args['email_address']
-        testemail = models.UserEmail.query.filter(
-                        and_(
-                            models.UserEmail.user_username == self.username,
-                            models.UserEmail.email_address == address
-                        )
-        ).first()
-        if testemail:
-            self.badrequest()
-        email = models.UserEmail(
-                    user_username=self.username,
-                    email_address=address
-                  )
-        session.add(email)
-        session.commit()
-        return address
-
-    def read(self, email_address):
-        # There is no need to "read" an address, it is only a (known) string
-        self.badrequest()
-
-    def update(self, email_address):
-        email = models.UserEmail.query.filter(
-                    and_(
-                        models.UserEmail.user_username == self.username,
-                        models.UserEmail.email_address == email_address
-                    )
-        ).first()
-        if not email:
-            self.notfound()
-        email.email_address = self.args['email_address']
-        return email.email_address
-
-    def delete(self, email_address):
-        email = models.UserEmail.query.filter(
-                    and_(
-                        models.UserEmail.user_username == self.username,
-                        models.UserEmail.email_address == email_address
-                    )
-        ).first()
-        if not email:
-            self.notfound()
-        session.delete(email)
         session.commit()
