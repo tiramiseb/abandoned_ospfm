@@ -44,7 +44,7 @@ class Category(Object):
         return [c.as_dict() for c in categories]
 
     def create(self):
-        if self.args['parent']:
+        if self.args.has_key('parent'):
             parent = self.__own_category(self.args['parent'])
             if not parent:
                 self.badrequest()
@@ -72,12 +72,15 @@ class Category(Object):
         if self.args.has_key('name'):
             category.name = self.args['name']
         if self.args.has_key('parent'):
-            parent = self.__own_category(self.args['parent'])
-            if not parent:
-                self.badrequest()
-            if category.contains_category(parent.id):
-                self.badrequest()
-            category.parent = parent
+            if self.args['parent'] == 'NONE':
+                category.parent_id = None
+            else:
+                parent = self.__own_category(self.args['parent'])
+                if not parent:
+                    self.badrequest()
+                if category.contains_category(parent.id):
+                    self.badrequest()
+                category.parent = parent
         return category.as_dict()
 
     def delete(self, categoryid):
