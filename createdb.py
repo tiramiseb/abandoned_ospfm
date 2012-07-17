@@ -48,10 +48,9 @@ def populate_test_db():
 
     # Users contacts
     alice_bob = core.UserContact(user=alice, contact=bob)
-    alice_carol = core.UserContact(user=alice, contact=carol)
     bob_carol = core.UserContact(user=bob, contact=carol)
     carol_alice = core.UserContact(user=carol, contact=alice)
-    db.session.add_all((alice_bob, alice_carol, bob_carol, carol_alice))
+    db.session.add_all((alice_bob, bob_carol, carol_alice))
 
     # Accounts
     acct1 = transaction.Account(name='Default account', currency=euro,
