@@ -15,6 +15,8 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
+
 from flask import abort, jsonify
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
@@ -74,7 +76,7 @@ class User(Object):
                 if currency:
                     # When preferred currency is changed, all owner's
                     # currencies rates must be changed
-                    # XXX Debts amounts should also be changed
+                    # XXX Debts amounts should also be changed... when debts will be implemented
                     multiplier = user.preferred_currency
                     multiplier = exchangerate.getrate(
                         user.preferred_currency.symbol,
@@ -86,29 +88,31 @@ class User(Object):
                         c.rate = c.rate * multiplier
                     user.preferred_currency = currency
             if self.args.has_key('emails'):
-                emails = set(self.args['emails'].split('&'))
-                previous_emails = [mail.email_address for mail in user.emails]
-
-                for mail in emails:
-                    instruction = mail[0]
-                    address = mail[1:]
-                    if instruction == '+' and address not in previous_emails:
-                        session.add(
-                            models.UserEmail(
-                                user_username=self.username,
-                                email_address=address
-                            )
-                        )
-                    if instruction == '-' and address in previous_emails:
-                        session.delete(
-                            models.UserEmail.query.filter(
-                              and_(
+                emails = json.loads(self.args['emails'])
+                if type(emails) == type({}):
+                    if emails.has_key('add') and \
+                       type(emails['add']) == type([]):
+                        for mail in emails['add']:
+                            if address not in previous_emails:
+                                session.add(
+                                    models.UserEmail(
+                                        user_username=self.username,
+                                        email_address=address
+                                    )
+                                )
+                    if emails.has_key('remove') and \
+                       type(emails['remove']) == type([]):
+                        for mail in emails['remove']:
+                            if address in previous_emails:
+                                session.delete(
+                                    models.UserEmail.query.filter(
+                                        and_(
                                models.UserEmail.user_username == self.username,
                                models.UserEmail.email_address == address
-                              )
-                            ).first()
-                        )
-                session.commit()
+                                        )
+                                    ).first()
+                                )
+                    session.commit()
             return self.read(username)
         else:
             self.forbidden()

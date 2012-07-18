@@ -93,12 +93,18 @@ Data
 Modifications to email addresses
 ''''''''''''''''''''''''''''''''
 
-The ``emails`` parameter is a string composed of email addresses prefixed with
-"+" (to add an address) or "-" (to remove an address), separated by "&".
+The ``emails`` parameter is a JSON-formatted string::
 
-For example, to add "bob@example.com" and remove "bob@test.com"::
-
-    +bob@example.com&-bob@test.com
+    {
+        "add":[
+            "<email address>",
+    [...]
+        ],
+        "remove":[
+            "<email address>",
+    [...]
+        ]
+    }
 
 Response
 --------
