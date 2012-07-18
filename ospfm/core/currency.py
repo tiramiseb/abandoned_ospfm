@@ -16,10 +16,11 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import abort, jsonify
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, func
 
 from ospfm.core import exchangerate, models
 from ospfm.database import session
+from ospfm.transaction import models as transaction
 from ospfm.objects import Object
 
 class Currency(Object):
@@ -84,12 +85,22 @@ class Currency(Object):
         return currency.as_dict()
 
     def delete(self, symbol):
-        # XXX Only delete the currency if it is not in use
         currency = self.__own_currency(symbol).first()
         if not currency:
             self.notfound()
         if not currency.owner_username:
             self.forbidden()
+        # Only delete the currency if it is not in use
+        if transaction.Account.query.filter(
+                transaction.Account.currency == currency
+           ).count() or \
+           transaction.Category.query.filter(
+                transaction.Category.currency == currency
+           ).count() or \
+           transaction.Transaction.query.filter(
+                transaction.Account.currency == currency
+           ).count():
+                self.badrequest()
         session.delete(currency)
         session.commit()
 
@@ -121,6 +132,12 @@ class Currency(Object):
         # This should not happen
         self.badrequest()
 
-    def http_rate(self, fromsymbol, tosymbol):
+    def subhttp_rate(self, fromsymbol, tosymbol):
         self._Object__init_http()
-        return jsonify(status=200, response=self.__rate(fromsymbol, tosymbol))
+        return self.__rate(fromsymbol, tosymbol)
+
+    def http_rate(self, fromsymbol, tosymbol):
+        return jsonify(
+                    status=200,
+                    response=self.subhttp_rate(fromsymbol, tosymbol)
+               )
