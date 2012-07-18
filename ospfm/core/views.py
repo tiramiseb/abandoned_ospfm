@@ -15,7 +15,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from ospfm import app, http_helpers
+from ospfm import app, helpers
 from ospfm.core.currency import Currency
 from ospfm.core.user import User, UserContact
 
@@ -39,7 +39,7 @@ def users(username=None):
 
 @app.route('/users/me', methods=['GET', 'PUT', 'DELETE'])
 def users_me():
-    return users(http_helpers.get_username())
+    return users(helpers.flask_get_username())
 
 @app.route('/users/search/<criteria>')
 def users_search(criteria):

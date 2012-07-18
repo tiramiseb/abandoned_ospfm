@@ -16,7 +16,7 @@ List of subparts
 * ``envelope``: envelope-oriented budgeting
 * ``preconfigured``: preset transactions for easy add
 * ``programmed``: programmed transactions
-* ``refund``: refunds management (like social protection reimbursements)
+* ``refund``: refunds management (healthcare, etc.)
 * ``transaction``: transactions, accounts, categories
 
 Choice of framework

@@ -17,7 +17,7 @@
 
 from flask import abort, jsonify, request
 
-from ospfm import http_helpers
+from ospfm import helpers
 
 
 class Object:
@@ -39,7 +39,7 @@ class Object:
         self.args = kwargs
 
     def __init_http(self):
-        self.username = http_helpers.get_username()
+        self.username = helpers.flask_get_username()
         if not self.username:
             abort(401)
         self.args = request.values

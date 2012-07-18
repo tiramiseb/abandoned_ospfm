@@ -88,7 +88,7 @@ class Account(Object):
             # Do not update currency if account has transactions
             if not models.TransactionAccount.query.filter(
                         models.TransactionAccount.account == account
-                   ).first():
+                   ).count():
                 currency = core.Currency.query.filter(
                     and_(
                         core.Currency.symbol == self.args['currency'],

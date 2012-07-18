@@ -15,13 +15,28 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
+
 from flask import request
 
 from ospfm import config
 
-def get_username():
+def flask_get_username():
     if request.authorization:
         return request.authorization.username
     if config.DEVEL:
         return config.DEVEL_USERNAME
+    return None
+
+def date_from_string(string):
+    # Convert a "YYYY-MM-DD" string to a date
+    if len(string) == 10:
+        try:
+            return datetime.date(
+                        int(string[:4]),
+                        int(string[5:7]),
+                        int(string[8:])
+            )
+        except:
+            pass
     return None
