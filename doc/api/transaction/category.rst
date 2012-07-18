@@ -34,24 +34,29 @@ Example::
             "children": [
                 {
                     "id": 8,
+                    "currency": "EUR",
                     "name": "Fuel"
                 },
                 {
                     "id": 7,
+                    "currency": "EUR",
                     "name": "Insurance"
                 }
             ],
             "id": 1,
+            "currency": "EUR",
             "name": "Car"
         },
         {
             "children": [
                 {
                     "id": 10,
+                    "currency": "EUR",
                     "name": "Danceclub"
                 }
             ],
             "id": 3,
+            "currency": "EUR",
             "name": "Fun"
         },
         {
@@ -60,18 +65,22 @@ Example::
                     "children": [
                         {
                             "id": 14,
+                            "currency": "EUR",
                             "name": "Electricity"
                         },
                         {
                             "id": 15,
+                            "currency": "EUR",
                             "name": "Internet access"
                         }
                     ],
                     "id": 9,
+                    "currency": "EUR",
                     "name": "Invoices"
                 }
             ],
             "id": 2,
+            "currency": "EUR",
             "name": "House"
         }
     ]
@@ -94,6 +103,7 @@ Data
 
 * ``name``: name of the new category (max 50 chars)
 * ``parent``: unique id of the parent category (optional)
+* ``currency``: default currency for this category
 
 Response
 --------
@@ -104,6 +114,7 @@ If no parent is defined::
     "status": 200,
     "response": {
         "id": <new category unique id>,
+        "currency": "<currency symbol>",
         "name": "<new category name>"
     }
 }
@@ -115,6 +126,7 @@ If a parent is defined::
     "response": {
         "id": <new category unique id>,
         "parent": <parent unique id>,
+        "currency": "<currency symbol>",
         "name": "<new category name>"
     }
 }
@@ -146,18 +158,22 @@ Example::
                     "children": [
                         {
                             "id": 14,
+                            "currency": "EUR",
                             "name": "Electricity"
                         },
                         {
                             "id": 15,
+                            "currency": "EUR",
                             "name": "Internet access"
                         }
                     ],
                     "id": 9,
+                    "currency": "EUR",
                     "name": "Invoices"
                 }
             ],
             "id": 2,
+            "currency": "EUR",
             "name": "House"
         }
     }
@@ -183,6 +199,7 @@ All are optional
 
 * ``name``: new name of the new category (max 50 chars)
 * ``parent``: new parent of the category, or "NONE" to remove parent
+* ``currency``: default currency for this category
 
 Response
 --------
@@ -197,18 +214,22 @@ Example::
                     "children": [
                         {
                             "id": 14,
+                            "currency": "EUR",
                             "name": "Electricity"
                         },
                         {
                             "id": 15,
+                            "currency": "EUR",
                             "name": "Internet access"
                         }
                     ],
                     "id": 9,
+                    "currency": "EUR",
                     "name": "Invoices"
                 }
             ],
             "id": 2,
+            "currency": "EUR",
             "name": "House"
         }
     }

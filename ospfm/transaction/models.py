@@ -35,13 +35,20 @@ class Account(Base):
     transactions_account = relationship('TransactionAccount',
                                         cascade='all, delete-orphan')
 
-    def as_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'currency': self.currency.symbol,
-            'start_balance': self.start_balance
-        }
+    def as_dict(self, short=False):
+        if short:
+            return {
+                'id': self.id,
+                'name': self.name,
+                'currency': self.currency.symbol,
+            }
+        else:
+            return {
+                'id': self.id,
+                'name': self.name,
+                'currency': self.currency.symbol,
+                'start_balance': self.start_balance
+            }
 
 
 class AccountOwner(Base):
@@ -58,23 +65,28 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     owner_username = Column(ForeignKey('user.username'), nullable=False)
     parent_id = Column(ForeignKey('category.id'))
+    currency_id = Column(ForeignKey('currency.id'))
     name = Column(String(50), nullable=False)
 
     owner = relationship('User')
     children = relationship('Category',
                             backref=backref('parent', remote_side=[id]),
                             order_by='Category.name')
+    currency = relationship('Currency')
 
-    # XXX When defining relationships, don't forget "DELETE CASCADE"
+    # When deleting a category, delete all its associations to transactions
+    transactions_category = relationship('TransactionCategory',
+                                         cascade='all, delete-orphan')
 
-    def as_dict(self, parent=True):
+    def as_dict(self, parent=True, children=True):
         desc = {
             'id': self.id,
             'name': self.name,
+            'currency': self.currency.symbol
         }
         if parent and self.parent_id:
             desc['parent'] = self.parent_id
-        if self.children:
+        if children and self.children:
             desc['children'] = [c.as_dict(False) for c in self.children]
         return desc
 
@@ -93,13 +105,30 @@ class Transaction(Base):
     id = Column(Integer, primary_key=True)
     owner_username = Column(ForeignKey('user.username'), nullable=False)
     description = Column(String(200), nullable=False)
-    original_description = Column(String(200))
+    original_description = Column(String(200), nullable=False)
     amount = Column(Numeric(15, 3), nullable=False)
     currency_id = Column(ForeignKey('currency.id'), nullable=False)
     date = Column(Date, nullable=False)
 
     owner = relationship('User')
     currency = relationship('Currency')
+
+    transaction_accounts = relationship('TransactionAccount',
+                                        cascade='all, delete-orphan')
+    transaction_categories = relationship('TransactionCategory',
+                                          cascade='all, delete-orphan')
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'description': self.description,
+            'original_description': self.original_description,
+            'amount': self.amount,
+            'currency': self.currency.symbol,
+            'date': self.date.strftime('%Y-%m-%d'),
+            'accounts': [ta.as_dict() for ta in self.transaction_accounts],
+            'categories': [tc.as_dict() for tc in self.transaction_categories]
+        }
 
 class TransactionAccount(Base):
     __tablename__ = 'transactionaccount'
@@ -111,6 +140,12 @@ class TransactionAccount(Base):
     transaction = relationship('Transaction')
     account = relationship('Account')
 
+    def as_dict(self):
+        data = self.account.as_dict(short=True)
+        data['amount'] = self.amount
+        return data
+
+
 class TransactionCategory(Base):
     __tablename__ = 'transactioncategory'
     transaction_id = Column(ForeignKey('transaction.id'), primary_key=True)
@@ -119,3 +154,8 @@ class TransactionCategory(Base):
 
     transaction = relationship('Transaction')
     category = relationship('Category')
+
+    def as_dict(self):
+        data = self.category.as_dict(parent=False,children=False)
+        data['amount'] = self.amount
+        return data

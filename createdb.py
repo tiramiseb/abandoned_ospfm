@@ -67,27 +67,30 @@ def populate_test_db():
                         alice_acct1, alice_acct2, bob_acct2, carol_acct3))
 
     # Categories
-    alicecat1 = transaction.Category(owner=alice, name='Car')
-    alicecat2 = transaction.Category(owner=alice, name='House')
-    alicecat3 = transaction.Category(owner=alice, name='Fun')
+    alicecat1 = transaction.Category(owner=alice, name='Car', currency=euro)
+    alicecat2 = transaction.Category(owner=alice, name='House', currency=euro)
+    alicecat3 = transaction.Category(owner=alice, name='Fun', currency=euro)
     alicecat4 = transaction.Category(owner=alice, parent=alicecat1,
-                                     name='Insurance')
+                                     name='Insurance', currency=euro)
     alicecat5 = transaction.Category(owner=alice, parent=alicecat1,
-                                     name='Fuel')
+                                     name='Fuel', currency=euro)
     alicecat6 = transaction.Category(owner=alice, parent=alicecat2,
-                                     name='Invoices')
+                                     name='Invoices', currency=euro)
     alicecat7 = transaction.Category(owner=alice, parent=alicecat6,
-                                     name='Electricity')
+                                     name='Electricity', currency=euro)
     alicecat8 = transaction.Category(owner=alice, parent=alicecat6,
-                                     name='Internet access')
+                                     name='Internet access', currency=euro)
     alicecat9 = transaction.Category(owner=alice, parent=alicecat3,
-                                     name='Danceclub')
-    bobcat1 = transaction.Category(owner=bob, name='Car')
-    bobcat2 = transaction.Category(owner=bob, name='Fun')
-    bobcat3 = transaction.Category(owner=bob, parent=bobcat1, name='Fuel')
-    bobcat4 = transaction.Category(owner=bob, parent=bobcat2, name='Books')
-    bobcat5 = transaction.Category(owner=bob, parent=bobcat2, name='Music')
-    carolcat1 = transaction.Category(owner=carol, name='House')
+                                     name='Danceclub', currency=euro)
+    bobcat1 = transaction.Category(owner=bob, name='Car', currency=euro)
+    bobcat2 = transaction.Category(owner=bob, name='Fun', currency=dollar)
+    bobcat3 = transaction.Category(owner=bob, parent=bobcat1,
+                                   name='Fuel', currency=euro)
+    bobcat4 = transaction.Category(owner=bob, parent=bobcat2,
+                                   name='Books', currency=dollar)
+    bobcat5 = transaction.Category(owner=bob, parent=bobcat2,
+                                   name='Music', currency=dollar)
+    carolcat1 = transaction.Category(owner=carol, name='House', currency=yen)
 
     db.session.add_all((
         alicecat1, alicecat2, alicecat3, alicecat4, alicecat5, alicecat6,

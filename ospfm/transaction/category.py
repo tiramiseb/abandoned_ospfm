@@ -15,8 +15,11 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
+from sqlalchemy.orm import joinedload
 
+from ospfm.core import currency as currencylib
+from ospfm.core import models as core
 from ospfm.transaction import models
 from ospfm.database import session
 from ospfm.objects import Object
@@ -25,7 +28,9 @@ from ospfm.objects import Object
 class Category(Object):
 
     def __own_category(self, categoryid):
-        return models.Category.query.filter(
+        return models.Category.query.options(
+                        joinedload(models.Category.currency)
+               ).filter(
                     and_(
                         models.Category.owner_username == self.username,
                         models.Category.id == categoryid
@@ -35,6 +40,8 @@ class Category(Object):
     def list(self):
         categories = models.Category.query.order_by(
                         models.Category.name
+                     ).options(
+                        joinedload(models.Category.currency)
                      ).filter(
                         and_(
                             models.Category.owner_username == self.username,
@@ -53,6 +60,7 @@ class Category(Object):
         category = models.Category(
                         owner_username=self.username,
                         parent=parent,
+                        currency=self.args['currency'],
                         name=self.args['name']
                    )
         session.add(category)
@@ -71,6 +79,26 @@ class Category(Object):
             self.notfound()
         if self.args.has_key('name'):
             category.name = self.args['name']
+        if self.args.has_key('currency'):
+            currency = core.Currency.query.filter(
+                and_(
+                    core.Currency.symbol == self.args['currency'],
+                    or_(
+                        core.Currency.owner_username == self.username,
+                        core.Currency.owner == None
+                    )
+                )
+            ).first()
+            if currency:
+                rate = currencylib.Currency().subhttp_rate(
+                            category.currency.symbol,
+                            currency.symbol
+                       )
+                category.currency = currency
+                for tc in models.TransactionCategory.query.filter(
+                            models.TransactionCategory.category == category
+                          ).all():
+                    tc.amount = tc.amount * rate
         if self.args.has_key('parent'):
             if self.args['parent'] == 'NONE':
                 category.parent_id = None
