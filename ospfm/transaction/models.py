@@ -130,6 +130,7 @@ class Transaction(Base):
             'categories': [tc.as_dict() for tc in self.transaction_categories]
         }
 
+
 class TransactionAccount(Base):
     __tablename__ = 'transactionaccount'
     transaction_id = Column(ForeignKey('transaction.id'), primary_key=True)
@@ -143,7 +144,11 @@ class TransactionAccount(Base):
     def as_dict(self):
         data = self.account.as_dict(short=True)
         data['amount'] = self.amount
+        data['verified'] = self.verified
         return data
+
+    def as_tuple(self):
+        return (self.account_id, self.amount)
 
 
 class TransactionCategory(Base):
@@ -159,3 +164,6 @@ class TransactionCategory(Base):
         data = self.category.as_dict(parent=False,children=False)
         data['amount'] = self.amount
         return data
+
+    def as_tuple(self):
+        return (self.category_id, self.amount)

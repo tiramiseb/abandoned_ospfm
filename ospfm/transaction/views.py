@@ -18,6 +18,7 @@
 from ospfm import app
 from ospfm.transaction.account import Account
 from ospfm.transaction.category import Category
+from ospfm.transaction.transaction import Transaction
 
 # ACCOUNTS
 
@@ -31,3 +32,9 @@ def accounts(accountid=None):
 @app.route('/categories/<categoryid>', methods=['GET', 'PUT', 'DELETE'])
 def categories(categoryid=None):
     return Category().http_request(categoryid)
+
+# TRANSACTIONS
+@app.route('/transactions', methods=['GET', 'POST'])
+@app.route('/transactions/<transactionid>', methods=['GET', 'PUT', 'DELETE'])
+def transactions(transactionid=None):
+    return Transaction().http_request(transactionid)
