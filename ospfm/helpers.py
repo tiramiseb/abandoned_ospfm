@@ -22,8 +22,9 @@ from flask import request
 from ospfm import config
 
 def flask_get_username():
-    if request.authorization:
-        return request.authorization.username
+    # remote_user contains the user's username when (s)he is authorized by the server
+    if request.remote_user:
+        return request.remote_user
     if config.DEVEL:
         return config.DEVEL_USERNAME
     return None
