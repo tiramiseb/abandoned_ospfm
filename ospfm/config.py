@@ -21,4 +21,8 @@ SQLDEBUG=False
 DEVEL_USERNAME='alice'
 
 # Database URI
-DATABASE='sqlite:///devel.sqlite3'
+DATABASE='sqlite:////tmp/ospfm_devel.sqlite3'
+
+# Cache system
+from werkzeug.contrib.cache import SimpleCache
+CACHE = SimpleCache()

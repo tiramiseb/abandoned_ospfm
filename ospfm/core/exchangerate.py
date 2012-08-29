@@ -23,6 +23,10 @@ from decimal import Decimal
 from werkzeug.contrib.cache import SimpleCache
 cache = SimpleCache()
 
+
+from ospfm import config
+cache = config.CACHE
+
 OPEN_EXCHANGE_RATES_LATEST_VALUES_URL = (
     'http://openexchangerates.org/latest.json'
 )
