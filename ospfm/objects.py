@@ -17,7 +17,7 @@
 
 from flask import abort, jsonify, request
 
-from ospfm import helpers
+from ospfm import config, helpers
 
 
 class Object:
@@ -62,7 +62,10 @@ class Object:
             self.delete(arg)
             response = 'OK Deleted'
         # JSON response
-        return jsonify(status=200, response=response)
+        resp = jsonify(status=200, response=response)
+        if config.DEVEL:
+            resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
 
     def list(self):
         """Override this method for objects listing"""
