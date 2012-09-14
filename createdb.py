@@ -18,7 +18,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
+import datetime, sys
 
 from ospfm import database as db
 from ospfm.core import models as core
@@ -55,7 +55,7 @@ def populate_test_db():
     # Accounts
     acct1 = transaction.Account(name='Default account', currency=euro,
                                 start_balance=0)
-    acct2 = transaction.Account(name='Shared account', currency=euro,
+    acct2 = transaction.Account(name='Shared account', currency=dollar,
                                 start_balance=100)
     acct3 = transaction.Account(name='Default account', currency=euro,
                                 start_balance=12.34)
@@ -97,6 +97,25 @@ def populate_test_db():
         alicecat7, alicecat8, alicecat9, bobcat1, bobcat2, bobcat3, bobcat4,
         bobcat5, carolcat1
     ))
+
+    # Transactions
+    t1 = transaction.Transaction(owner=alice, description='Elec. bill',
+                                 original_description='ELECTRIC COMPANY',
+                                 amount=-83.42, currency=euro,
+                                 date=datetime.date(2012, 2, 5))
+    ta1 = transaction.TransactionAccount(transaction=t1, account=acct1,
+                                         amount=-83.42)
+    tc1 = transaction.TransactionCategory(transaction=t1, category=alicecat7,
+                                          amount=-83.42)
+    t2 = transaction.Transaction(owner=alice, description='Transfer',
+                                 original_description='Transfer',
+                                 amount=0, currency=dollar,
+                                 date=datetime.date(2012, 2, 7))
+    ta2_1 = transaction.TransactionAccount(transaction=t2, account=acct2,
+                                           amount=-200)
+    ta2_2 = transaction.TransactionAccount(transaction=t2, account=acct1,
+                                           amount=158.31)
+    db.session.add_all((t1, ta1, tc1, t2, ta2_1, ta2_2))
 
     db.session.commit()
 
