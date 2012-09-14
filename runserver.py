@@ -21,4 +21,4 @@ from ospfm import app, config
 
 if config.DEVEL:
     print '/!\\ Development database is {}'.format(config.DATABASE)
-app.run(debug=config.DEVEL)
+app.run(host=config.LISTEN_HOST, port=config.LISTEN_PORT, debug=config.DEVEL)

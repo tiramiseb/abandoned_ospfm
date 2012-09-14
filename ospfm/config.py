@@ -26,3 +26,6 @@ DATABASE='sqlite:////tmp/ospfm_devel.sqlite3'
 # Cache system
 from werkzeug.contrib.cache import SimpleCache
 CACHE = SimpleCache()
+
+LISTEN_HOST = '127.0.0.1'
+LISTEN_PORT = 5001
