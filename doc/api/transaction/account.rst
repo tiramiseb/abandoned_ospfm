@@ -29,15 +29,22 @@ Response
 
     {
         "status": 200,
-        "response": [
-            {
-                "start_balance": <start balance>,
-                "currency": "<currency symbol>",
-                "id": <account unique id>,
-                "name": "<account name>"
-            },
-    [...]
-        ]
+        "response": {
+            "accounts": [
+                {
+                    "start_balance": <start balance>,
+                    "currency": "<currency symbol>",
+                    "id": <account unique id>,
+                    "name": "<account name>",
+                    "balance": <account balance>
+                },
+                [...]
+            ],
+            "total": {
+                "currency": "<currency for the total balance>",
+                "balance": <total balance>
+            }
+        }
     }
 
 Create
@@ -99,7 +106,8 @@ Response
                 "start_balance": <start balance>,
                 "currency": "<currency symbol>",
                 "id": <account unique id>,
-                "name": "<account name>"
+                "name": "<account name>",
+                "balance": <account balance>
         }
     }
 
@@ -138,7 +146,8 @@ Response
                 "start_balance": <start balance>,
                 "currency": "<currency symbol>",
                 "id": <account unique id>,
-                "name": "<account name>"
+                "name": "<account name>",
+                "balance": <account balance>
         }
     }
 

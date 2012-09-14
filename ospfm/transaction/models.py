@@ -15,12 +15,12 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from sqlalchemy import Boolean, Column, Date, ForeignKey,\
+from sqlalchemy import Boolean, Column, Date, ForeignKey, func,\
                        Integer, Numeric, String
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import UniqueConstraint
 
-from ospfm.database import Base
+from ospfm.database import Base, session
 
 
 class Account(Base):
@@ -35,6 +35,15 @@ class Account(Base):
     transactions_account = relationship('TransactionAccount',
                                         cascade='all, delete-orphan')
 
+    def balance(self):
+        balance = session.query(
+            func.sum(TransactionAccount.amount)
+        ).filter(
+            TransactionAccount.account_id == self.id
+        ).one()[0]
+        return self.start_balance + balance
+
+
     def as_dict(self, short=False):
         if short:
             return {
@@ -47,7 +56,8 @@ class Account(Base):
                 'id': self.id,
                 'name': self.name,
                 'currency': self.currency.symbol,
-                'start_balance': self.start_balance
+                'start_balance': self.start_balance,
+                'balance': self.balance()
             }
 
 
@@ -136,7 +146,7 @@ class TransactionAccount(Base):
     transaction_id = Column(ForeignKey('transaction.id'), primary_key=True)
     account_id = Column(ForeignKey('account.id'), primary_key=True)
     amount = Column(Numeric(15, 3), nullable=False)
-    verified = Column(Boolean, nullable=False)
+    verified = Column(Boolean, nullable=False, default=False)
 
     transaction = relationship('Transaction')
     account = relationship('Account')

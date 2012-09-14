@@ -104,7 +104,13 @@ class Currency(Object):
         session.delete(currency)
         session.commit()
 
-    def __rate(self, fromsymbol, tosymbol):
+    def rate(self, fromsymbol, tosymbol):
+        if fromsymbol == tosymbol:
+            return 1
+        # Initialize the username so we can request the currencies
+        # XXX May be improved if, one day, this is used outside an HTTP request
+        self._Object__init_http()
+        # Request the currencies
         fromcurrency = self.__own_currency(fromsymbol).first()
         tocurrency = self.__own_currency(tosymbol).first()
         if not fromcurrency or not tocurrency:
@@ -132,12 +138,8 @@ class Currency(Object):
         # This should not happen
         self.badrequest()
 
-    def subhttp_rate(self, fromsymbol, tosymbol):
-        self._Object__init_http()
-        return self.__rate(fromsymbol, tosymbol)
-
     def http_rate(self, fromsymbol, tosymbol):
         return jsonify(
                     status=200,
-                    response=self.subhttp_rate(fromsymbol, tosymbol)
+                    response=self.rate(fromsymbol, tosymbol)
                )

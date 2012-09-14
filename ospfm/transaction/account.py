@@ -21,6 +21,7 @@ from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
 from ospfm.core import models as core
+from ospfm.core import currency as corecurrency
 from ospfm.transaction import models
 from ospfm.database import session
 from ospfm.objects import Object
@@ -44,7 +45,22 @@ class Account(Object):
         ).join(models.AccountOwner).filter(
             models.AccountOwner.owner_username == self.username
         ).all()
-        return [a.as_dict() for a in accounts]
+        # Calculate the total balance, in the user's preferred currency
+        totalbalance = 0
+        totalcurrency = core.User.query.options(
+                            joinedload(core.User.preferred_currency)
+        ).get(self.username).preferred_currency.symbol
+        for account in accounts:
+            totalbalance += account.balance() * \
+            corecurrency.Currency().rate(account.currency.symbol,
+                                         totalcurrency)
+        return {
+            'accounts': [a.as_dict() for a in accounts],
+            'total': {
+                'balance': totalbalance,
+                'currency': totalcurrency
+            }
+        }
 
     def create(self):
         currency = core.Currency.query.filter(

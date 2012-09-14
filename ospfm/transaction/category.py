@@ -90,7 +90,7 @@ class Category(Object):
                 )
             ).first()
             if currency:
-                rate = currencylib.Currency().subhttp_rate(
+                rate = currencylib.Currency().rate(
                             category.currency.symbol,
                             currency.symbol
                        )
