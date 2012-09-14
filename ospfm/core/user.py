@@ -69,7 +69,7 @@ class User(Object):
             if self.args.has_key('preferred_currency'):
                 currency = models.Currency.query.filter(
                   and_(
-                     models.Currency.symbol == self.args['preferred_currency'],
+                     models.Currency.isocode == self.args['preferred_currency'],
                      models.Currency.owner == None,
                   )
                 ).first()
@@ -79,8 +79,8 @@ class User(Object):
                     # XXX Debts amounts should also be changed... when debts will be implemented
                     multiplier = user.preferred_currency
                     multiplier = exchangerate.getrate(
-                        user.preferred_currency.symbol,
-                        currency.symbol
+                        user.preferred_currency.isocode,
+                        currency.isocode
                     )
                     for c in models.Currency.query.filter(
                         models.Currency.owner_username == username

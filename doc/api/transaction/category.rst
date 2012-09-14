@@ -114,7 +114,7 @@ If no parent is defined::
     "status": 200,
     "response": {
         "id": <new category unique id>,
-        "currency": "<currency symbol>",
+        "currency": "<currency isocode>",
         "name": "<new category name>"
     }
 }
@@ -126,7 +126,7 @@ If a parent is defined::
     "response": {
         "id": <new category unique id>,
         "parent": <parent unique id>,
-        "currency": "<currency symbol>",
+        "currency": "<currency isocode>",
         "name": "<new category name>"
     }
 }

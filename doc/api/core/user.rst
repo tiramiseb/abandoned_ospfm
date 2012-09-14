@@ -54,7 +54,7 @@ For the user's own information::
                 },
     [...]
             ],
-            "preferred_currency": "<currency symbol>",
+            "preferred_currency": "<currency isocode>",
             "emails": [
                 "<email address>",
     [...]
@@ -125,7 +125,7 @@ Response
                 },
     [...]
             ],
-            "preferred_currency": "<currency symbol>",
+            "preferred_currency": "<currency isocode>",
             "emails": [
                 "<email address>",
     [...]

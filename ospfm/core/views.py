@@ -24,13 +24,13 @@ from ospfm.core.user import User, UserContact
 # CURRENCIES
 
 @app.route('/currencies', methods=['GET', 'POST'])
-@app.route('/currencies/<symbol>', methods=['GET', 'PUT', 'DELETE'])
-def currencies(symbol=None):
-    return Currency().http_request(symbol)
+@app.route('/currencies/<isocode>', methods=['GET', 'PUT', 'DELETE'])
+def currencies(isocode=None):
+    return Currency().http_request(isocode)
 
-@app.route('/currencies/<fromsymbol>/rate/<tosymbol>')
-def currencies_rate(fromsymbol, tosymbol):
-    return Currency().http_rate(fromsymbol, tosymbol)
+@app.route('/currencies/<fromisocode>/rate/<toisocode>')
+def currencies_rate(fromisocode, toisocode):
+    return Currency().http_rate(fromisocode, toisocode)
 
 # USERS
 

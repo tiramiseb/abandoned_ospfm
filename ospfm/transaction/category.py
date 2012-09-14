@@ -82,7 +82,7 @@ class Category(Object):
         if self.args.has_key('currency'):
             currency = core.Currency.query.filter(
                 and_(
-                    core.Currency.symbol == self.args['currency'],
+                    core.Currency.isocode == self.args['currency'],
                     or_(
                         core.Currency.owner_username == self.username,
                         core.Currency.owner == None
@@ -91,8 +91,8 @@ class Category(Object):
             ).first()
             if currency:
                 rate = currencylib.Currency().rate(
-                            category.currency.symbol,
-                            currency.symbol
+                            category.currency.isocode,
+                            currency.isocode
                        )
                 category.currency = currency
                 for tc in models.TransactionCategory.query.filter(

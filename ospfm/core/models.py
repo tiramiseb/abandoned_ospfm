@@ -27,6 +27,7 @@ class Currency(Base):
     id = Column(Integer, primary_key=True)
     owner_username = Column(String(50), ForeignKey('user.username',
                             use_alter=True, name='fk_owner'))
+    isocode = Column(String(5), nullable=False)
     symbol = Column(String(5), nullable=False)
     name = Column(String(50), nullable=False)
     rate = Column(Numeric(16, 4))
@@ -36,6 +37,7 @@ class Currency(Base):
 
     def as_dict(self, with_rate=False):
         info = {
+            'isocode': self.isocode,
             'symbol': self.symbol,
             'name': self.name
         }
@@ -70,7 +72,7 @@ class User(Base):
                 'last_name': self.last_name
         }
         if own:
-            info['preferred_currency'] = self.preferred_currency.symbol
+            info['preferred_currency'] = self.preferred_currency.isocode
             info['emails'] = []
             for email in self.emails:
                 info['emails'].append(email.email_address)

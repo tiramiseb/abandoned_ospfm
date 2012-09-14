@@ -25,11 +25,11 @@ Response
         "status": 200,
         "response": [
             {
-                "currency": "<symbol>",
+                "currency": "<isocode>",
                 "amount": <amount of the transaction>,
                 "accounts": [
                     {
-                        "currency": "<symbol>",
+                        "currency": "<isocode>",
                         "amount": <amount for this account>,
                         "verified": <boolean>,
                         "id": <account id>,
@@ -43,7 +43,7 @@ Response
                 "id": <transaction unique id>,
                 "categories": [
                     {
-                        "currency": "<symbol>",
+                        "currency": "<isocode>",
                         "amount": <amount for the category>,
                         "id": <category id>,
                         "name": "<category name>"
@@ -52,11 +52,11 @@ Response
                 ]
             },
             {
-                "currency": "<symbol>",
+                "currency": "<isocode>",
                 "amount": <amount of the transaction>,
                 "accounts": [
                     {
-                        "currency": "<symbol>",
+                        "currency": "<isocode>",
                         "amount": <amount for this account>,
                         "verified": <boolean>,
                         "id": <account id>,
@@ -70,7 +70,7 @@ Response
                 "id": <transaction unique id>,
                 "categories": [
                     {
-                        "currency": "<symbol>",
+                        "currency": "<isocode>",
                         "amount": <amount for the category>,
                         "id": <category id>,
                         "name": "<category name>"
@@ -154,11 +154,11 @@ Response
     {
         "status": 200,
         "response": {
-            "currency": "<symbol>",
+            "currency": "<isocode>",
             "amount": <amount of the transaction>,
             "accounts": [
                 {
-                    "currency": "<symbol>",
+                    "currency": "<isocode>",
                     "amount": <amount for this account>,
                     "verified": <boolean>,
                     "id": <account id>,
@@ -172,7 +172,7 @@ Response
             "id": <transaction unique id>,
             "categories": [
                 {
-                    "currency": "<symbol>",
+                    "currency": "<isocode>",
                     "amount": <amount for the category>,
                     "id": <category id>,
                     "name": "<category name>"
@@ -204,11 +204,11 @@ Response
     {
         "status": 200,
         "response": {
-            "currency": "<symbol>",
+            "currency": "<isocode>",
             "amount": <amount of the transaction>,
             "accounts": [
                 {
-                    "currency": "<symbol>",
+                    "currency": "<isocode>",
                     "amount": <amount for this account>,
                     "verified": <boolean>,
                     "id": <account id>,
@@ -222,7 +222,7 @@ Response
             "id": <transaction unique id>,
             "categories": [
                 {
-                    "currency": "<symbol>",
+                    "currency": "<isocode>",
                     "amount": <amount for the category>,
                     "id": <category id>,
                     "name": "<category name>"
@@ -320,11 +320,11 @@ Response
     {
         "status": 200,
         "response": {
-            "currency": "<symbol>",
+            "currency": "<isocode>",
             "amount": <amount of the transaction>,
             "accounts": [
                 {
-                    "currency": "<symbol>",
+                    "currency": "<isocode>",
                     "amount": <amount for this account>,
                     "verified": <boolean>,
                     "id": <account id>,
@@ -338,7 +338,7 @@ Response
             "id": <transaction unique id>,
             "categories": [
                 {
-                    "currency": "<symbol>",
+                    "currency": "<isocode>",
                     "amount": <amount for the category>,
                     "id": <category id>,
                     "name": "<category name>"

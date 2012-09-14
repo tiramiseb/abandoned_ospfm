@@ -49,10 +49,10 @@ class Account(Object):
         totalbalance = 0
         totalcurrency = core.User.query.options(
                             joinedload(core.User.preferred_currency)
-        ).get(self.username).preferred_currency.symbol
+        ).get(self.username).preferred_currency.isocode
         for account in accounts:
             totalbalance += account.balance() * \
-            corecurrency.Currency().rate(account.currency.symbol,
+            corecurrency.Currency().rate(account.currency.isocode,
                                          totalcurrency)
         return {
             'accounts': [a.as_dict() for a in accounts],
@@ -65,7 +65,7 @@ class Account(Object):
     def create(self):
         currency = core.Currency.query.filter(
             and_(
-                core.Currency.symbol == self.args['currency'],
+                core.Currency.isocode == self.args['currency'],
                 or_(
                     core.Currency.owner_username == self.username,
                     core.Currency.owner == None
@@ -107,7 +107,7 @@ class Account(Object):
                    ).count():
                 currency = core.Currency.query.filter(
                     and_(
-                        core.Currency.symbol == self.args['currency'],
+                        core.Currency.isocode == self.args['currency'],
                         or_(
                             core.Currency.owner_username == self.username,
                             core.Currency.owner == None

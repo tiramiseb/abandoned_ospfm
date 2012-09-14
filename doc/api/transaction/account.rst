@@ -33,7 +33,7 @@ Response
             "accounts": [
                 {
                     "start_balance": <start balance>,
-                    "currency": "<currency symbol>",
+                    "currency": "<currency isocode>",
                     "id": <account unique id>,
                     "name": "<account name>",
                     "balance": <account balance>
@@ -63,7 +63,7 @@ Data
 ----
 
 * ``name``: name of the new account (max 50 chars)
-* ``currency``: symbol of the currency of the account
+* ``currency``: isocode of the currency of the account
 * ``start_balance``: start balance of the account
 
 Response
@@ -75,7 +75,7 @@ Response
         "status": 200,
         "response": {
                 "start_balance": <start balance>,
-                "currency": "<currency symbol>",
+                "currency": "<currency isocode>",
                 "id": <account unique id>,
                 "name": "<account name>"
         }
@@ -93,7 +93,7 @@ Request
 
     GET /accounts/<id>
 
-* ``<symbol>``: unique id of the account
+* ``<isocode>``: unique id of the account
 
 Response
 --------
@@ -104,7 +104,7 @@ Response
         "status": 200,
         "response": {
                 "start_balance": <start balance>,
-                "currency": "<currency symbol>",
+                "currency": "<currency isocode>",
                 "id": <account unique id>,
                 "name": "<account name>",
                 "balance": <account balance>
@@ -131,7 +131,7 @@ Data
 All are optional
 
 * ``name``: new name of the new account (max 50 chars)
-* ``currency``: symbol of the new currency of the account (an account's
+* ``currency``: isocode of the new currency of the account (an account's
   currency may only be changed if there are no transaction in the account)
 * ``start_balance``: new start balance of the account
 
@@ -144,7 +144,7 @@ Response
         "status": 200,
         "response": {
                 "start_balance": <start balance>,
-                "currency": "<currency symbol>",
+                "currency": "<currency isocode>",
                 "id": <account unique id>,
                 "name": "<account name>",
                 "balance": <account balance>

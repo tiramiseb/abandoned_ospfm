@@ -60,7 +60,7 @@ class Transaction(Object):
         # First, create the transaction object
         currency = core.Currency.query.filter(
             and_(
-                core.Currency.symbol == self.args['currency'],
+                core.Currency.isocode == self.args['currency'],
                 or_(
                     core.Currency.owner_username == self.username,
                     core.Currency.owner == None
@@ -157,7 +157,7 @@ class Transaction(Object):
         if self.args.has_key('currency'):
             currency = core.Currency.query.filter(
                 and_(
-                    core.Currency.symbol == self.args['currency'],
+                    core.Currency.isocode == self.args['currency'],
                     or_(
                         core.Currency.owner_username == self.username,
                         core.Currency.owner == None
