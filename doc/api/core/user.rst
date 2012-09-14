@@ -263,3 +263,120 @@ Response
         "status": 200,
         "response": "OK Deleted"
     }
+
+Preferences
+===========
+
+List all current user's preferences
+
+Request
+-------
+
+::
+
+    GET /preferences
+
+Response
+--------
+
+::
+
+    {
+        "status": 200,
+        "response": [
+            {
+                "name": "<preference name>",
+                "value": "<preference value>"
+            },
+            {
+                "name": "<preference name>",
+                "value": "<preference value>"
+            }
+    [...]
+        ]
+    }
+
+Read a preference
+=================
+
+Read a preference for the current user
+
+Request
+-------
+
+::
+
+    GET /preference/<preference name>
+
+* ``<preference name>``: name of the preference
+
+Response
+--------
+
+::
+
+    {
+        "status": 200,
+        "response": {
+            "name": "<preference name>",
+            "value": "<preference value>"
+        }
+    }
+
+
+Create or update a preference
+=============================
+
+Create or update a preference for the current user
+
+Request
+-------
+
+::
+
+    PUT /preferences/<preference name>
+
+
+* ``<preference name>``: name of the preference
+
+Data
+----
+
+* ``value``: value to set for the preference
+
+Response
+--------
+
+::
+
+    {
+        "status": 200,
+        "response": {
+            "name": "<preference name>",
+            "value": "<preference value>"
+        }
+    }
+
+Delete a preference
+===================
+
+Delete a preference from the current user
+
+Request
+-------
+
+::
+
+    DELETE /preferences/<preference name>
+
+* ``<preference name>``: name of the preference
+
+Response
+--------
+
+::
+
+    {
+        "status": 200,
+        "response": "OK Deleted"
+    }

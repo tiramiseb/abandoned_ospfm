@@ -17,7 +17,9 @@
 
 from ospfm import app, helpers
 from ospfm.core.currency import Currency
+from ospfm.core.preference import Preference
 from ospfm.core.user import User, UserContact
+
 
 # CURRENCIES
 
@@ -51,3 +53,10 @@ def users_search(criteria):
 @app.route('/contacts/<username>', methods=['GET', 'PUT', 'DELETE'])
 def contacts(username=None):
     return UserContact().http_request(username)
+
+# USERPREFERENCES
+
+@app.route('/preferences', methods=['GET', 'POST'])
+@app.route('/preferences/<preferencename>', methods=['GET', 'PUT', 'DELTE'])
+def preferences(preferencename=None):
+    return Preference().http_request(preferencename)

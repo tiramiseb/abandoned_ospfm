@@ -114,3 +114,21 @@ class UserEmail(Base):
     )
 
     user = relationship('User', backref='emails')
+
+class UserPreference(Base):
+    __tablename__ = 'userpreference'
+    id = Column(Integer, primary_key=True)
+    user_username = Column(ForeignKey('user.username'), nullable=False)
+    name = Column(String(200), nullable=False)
+    value = Column(String(2048))
+
+    __table_args__ = (
+        UniqueConstraint('user_username', 'name',
+                         name='_user_preference_uc'),
+    )
+
+    def as_dict(self):
+        return {
+            'name': self.name,
+            'value': self.value
+        }
