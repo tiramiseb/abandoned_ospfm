@@ -47,7 +47,8 @@ class Preference(Object):
         preference = self.__own_preference(preferencename)
         if preference:
             return preference.as_dict()
-        self.notfound()
+        else:
+            return {'name':preferencename, 'value':'UNSET'}
 
     def update(self, preferencename):
         preference = self.__own_preference(preferencename)
