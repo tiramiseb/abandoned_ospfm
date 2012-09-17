@@ -140,7 +140,7 @@ def populate_currencies():
     # Users may still define them and manage their rates as user-defined currencies
     db.session.add_all((
         core.Currency(isocode='AED', name=u'United Arab Emirates dirham', symbol=u'DH'),
-        core.Currency(isocode='AFN', name=u'Afghan afghani', symbol=u'؋'),
+        core.Currency(isocode='AFN', name=u'Afghan afghani', symbol=u'AFN'),
         core.Currency(isocode='ALL', name=u'Albanian lek', symbol=u'L'),
         core.Currency(isocode='AMD', name=u'Armenian dram', symbol=u'AMD'),
         core.Currency(isocode='ANG', name=u'Netherlands Antillean guilder', symbol=u'ƒ'),
