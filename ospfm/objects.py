@@ -50,22 +50,21 @@ class Object:
         self.__init_http()
 
         # Execute the request
-        if request.method == 'GET' and not arg:
-            response = self.list()
-        elif request.method == 'GET' and arg:
-            response = self.read(arg)
+        if request.method == 'GET':
+            if arg:
+                response = self.read(arg)
+            else:
+                response = self.list()
         elif request.method == 'POST':
-            response = self.create()
-        elif request.method == 'PUT':
-            response = self.update(arg)
+            if arg:
+                response = self.update(arg)
+            else:
+                response = self.create()
         elif request.method == 'DELETE':
             self.delete(arg)
             response = 'OK Deleted'
         # JSON response
-        resp = jsonify(status=200, response=response)
-        if config.DEVEL:
-            resp.headers['Access-Control-Allow-Origin'] = '*'
-        return resp
+        return jsonify(status=200, response=response)
 
     def list(self):
         """Override this method for objects listing"""

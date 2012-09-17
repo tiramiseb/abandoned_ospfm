@@ -23,18 +23,18 @@ from ospfm.transaction.transaction import Transaction
 # ACCOUNTS
 
 @app.route('/accounts', methods=['GET', 'POST'])
-@app.route('/accounts/<accountid>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/accounts/<accountid>', methods=['GET', 'POST', 'DELETE'])
 def accounts(accountid=None):
     return Account().http_request(accountid)
 
 # CATEGORIES
 @app.route('/categories', methods=['GET', 'POST'])
-@app.route('/categories/<categoryid>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/categories/<categoryid>', methods=['GET', 'POST', 'DELETE'])
 def categories(categoryid=None):
     return Category().http_request(categoryid)
 
 # TRANSACTIONS
 @app.route('/transactions', methods=['GET', 'POST'])
-@app.route('/transactions/<transactionid>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/transactions/<transactionid>', methods=['GET', 'POST', 'DELETE'])
 def transactions(transactionid=None):
     return Transaction().http_request(transactionid)

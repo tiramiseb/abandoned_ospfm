@@ -74,13 +74,13 @@ Request
 
 ::
 
-    PUT /users/<username>
+    POST /users/<username>
 
 * ``<username>``: username of the user to update
 
 ::
 
-    PUT /users/me
+    POST /users/me
 
 Data
 ----
@@ -334,7 +334,7 @@ Request
 
 ::
 
-    PUT /preferences/<preference name>
+    POST /preferences/<preference name>
 
 
 * ``<preference name>``: name of the preference

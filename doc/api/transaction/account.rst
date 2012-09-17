@@ -121,7 +121,7 @@ Request
 
 ::
 
-    PUT /account/<id>
+    POST /account/<id>
 
 * ``<id>``: unique id of the account
 

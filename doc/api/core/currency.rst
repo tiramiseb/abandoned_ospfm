@@ -128,7 +128,7 @@ Request
 
 ::
 
-    PUT /currencies/<isocode>
+    POST /currencies/<isocode>
 
 * ``<isocode>``: isocode of the currency to update
 

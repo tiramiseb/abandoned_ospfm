@@ -188,7 +188,7 @@ Request
 
 ::
 
-    PUT /categories/<id>
+    POST /categories/<id>
 
 * ``<id>``: unique id of the category
 

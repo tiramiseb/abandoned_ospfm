@@ -242,7 +242,7 @@ Request
 
 ::
 
-    PUT /transactions/<id>
+    POST /transactions/<id>
 
 * ``<id>``: unique id of the transaction
 

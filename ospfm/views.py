@@ -15,11 +15,18 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from ospfm import app
+from ospfm import app, config
 
 @app.route('/')
 def root():
     return 'This is an OSPFM server. More documentation will come later.'
+
+if config.DEVEL:
+    @app.after_request
+    def access_control_allow(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,DELETE')
+        return response
 
 from ospfm.core import views
 from ospfm.transaction import views

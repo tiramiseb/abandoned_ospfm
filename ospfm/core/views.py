@@ -24,7 +24,7 @@ from ospfm.core.user import User, UserContact
 # CURRENCIES
 
 @app.route('/currencies', methods=['GET', 'POST'])
-@app.route('/currencies/<isocode>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/currencies/<isocode>', methods=['GET', 'POST', 'DELETE'])
 def currencies(isocode=None):
     return Currency().http_request(isocode)
 
@@ -35,11 +35,11 @@ def currencies_rate(fromisocode, toisocode):
 # USERS
 
 @app.route('/users', methods=['GET', 'POST'])
-@app.route('/users/<username>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/users/<username>', methods=['GET', 'POST', 'DELETE'])
 def users(username=None):
     return User().http_request(username)
 
-@app.route('/users/me', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/users/me', methods=['GET', 'POST', 'DELETE'])
 def users_me():
     return users(helpers.flask_get_username())
 
@@ -50,13 +50,13 @@ def users_search(criteria):
 # USERCONTACTS
 
 @app.route('/contacts', methods=['GET', 'POST'])
-@app.route('/contacts/<username>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/contacts/<username>', methods=['GET', 'POST', 'DELETE'])
 def contacts(username=None):
     return UserContact().http_request(username)
 
 # USERPREFERENCES
 
 @app.route('/preferences', methods=['GET', 'POST'])
-@app.route('/preferences/<preferencename>', methods=['GET', 'PUT', 'DELTE'])
+@app.route('/preferences/<preferencename>', methods=['GET', 'POST', 'DELETE'])
 def preferences(preferencename=None):
     return Preference().http_request(preferencename)
