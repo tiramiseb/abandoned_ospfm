@@ -47,6 +47,10 @@ class Currency(Object):
 
     def create(self):
         isocode = self.args['isocode']
+        if self.args.has_key('symbol'):
+            symbol = self.args['symbol']
+        else:
+            symbol = isocode
 
         currency_exists = self.__own_currency(isocode).all()
         if currency_exists:
@@ -54,6 +58,7 @@ class Currency(Object):
         c = models.Currency(
                 owner_username = self.username,
                 isocode = isocode,
+                symbol = symbol,
                 name = self.args['name'],
                 rate = self.args['rate']
         )
@@ -77,6 +82,8 @@ class Currency(Object):
 
         if self.args.has_key('isocode'):
             currency.isocode = self.args['isocode']
+        if self.args.has_key('symbol'):
+            currency.isocode = self.args['symbol']
         if self.args.has_key('name'):
             currency.name = self.args['name']
         if self.args.has_key('rate'):

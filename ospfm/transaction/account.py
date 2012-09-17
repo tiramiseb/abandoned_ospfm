@@ -49,16 +49,17 @@ class Account(Object):
         totalbalance = 0
         totalcurrency = core.User.query.options(
                             joinedload(core.User.preferred_currency)
-        ).get(self.username).preferred_currency.isocode
+                        ).get(self.username).preferred_currency
         for account in accounts:
             totalbalance += account.balance() * \
             corecurrency.Currency().rate(account.currency.isocode,
-                                         totalcurrency)
+                                         totalcurrency.isocode)
         return {
             'accounts': [a.as_dict() for a in accounts],
             'total': {
                 'balance': totalbalance,
-                'currency': totalcurrency
+                'currencycode': totalcurrency.isocode,
+                'currencysymbol': totalcurrency.symbol
             }
         }
 
