@@ -26,7 +26,9 @@ if config.DEVEL:
     def access_control_allow(response):
         response.headers.add('Access-Control-Allow-Origin', '*')
         response.headers.add('Access-Control-Allow-Methods', 'GET,POST,DELETE')
+        response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
         return response
+
 
 from ospfm.core import views
 from ospfm.transaction import views

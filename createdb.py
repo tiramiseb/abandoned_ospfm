@@ -133,7 +133,7 @@ def populate_currencies():
     # SSP (South Sudanese pound)
     # XAG (Silver (ounce))
     # XAU (Gold (ounce))
-    # XPD (Palladieu (ounce))
+    # XPD (Palladium (ounce))
     # XPT (Platinium (ounce))
     #
     # Sorry to those who would have wanted to use these currencies.
