@@ -89,7 +89,6 @@ class Currency(Object):
             currency.name = self.args['name']
         if self.args.has_key('rate'):
             currency.rate = self.args['rate']
-
         session.commit()
         return currency.as_dict()
 

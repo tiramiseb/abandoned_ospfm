@@ -119,6 +119,7 @@ class Account(Object):
                     account.currency = currency
         if self.args.has_key('start_balance'):
             account.start_balance = Decimal(self.args['start_balance'])
+        session.commit()
         return account.as_dict()
 
     def delete(self, accountid):

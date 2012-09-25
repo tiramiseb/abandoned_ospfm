@@ -109,6 +109,7 @@ class Category(Object):
                 if category.contains_category(parent.id):
                     self.badrequest()
                 category.parent = parent
+        session.commit()
         return category.as_dict()
 
     def delete(self, categoryid):

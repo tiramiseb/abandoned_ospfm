@@ -112,7 +112,7 @@ class User(Object):
                                         )
                                     ).first()
                                 )
-                    session.commit()
+            session.commit()
             return self.read(username)
         else:
             self.forbidden()
