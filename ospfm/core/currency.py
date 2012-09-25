@@ -46,18 +46,15 @@ class Currency(Object):
         return [c.as_dict() for c in currencies]
 
     def create(self):
-        isocode = self.args['isocode']
-        if self.args.has_key('symbol'):
-            symbol = self.args['symbol']
-        else:
-            symbol = isocode
+        # With user-defined currencies, isocode=symbol
+        symbol = self.args['symbol']
 
-        currency_exists = self.__own_currency(isocode).all()
+        currency_exists = self.__own_currency(symbol).all()
         if currency_exists:
             self.badrequest()
         c = models.Currency(
                 owner_username = self.username,
-                isocode = isocode,
+                isocode = symbol,
                 symbol = symbol,
                 name = self.args['name'],
                 rate = self.args['rate']
@@ -67,6 +64,7 @@ class Currency(Object):
         return c.as_dict()
 
     def read(self, isocode):
+        print isocode
         currency = self.__own_currency(isocode).first()
         if currency:
             return currency.as_dict(with_rate=True)
@@ -80,15 +78,19 @@ class Currency(Object):
         if not currency.owner_username:
             self.forbidden()
 
-        if self.args.has_key('isocode'):
-            currency.isocode = self.args['isocode']
         if self.args.has_key('symbol'):
-            currency.isocode = self.args['symbol']
+            # With user-defined currencies, isocode=symbol
+            newsymbol = self.args['symbol']
+            testcurrency = self.__own_currency(newsymbol).first()
+            if not testcurrency:
+                currency.isocode = newsymbol
+                currency.symbol = newsymbol
         if self.args.has_key('name'):
             currency.name = self.args['name']
         if self.args.has_key('rate'):
             currency.rate = self.args['rate']
 
+        session.commit()
         return currency.as_dict()
 
     def delete(self, isocode):
