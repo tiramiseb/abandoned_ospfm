@@ -41,7 +41,10 @@ class Account(Base):
         ).filter(
             TransactionAccount.account_id == self.id
         ).one()[0]
-        return self.start_balance + balance
+        if balance:
+            return self.start_balance + balance
+        else:
+            return self.start_balance
 
 
     def as_dict(self, short=False):

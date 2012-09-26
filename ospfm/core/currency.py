@@ -132,8 +132,8 @@ class Currency(Object):
         # Mixed user-defined / globally defined rates
         else:
             preferred_isocode = models.User.query.filter(
-                                    username=self.username
-                               ).one().preferred_currency
+                                    models.User.username==self.username
+                               ).one().preferred_currency.isocode
             # From a user-defined currency to a globally defined currency
             if fromcurrency.rate and (not tocurrency.rate):
                 target_rate = exchangerate.getrate(preferred_isocode,

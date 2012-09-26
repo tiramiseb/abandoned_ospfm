@@ -16,9 +16,10 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import abort, jsonify, request
+from sqlalchemy.exc import StatementError
 
 from ospfm import config, helpers
-
+from ospfm.database import session
 
 class Object:
     """
@@ -49,26 +50,30 @@ class Object:
         # Prepare the environment
         self.__init_http()
 
-        # Execute the request
-        if request.method == 'GET':
-            if arg:
-                response = self.read(arg)
-            else:
-                response = self.list()
-        elif request.method == 'POST':
-            if self.args.has_key('_method') and self.args['_method'] == 'delete':
+        try:
+            # Execute the request
+            if request.method == 'GET':
+                if arg:
+                    response = self.read(arg)
+                else:
+                    response = self.list()
+            elif request.method == 'POST':
+                if self.args.has_key('_method') and self.args['_method'] == 'delete':
+                    self.delete(arg)
+                    response = 'OK Deleted'
+                else:
+                    if arg:
+                        response = self.update(arg)
+                    else:
+                        response = self.create()
+            elif request.method == 'DELETE':
                 self.delete(arg)
                 response = 'OK Deleted'
-            else:
-                if arg:
-                    response = self.update(arg)
-                else:
-                    response = self.create()
-        elif request.method == 'DELETE':
-            self.delete(arg)
-            response = 'OK Deleted'
-        # JSON response
-        return jsonify(status=200, response=response)
+            # JSON response
+            return jsonify(status=200, response=response)
+        except StatementError:
+            session.rollback()
+            self.badrequest()
 
     def list(self):
         """Override this method for objects listing"""
