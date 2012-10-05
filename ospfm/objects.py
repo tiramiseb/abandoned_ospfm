@@ -43,7 +43,11 @@ class Object:
         self.username = helpers.flask_get_username()
         if not self.username:
             abort(401)
-        self.args = request.values
+        self.args = request.values.to_dict()
+        # Empty values are forbidden
+        for item in self.args.items():
+            if item[1] == '':
+                self.badrequest()
 
     def http_request(self, arg=None):
         """Deal with all HTTP requests"""
