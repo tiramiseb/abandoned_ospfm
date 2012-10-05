@@ -58,8 +58,7 @@ class Account(Object):
             'accounts': [a.as_dict() for a in accounts],
             'total': {
                 'balance': totalbalance,
-                'currencycode': totalcurrency.isocode,
-                'currencysymbol': totalcurrency.symbol
+                'currency': totalcurrency.isocode
             }
         }
 

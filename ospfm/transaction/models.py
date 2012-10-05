@@ -52,15 +52,13 @@ class Account(Base):
             return {
                 'id': self.id,
                 'name': self.name,
-                'currencycode': self.currency.isocode,
-                'currencysymbol': self.currency.symbol
+                'currency': self.currency.isocode
             }
         else:
             return {
                 'id': self.id,
                 'name': self.name,
-                'currencycode': self.currency.isocode,
-                'currencysymbol': self.currency.symbol,
+                'currency': self.currency.isocode,
                 'start_balance': self.start_balance,
                 'balance': self.balance()
             }
@@ -139,8 +137,7 @@ class Transaction(Base):
             'description': self.description,
             'original_description': self.original_description,
             'amount': self.amount,
-            'currencycode': self.currency.isocode,
-            'currencysymbol': self.currency.symbol,
+            'currency': self.currency.isocode,
             'date': self.date.strftime('%Y-%m-%d'),
             'accounts': [ta.as_dict() for ta in self.transaction_accounts],
             'categories': [tc.as_dict() for tc in self.transaction_categories]
