@@ -43,7 +43,7 @@ class Currency(Base):
         }
         if self.owner_username:
             info['owner'] = self.owner_username
-        if self.rate:
+        if self.rate is not None:
             info['rate'] = self.rate
         return info
 
