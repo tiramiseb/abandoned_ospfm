@@ -27,7 +27,8 @@ from ospfm import config
 cache = config.CACHE
 
 OPEN_EXCHANGE_RATES_LATEST_VALUES_URL = (
-    'http://openexchangerates.org/latest.json'
+    'http://openexchangerates.org/api/latest.json?app_id={}'.format(
+                                                                 config.APP_ID)
 )
 
 def getrate(from_currency, to_currency, amount='1'):

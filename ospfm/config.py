@@ -29,3 +29,5 @@ CACHE = SimpleCache()
 
 LISTEN_HOST = '127.0.0.1'
 LISTEN_PORT = 5001
+
+APP_ID = '<OpenExchange app id>'
