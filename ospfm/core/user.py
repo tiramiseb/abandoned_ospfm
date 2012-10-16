@@ -16,6 +16,7 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+import os
 
 from flask import abort, jsonify
 from sqlalchemy import and_, or_
@@ -89,20 +90,35 @@ class User(Object):
                     user.preferred_currency = currency
             if self.args.has_key('emails'):
                 emails = json.loads(self.args['emails'])
+                previous_emails = []
+                previous_notifications = []
+                for address in models.UserEmail.query.filter(
+                              models.UserEmail.user_username == self.username):
+                    previous_emails.append(address.email_address)
+                    if address.notification:
+                        previous_notifications.append(address.email_address)
+                print previous_emails
+                print previous_notifications
                 if type(emails) == type({}):
                     if emails.has_key('add') and \
                        type(emails['add']) == type([]):
-                        for mail in emails['add']:
+                        for address in emails['add']:
                             if address not in previous_emails:
+                                # Use random hash for email confirmation
+                                # Email confirmation is done outside of OSPFM
+                                # Another process must read the database and
+                                # send confirmation emails
+                                randomhash = os.urandom(8).encode('hex')
                                 session.add(
                                     models.UserEmail(
                                         user_username=self.username,
-                                        email_address=address
+                                        email_address=address,
+                                        confirmation=randomhash
                                     )
                                 )
                     if emails.has_key('remove') and \
                        type(emails['remove']) == type([]):
-                        for mail in emails['remove']:
+                        for address in emails['remove']:
                             if address in previous_emails:
                                 session.delete(
                                     models.UserEmail.query.filter(
@@ -112,6 +128,28 @@ class User(Object):
                                         )
                                     ).first()
                                 )
+                    if emails.has_key('enablenotifications') and \
+                       type(emails['enablenotifications']) == type([]):
+                        for address in emails['enablenotifications']:
+                            if address not in previous_notifications:
+                                models.UserEmail.query.filter(
+                                    and_(
+                               models.UserEmail.user_username == self.username,
+                               models.UserEmail.email_address == address
+                                    )
+                                ).first().notification = True
+                    if emails.has_key('disablenotifications') and \
+                       type(emails['disablenotifications']) == type([]):
+                        for address in emails['disablenotifications']:
+                            if address in previous_notifications:
+                                models.UserEmail.query.filter(
+                                    and_(
+                               models.UserEmail.user_username == self.username,
+                               models.UserEmail.email_address == address
+                                    )
+                                ).first().notification = False
+
+
             session.commit()
             return self.read(username)
         else:
@@ -126,7 +164,10 @@ class User(Object):
         if '@' in substring:
             corresponding_rows = models.User.query.join(
                                     models.UserEmail
-                          ).filter(models.UserEmail.email_address == substring)
+            ).filter(
+                models.UserEmail.email_address == substring,
+                models.UserEmail.confirmation == 'OK'
+            )
         else:
             substring='%{}%'.format(substring)
             corresponding_rows = models.User.query.filter(

@@ -39,11 +39,17 @@ def populate_test_db():
     db.session.add_all((alice, bob, carol))
 
     # Users email addresses
-    alice1 = core.UserEmail(user=alice, email_address='alice@wonderland.org')
-    alice2 = core.UserEmail(user=alice, email_address='alice@springs.au')
-    bob1 = core.UserEmail(user=bob, email_address='spongebob@gmail.com')
-    carol1 = core.UserEmail(user=carol, email_address='carol@markus.space')
-    carol2 = core.UserEmail(user=carol, email_address='carol.markus@gmail.com')
+    somehash = '1234567890123456'
+    alice1 = core.UserEmail(user=alice, email_address='alice@wonderland.org',
+                            confirmation='OK')
+    alice2 = core.UserEmail(user=alice, email_address='alice@springs.au',
+                            confirmation=somehash)
+    bob1 = core.UserEmail(user=bob, email_address='spongebob@gmail.com',
+                          confirmation=somehash)
+    carol1 = core.UserEmail(user=carol, email_address='carol@markus.space',
+                            confirmation=somehash)
+    carol2 = core.UserEmail(user=carol, email_address='carol.markus@gmail.com',
+                            confirmation=somehash)
     db.session.add_all((alice1, alice2, bob1, carol1, carol2))
 
     # Users contacts

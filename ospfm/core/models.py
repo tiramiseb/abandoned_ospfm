@@ -15,7 +15,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from sqlalchemy import Column, ForeignKey, Integer, Numeric, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import UniqueConstraint
 
@@ -75,7 +75,7 @@ class User(Base):
             info['preferred_currency'] = self.preferred_currency.isocode
             info['emails'] = []
             for email in self.emails:
-                info['emails'].append(email.email_address)
+                info['emails'].append(email.as_dict())
             info['contacts'] = []
             for contactinfo in self.contacts:
                 info['contacts'].append(contactinfo.contact.as_dict())
@@ -109,6 +109,11 @@ class UserEmail(Base):
     id = Column(Integer, primary_key=True)
     user_username = Column(ForeignKey('user.username'), nullable=False)
     email_address = Column(String(200), nullable=False)
+    # Notification is to be used by (an)other process(es), OSPFM itself doesn't
+    # send notifications. This field make it possible to know which email
+    # addresses should be used by this/these other process(es).
+    notification = Column(Boolean(), default=False)
+    confirmation = Column(String(16), nullable=False)
 
     __table_args__ = (
         UniqueConstraint('user_username', 'email_address',
@@ -116,6 +121,14 @@ class UserEmail(Base):
     )
 
     user = relationship('User', backref='emails')
+
+    def as_dict(self):
+        return {
+            'address': self.email_address,
+            'notification': self.notification,
+            'confirmed': self.confirmation == 'OK'
+        }
+
 
 class UserPreference(Base):
     __tablename__ = 'userpreference'
