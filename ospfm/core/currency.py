@@ -64,7 +64,6 @@ class Currency(Object):
         return c.as_dict()
 
     def read(self, isocode):
-        print isocode
         currency = self.__own_currency(isocode).first()
         if currency:
             return currency.as_dict(with_rate=True)

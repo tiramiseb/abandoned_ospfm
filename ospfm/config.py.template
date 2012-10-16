@@ -27,7 +27,9 @@ DATABASE='sqlite:////tmp/ospfm_devel.sqlite3'
 from werkzeug.contrib.cache import SimpleCache
 CACHE = SimpleCache()
 
+# Listen on this host and on this port
 LISTEN_HOST = '127.0.0.1'
 LISTEN_PORT = 5001
 
+# OpenExchange app id
 APP_ID = '<OpenExchange app id>'
