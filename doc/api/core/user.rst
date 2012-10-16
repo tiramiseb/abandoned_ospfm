@@ -56,12 +56,15 @@ For the user's own information::
             ],
             "preferred_currency": "<currency isocode>",
             "emails": [
-                "<email address>",
+                {
+                    "notification": <true or false>,
+                    "confirmed": <true or false>,
+                    "address": "<email address>",
+                },
     [...]
             ]
         }
     }
-
 Update
 ======
 
@@ -103,6 +106,12 @@ The ``emails`` parameter is a JSON-formatted string::
         "remove":[
             "<email address>",
     [...]
+        ],
+        "enablenotifications":[
+            "<email address>",
+        ],
+        "disablenotifications":[
+            "<email address>",
         ]
     }
 
@@ -127,7 +136,11 @@ Response
             ],
             "preferred_currency": "<currency isocode>",
             "emails": [
-                "<email address>",
+                {
+                    "notification": <true or false>,
+                    "confirmed": <true or false>,
+                    "address": "<email address>",
+                },
     [...]
             ]
         }
