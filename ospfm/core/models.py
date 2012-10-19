@@ -79,7 +79,7 @@ class UserContact(Base):
     id = Column(Integer, primary_key=True)
     user_username = Column(ForeignKey('user.username'), nullable=False)
     contact_username = Column(ForeignKey('user.username'), nullable=False)
-    comment = Column(String(128), default='', nullable=False)
+    comment = Column(String(100), default='', nullable=False)
 
     __table_args__ = (
         UniqueConstraint('user_username', 'contact_username',
