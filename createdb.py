@@ -53,7 +53,7 @@ def populate_test_db():
     db.session.add_all((alice1, alice2, bob1, carol1, carol2))
 
     # Users contacts
-    alice_bob = core.UserContact(user=alice, contact=bob)
+    alice_bob = core.UserContact(user=alice, contact=bob, comment="My brother")
     bob_carol = core.UserContact(user=bob, contact=carol)
     carol_alice = core.UserContact(user=carol, contact=alice)
     db.session.add_all((alice_bob, bob_carol, carol_alice))

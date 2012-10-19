@@ -46,14 +46,6 @@ For the user's own information::
             "username": "<username>",
             "first_name": "<first name>",
             "last_name": "<last name>",
-            "contacts": [
-                {
-                    "username": "<contact username>",
-                    "first_name": "<contact first name>",
-                    "last_name": "<contact last name>"
-                },
-    [...]
-            ],
             "preferred_currency": "<currency isocode>",
             "emails": [
                 {
@@ -126,14 +118,6 @@ Response
             "username": "<username>",
             "first_name": "<first name>",
             "last_name": "<last name>",
-            "contacts": [
-                {
-                    "username": "<contact username>",
-                    "first_name": "<contact first name>",
-                    "last_name": "<contact last name>"
-                },
-    [...]
-            ],
             "preferred_currency": "<currency isocode>",
             "emails": [
                 {
@@ -188,8 +172,8 @@ Response
         ]
     }
 
-Contacts
-========
+List contacts
+=============
 
 List all current user's contacts
 
@@ -211,12 +195,14 @@ Response
             {
                 "username": "<username>",
                 "first_name": "<first name>",
-                "last_name": "<last name>"
+                "last_name": "<last name>",
+                "comment": "<personal comment>"
             },
             {
                 "username": "<username>",
                 "first_name": "<first name>",
-                "last_name": "<last name>"
+                "last_name": "<last name>",
+                "comment": "<personal comment>"
             }
     [...]
         ]
@@ -238,6 +224,7 @@ Data
 ----
 
 * ``username``: username of the contact
+* ``comment``: personal comment on this contact
 
 Response
 --------
@@ -250,6 +237,70 @@ Response
             "username": "<username>",
             "first_name": "<first name>",
             "last_name": "<last name>",
+            "comment": "<personal comment"
+        }
+    }
+
+Read a contact
+==============
+
+Read a contact for the current user
+
+Request
+-------
+
+::
+
+    GET /contacts/<username>
+
+* ``<username>``: username of the contact
+
+Response
+--------
+
+::
+
+    {
+        "status": 200,
+        "response": {
+            "username": "<username>",
+            "first_name": "<first name>",
+            "last_name": "<last name>",
+            "comment": "<personal comment"
+        }
+    }
+
+Update a contact
+================
+
+Update a contact for the current user
+
+Request
+-------
+
+::
+
+    POST /contacts/<username>
+
+* ``<username>``: username of the contact
+
+Data
+----
+
+* ``comment``: personal comment on this contact
+
+Response
+--------
+
+::
+
+    {
+        "status": 200,
+        "response": {
+            "username": "<username>",
+            "first_name": "<first name>",
+            "last_name": "<last name>",
+            "comment": "<personal comment"
         }
     }
 

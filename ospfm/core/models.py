@@ -60,11 +60,6 @@ class User(Base):
                           primaryjoin='User.preferred_currency_id==Currency.id'
                          )
 
-    contacts = relationship(
-                    'UserContact',
-                    primaryjoin='UserContact.user_username==User.username'
-               )
-
     def as_dict(self, own=False):
         info = {
                 'username': self.username,
@@ -76,9 +71,6 @@ class User(Base):
             info['emails'] = []
             for email in self.emails:
                 info['emails'].append(email.as_dict())
-            info['contacts'] = []
-            for contactinfo in self.contacts:
-                info['contacts'].append(contactinfo.contact.as_dict())
         return info
 
 
@@ -87,6 +79,7 @@ class UserContact(Base):
     id = Column(Integer, primary_key=True)
     user_username = Column(ForeignKey('user.username'), nullable=False)
     contact_username = Column(ForeignKey('user.username'), nullable=False)
+    comment = Column(String(128), default='', nullable=False)
 
     __table_args__ = (
         UniqueConstraint('user_username', 'contact_username',
@@ -102,6 +95,14 @@ class UserContact(Base):
                 'User',
                 primaryjoin='UserContact.contact_username==User.username'
            )
+
+    def as_dict(self):
+        return {
+            'username': self.contact.username,
+            'first_name': self.contact.first_name,
+            'last_name': self.contact.last_name,
+            'comment': self.comment
+        }
 
 
 class UserEmail(Base):

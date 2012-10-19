@@ -40,7 +40,6 @@ class User(Object):
         if username == self.username:
             # When requesting his own information, a user gets more details
             user = models.User.query.options(
-                joinedload(models.User.contacts),
                 joinedload(models.User.emails),
                 joinedload(models.User.preferred_currency)
             ).filter(
@@ -193,21 +192,27 @@ class User(Object):
 
 class UserContact(Object):
 
+    emptyvalid = ['comment']
+
     def list(self):
         contacts = models.UserContact.query.options(
                         joinedload(models.UserContact.contact)
         ).filter(
                         models.UserContact.user_username==self.username
         )
-        return [c.contact.as_dict() for c in contacts.all()]
+        return [c.as_dict() for c in contacts.all()]
 
     def create(self):
+        if not self.args.has_key('username'):
+            self.badrequest()
+        # Verify the contact exists
         contactuser = models.User.query.filter(
                         models.User.username == self.args['username']
                       ).first()
         if not contactuser:
             # XXX If contactuser does not exist, maybe invite him
             self.notfound()
+        # Verify the user doesn't already have this contact
         testcontact = models.UserContact.query.filter(
                         and_(
                             models.UserContact.user_username == self.username,
@@ -218,19 +223,38 @@ class UserContact(Object):
             self.badrequest()
         contact = models.UserContact(
                     user_username=self.username,
-                    contact=contactuser
+                    contact=contactuser,
+                    comment=self.args.get('comment', '')
                   )
         session.add(contact)
         session.commit()
-        return contactuser.as_dict()
+        return contact.as_dict()
 
     def read(self, username):
-        # There is no need to "read" a contact, it is only a "link" to a user
-        self.badrequest()
+        contact = models.UserContact.query.filter(
+            and_(
+                models.UserContact.user_username == self.username,
+                models.UserContact.contact_username == self.args['username']
+            )
+        ).first()
+        if not contact:
+            self.notfound()
+        return contact.as_dict()
 
     def update(self, username):
-        # A contact may not be updated, only created or deleted
-        self.badrequest()
+        contact = models.UserContact.query.filter(
+            and_(
+                models.UserContact.user_username == self.username,
+                models.UserContact.contact_username == self.args['username']
+            )
+        ).first()
+        if not contact:
+            self.notfound()
+        # Only the comment can be updated
+        if self.args.has_key('comment'):
+            contact.comment = self.args['comment']
+            session.commit()
+        return contact.as_dict()
 
     def delete(self, username):
         contact = models.UserContact.query.filter(
