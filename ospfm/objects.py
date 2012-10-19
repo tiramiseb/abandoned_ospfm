@@ -35,6 +35,7 @@ class Object:
     ... self.args should be set to the args, especially for the "create" and
     "update" methods
     """
+    emptyvalid = []
 
     def __init__(self, **kwargs):
         self.args = kwargs
@@ -46,7 +47,7 @@ class Object:
         self.args = request.values.to_dict()
         # Empty values are forbidden
         for item in self.args.items():
-            if item[1] == '':
+            if item[1] == '' and item[0] not in self.emptyvalid:
                 self.badrequest()
 
     def http_request(self, arg=None):
