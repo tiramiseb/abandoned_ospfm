@@ -43,9 +43,9 @@ def users(username=None):
 def users_me():
     return users(helpers.flask_get_username())
 
-@app.route('/users/search/<criteria>')
-def users_search(criteria):
-    return User().http_search(criteria)
+@app.route('/users/search/<criterion>')
+def users_search(criterion):
+    return User().http_search(criterion)
 
 # USERCONTACTS
 
