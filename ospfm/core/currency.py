@@ -123,10 +123,10 @@ class Currency(Object):
         if not fromcurrency or not tocurrency:
             self.badrequest()
         # Both currencies are globally defined
-        if (not fromcurrency.rate) and (not tocurrency.rate):
+        if (fromcurrency.rate is None) and (tocurrency.rate is None):
             return exchangerate.getrate(fromcurrency.isocode, tocurrency.isocode)
         # Both currencies are user-defined
-        elif fromcurrency.rate and tocurrency.rate:
+        elif (fromcurrency.rate is not None) and (tocurrency.rate is not None):
             return tocurrency.rate / fromcurrency.rate
         # Mixed user-defined / globally defined rates
         else:
@@ -134,13 +134,17 @@ class Currency(Object):
                                     models.User.username==self.username
                                ).one().preferred_currency.isocode
             # From a user-defined currency to a globally defined currency
-            if fromcurrency.rate and (not tocurrency.rate):
+            if (fromcurrency.rate is not None) and (tocurrency.rate is None):
                 target_rate = exchangerate.getrate(preferred_isocode,
                                                    tocurrency.isocode)
+                if (fromcurrency.rate == 0):
+                    return 0
                 return target_rate / fromcurrency.rate
-            if (not fromcurrency.rate) and tocurrency.rate:
+            if (fromcurrency.rate is None) and (tocurrency.rate is not None):
                 source_rate = exchangerate.getrate(preferred_isocode,
                                                    fromcurrency.isocode)
+                if (tocurrency.rate == 0):
+                    return 0
                 return tocurrency.rate / source_rate
         # This should not happen
         self.badrequest()
