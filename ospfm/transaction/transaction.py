@@ -110,6 +110,9 @@ class Transaction(Object):
                                 verified = False
                         )
                         session.add(ta)
+                    self.add_to_response('accountbalance',
+                                         accountdata['account'])
+            self.add_to_response('totalbalance')
 
         # Next, create the links from the transaction to its categories
         if self.args.has_key('categories'):
@@ -122,7 +125,7 @@ class Transaction(Object):
                         joinedload(models.Category.currency)
                     ).filter(
                         and_(
-                            models.Category.id == accountdata['account'],
+                            models.Category.id == categorydata['category'],
                             models.Category.owner_username == self.username,
                         )
                     ).first()
@@ -133,6 +136,9 @@ class Transaction(Object):
                                 amount = categorydata['amount']
                         )
                         session.add(tc)
+                    # TODO: Category balance for some periods
+                    #self.add_to_response('categorybalance',
+                    #                     categorydata['category'])
 
         # Commit everything...
         session.commit()
@@ -191,6 +197,7 @@ class Transaction(Object):
                             )).one()
                             ta.amount = amount
                             ta.verified = False
+                            self.add_to_response('accountbalance', accountid)
                         existing_accounts.pop(accountid)
                     else:
                         # Account is not already linked
@@ -210,6 +217,7 @@ class Transaction(Object):
                                     amount = amount,
                                     verified = False
                             )
+                            self.add_to_response('accountbalance', accountid)
                             session.add(ta)
             # All accounts to keep have been poped out from "existing_accounts"
             # Delete all links remaining from this transaction to accounts
@@ -218,7 +226,10 @@ class Transaction(Object):
                     models.TransactionAccount.transaction == transaction,
                     models.TransactionAccount.account_id == accountid
                 )).one()
+                self.add_to_response('accountbalance', accountid)
                 session.delete(ta)
+
+            self.add_to_response('totalbalance')
 
         # Then, update categories
         if self.args.has_key('categories'):
@@ -240,6 +251,8 @@ class Transaction(Object):
                             )).one()
                             tc.amount = amount
                             tc.verified = False
+                            # TODO: Category balance for some periods
+                            #self.add_to_response('categorybalance', categoryid)
                         existing_categories.pop(categoryid)
                     else:
                         # Category is not already linked
@@ -256,16 +269,20 @@ class Transaction(Object):
                                     category = categoryobject,
                                     amount = amount
                             )
+                            # TODO: Category balance for some periods
+                            #self.add_to_response('categorybalance', categoryid)
                             session.add(tc)
             # All categories to keep have been poped out from
             # "existing_categories"
             # Delete all links remaining from this transaction to categories
             for categoryid in existing_categories.keys():
-                ta = models.TransactionCategory.query.filter(and_(
+                tc = models.TransactionCategory.query.filter(and_(
                     models.TransactionCategory.transaction == transaction,
                     models.TransactionCategory.category_id == categoryid
                 )).one()
-                session.delete(ta)
+                # TODO: Category balance for some periods
+                #self.add_to_response('categorybalance', categoryid)
+                session.delete(tc)
 
         session.commit()
         return transaction.as_dict()

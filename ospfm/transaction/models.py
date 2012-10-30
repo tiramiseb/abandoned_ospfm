@@ -91,6 +91,9 @@ class Category(Base):
     transactions_category = relationship('TransactionCategory',
                                          cascade='all, delete-orphan')
 
+    # TODO: Category balance for some periods
+    #def balance(self):
+
     def as_dict(self, parent=True, children=True):
         desc = {
             'id': self.id,

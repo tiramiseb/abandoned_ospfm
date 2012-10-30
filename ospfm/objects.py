@@ -18,7 +18,7 @@
 from flask import abort, jsonify, request
 from sqlalchemy.exc import StatementError
 
-from ospfm import config, helpers
+import ospfm
 from ospfm.database import session
 
 class Object:
@@ -39,16 +39,21 @@ class Object:
 
     def __init__(self, **kwargs):
         self.args = kwargs
-
-    def __init_http(self):
-        self.username = helpers.flask_get_username()
-        if not self.username:
-            abort(401)
-        self.args = request.values.to_dict()
-        # Empty values are forbidden
+        self.add_data = []
+        # Empty values are forbidden if they are not in emptyvalid
         for item in self.args.items():
             if item[1] == '' and item[0] not in self.emptyvalid:
                 self.badrequest()
+
+    def __init_http(self):
+        self.username = ospfm.helpers.flask_get_username()
+        if not self.username:
+            abort(401)
+        self.args = request.values.to_dict()
+
+    def add_to_response(self, *args):
+        """Adds an additional data to the response"""
+        self.add_data.append(args)
 
     def http_request(self, arg=None):
         """Deal with all HTTP requests"""
@@ -74,8 +79,18 @@ class Object:
             elif request.method == 'DELETE':
                 self.delete(arg)
                 response = 'OK Deleted'
+            # Create additional data
+            print self.add_data
+            additional_data = {}
+            for data in self.add_data:
+                additional_data[data[0]] = \
+                    ospfm.additional_methods[data[0]](*data[1:])
             # JSON response
-            return jsonify(status=200, response=response)
+            if additional_data:
+                return jsonify(status=200, response=response,
+                               additional=additional_data)
+            else:
+                return jsonify(status=200, response=response)
         except StatementError:
             session.rollback()
             self.badrequest()

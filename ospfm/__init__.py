@@ -20,3 +20,11 @@ app = Flask(__name__)
 
 import ospfm.errorpages
 import ospfm.views
+
+
+from ospfm.transaction import additional as add_transaction
+
+additional_methods = {}
+for function in dir(add_transaction):
+    if not function.startswith('__'):
+        additional_methods[function] = getattr(add_transaction, function)

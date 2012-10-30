@@ -87,6 +87,7 @@ class User(Object):
                     ):
                         c.rate = c.rate * multiplier
                     user.preferred_currency = currency
+                    self.add_to_response('totalbalance')
             if self.args.has_key('emails'):
                 emails = json.loads(self.args['emails'])
                 previous_emails = []

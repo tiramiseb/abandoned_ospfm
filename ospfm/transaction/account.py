@@ -92,6 +92,7 @@ class Account(Object):
         ao = models.AccountOwner(account=a, owner_username=self.username)
         session.add_all((a, ao))
         session.commit()
+        self.add_to_response('totalbalance')
         return a.as_dict()
 
     def read(self, accountid):
@@ -124,6 +125,7 @@ class Account(Object):
                     account.currency = currency
         if self.args.has_key('start_balance'):
             account.start_balance = Decimal(self.args['start_balance'])
+            self.add_to_response('totalbalance')
         session.commit()
         return account.as_dict()
 
@@ -133,3 +135,4 @@ class Account(Object):
             self.notfound()
         session.delete(account)
         session.commit()
+        self.add_to_response('totalbalance')
