@@ -28,22 +28,19 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "accounts": [
-                {
-                    "start_balance": <start balance>,
-                    "currency": "<currency isocode>",
-                    "id": <account unique id>,
-                    "name": "<account name>",
-                    "balance": <account balance>
-                },
-                [...]
-            ],
-            "total": {
-                "currency": "<currency for the total balance>",
-                "balance": <total balance>
-            }
+        "accounts": [
+            {
+                "start_balance": <start balance>,
+                "currency": "<currency isocode>",
+                "id": <account unique id>,
+                "name": "<account name>",
+                "balance": <account balance>
+            },
+            [...]
+        ],
+        "total": {
+            "currency": "<currency for the total balance>",
+            "balance": <total balance>
         }
     }
 
@@ -72,13 +69,10 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-                "start_balance": <start balance>,
-                "currency": "<currency isocode>",
-                "id": <account unique id>,
-                "name": "<account name>"
-        }
+        "start_balance": <start balance>,
+        "currency": "<currency isocode>",
+        "id": <account unique id>,
+        "name": "<account name>"
     }
 
 Read
@@ -101,14 +95,11 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-                "start_balance": <start balance>,
-                "currency": "<currency isocode>",
-                "id": <account unique id>,
-                "name": "<account name>",
-                "balance": <account balance>
-        }
+        "start_balance": <start balance>,
+        "currency": "<currency isocode>",
+        "id": <account unique id>,
+        "name": "<account name>",
+        "balance": <account balance>
     }
 
 Update
@@ -141,14 +132,11 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-                "start_balance": <start balance>,
-                "currency": "<currency isocode>",
-                "id": <account unique id>,
-                "name": "<account name>",
-                "balance": <account balance>
-        }
+        "start_balance": <start balance>,
+        "currency": "<currency isocode>",
+        "id": <account unique id>,
+        "name": "<account name>",
+        "balance": <account balance>
     }
 
 Delete
@@ -172,7 +160,4 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": "OK Deleted"
-    }
+    "OK Deleted"

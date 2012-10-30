@@ -56,5 +56,3 @@ def totalbalance():
         'balance': totalbalance,
         'currency': totalcurrency.isocode
     }
-    return ''
-    #~return account.Account().total_balance()

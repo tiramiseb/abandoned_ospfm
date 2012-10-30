@@ -21,66 +21,63 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": [
-            {
-                "currency": "<isocode>",
-                "amount": <amount of the transaction>,
-                "accounts": [
-                    {
-                        "currency": "<isocode>",
-                        "amount": <amount for this account>,
-                        "verified": <boolean>,
-                        "id": <account id>,
-                        "name": "<account name>"
-                    },
-    [...]
-                ],
-                "description": "<transaction description>",
-                "date": "<transaction date>",
-                "original_description": "<transaction original description>",
-                "id": <transaction unique id>,
-                "categories": [
-                    {
-                        "currency": "<isocode>",
-                        "amount": <amount for the category>,
-                        "id": <category id>,
-                        "name": "<category name>"
-                    },
-    [...]
-                ]
-            },
-            {
-                "currency": "<isocode>",
-                "amount": <amount of the transaction>,
-                "accounts": [
-                    {
-                        "currency": "<isocode>",
-                        "amount": <amount for this account>,
-                        "verified": <boolean>,
-                        "id": <account id>,
-                        "name": "<account name>"
-                    },
-    [...]
-                ],
-                "description": "<transaction description>",
-                "date": "<transaction date>",
-                "original_description": "<transaction original description>",
-                "id": <transaction unique id>,
-                "categories": [
-                    {
-                        "currency": "<isocode>",
-                        "amount": <amount for the category>,
-                        "id": <category id>,
-                        "name": "<category name>"
-                    },
-    [...]
-                ]
-            },
-    [...]
-        ]
-    }
+    [
+        {
+            "currency": "<isocode>",
+            "amount": <amount of the transaction>,
+            "accounts": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for this account>,
+                    "verified": <boolean>,
+                    "id": <account id>,
+                    "name": "<account name>"
+                },
+                [...]
+            ],
+            "description": "<transaction description>",
+            "date": "<transaction date>",
+            "original_description": "<transaction original description>",
+            "id": <transaction unique id>,
+            "categories": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for the category>,
+                    "id": <category id>,
+                    "name": "<category name>"
+                },
+                [...]
+            ]
+        },
+        {
+            "currency": "<isocode>",
+            "amount": <amount of the transaction>,
+            "accounts": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for this account>,
+                    "verified": <boolean>,
+                    "id": <account id>,
+                    "name": "<account name>"
+                },
+                [...]
+            ],
+            "description": "<transaction description>",
+            "date": "<transaction date>",
+            "original_description": "<transaction original description>",
+            "id": <transaction unique id>,
+            "categories": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for the category>,
+                    "id": <category id>,
+                    "name": "<category name>"
+                },
+                [...]
+            ]
+        },
+        [...]
+    ]
 
 Create
 ======
@@ -152,34 +149,31 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "currency": "<isocode>",
-            "amount": <amount of the transaction>,
-            "accounts": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for this account>,
-                    "verified": <boolean>,
-                    "id": <account id>,
-                    "name": "<account name>"
-                },
-    [...]
-            ],
-            "description": "<transaction description>",
-            "date": "<transaction date>",
-            "original_description": "<transaction original description>",
-            "id": <transaction unique id>,
-            "categories": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for the category>,
-                    "id": <category id>,
-                    "name": "<category name>"
-                },
-    [...]
-            ]
-        }
+        "currency": "<isocode>",
+        "amount": <amount of the transaction>,
+        "accounts": [
+            {
+                "currency": "<isocode>",
+                "amount": <amount for this account>,
+                "verified": <boolean>,
+                "id": <account id>,
+                "name": "<account name>"
+            },
+            [...]
+        ],
+        "description": "<transaction description>",
+        "date": "<transaction date>",
+        "original_description": "<transaction original description>",
+        "id": <transaction unique id>,
+        "categories": [
+            {
+                "currency": "<isocode>",
+                "amount": <amount for the category>,
+                "id": <category id>,
+                "name": "<category name>"
+            },
+            [...]
+        ]
     }
 
 Read
@@ -202,34 +196,31 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "currency": "<isocode>",
-            "amount": <amount of the transaction>,
-            "accounts": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for this account>,
-                    "verified": <boolean>,
-                    "id": <account id>,
-                    "name": "<account name>"
-                },
-    [...]
-            ],
-            "description": "<transaction description>",
-            "date": "<transaction date>",
-            "original_description": "<transaction original description>",
-            "id": <transaction unique id>,
-            "categories": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for the category>,
-                    "id": <category id>,
-                    "name": "<category name>"
-                },
-    [...]
-            ]
-        }
+        "currency": "<isocode>",
+        "amount": <amount of the transaction>,
+        "accounts": [
+            {
+                "currency": "<isocode>",
+                "amount": <amount for this account>,
+                "verified": <boolean>,
+                "id": <account id>,
+                "name": "<account name>"
+            },
+            [...]
+        ],
+        "description": "<transaction description>",
+        "date": "<transaction date>",
+        "original_description": "<transaction original description>",
+        "id": <transaction unique id>,
+        "categories": [
+            {
+                "currency": "<isocode>",
+                "amount": <amount for the category>,
+                "id": <category id>,
+                "name": "<category name>"
+            },
+            [...]
+        ]
     }
 
 Update
@@ -318,34 +309,31 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "currency": "<isocode>",
-            "amount": <amount of the transaction>,
-            "accounts": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for this account>,
-                    "verified": <boolean>,
-                    "id": <account id>,
-                    "name": "<account name>"
-                },
-    [...]
-            ],
-            "description": "<transaction description>",
-            "date": "<transaction date>",
-            "original_description": "<transaction original description>",
-            "id": <transaction unique id>,
-            "categories": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for the category>,
-                    "id": <category id>,
-                    "name": "<category name>"
-                },
-    [...]
-            ]
-        }
+        "currency": "<isocode>",
+        "amount": <amount of the transaction>,
+        "accounts": [
+            {
+                "currency": "<isocode>",
+                "amount": <amount for this account>,
+                "verified": <boolean>,
+                "id": <account id>,
+                "name": "<account name>"
+            },
+            [...]
+        ],
+        "description": "<transaction description>",
+        "date": "<transaction date>",
+        "original_description": "<transaction original description>",
+        "id": <transaction unique id>,
+        "categories": [
+            {
+                "currency": "<isocode>",
+                "amount": <amount for the category>,
+                "id": <category id>,
+                "name": "<category name>"
+            },
+            [...]
+        ]
     }
 
 Delete
@@ -367,7 +355,4 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": "OK Deleted"
-    }
+    "OK Deleted"

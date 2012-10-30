@@ -27,9 +27,7 @@ Response
 
 Example::
 
-{
-    "status": 200,
-    "response": [
+    [
         {
             "children": [
                 {
@@ -84,7 +82,7 @@ Example::
             "name": "House"
         }
     ]
-}
+
 
 Create
 ======
@@ -110,26 +108,20 @@ Response
 
 If no parent is defined::
 
-{
-    "status": 200,
-    "response": {
+    {
         "id": <new category unique id>,
         "currency": "<currency isocode>",
         "name": "<new category name>"
     }
-}
 
 If a parent is defined::
 
-{
-    "status": 200,
-    "response": {
+    {
         "id": <new category unique id>,
         "parent": <parent unique id>,
         "currency": "<currency isocode>",
         "name": "<new category name>"
     }
-}
 
 Read
 ====
@@ -151,31 +143,28 @@ Response
 Example::
 
     {
-        "status": 200,
-        "response": {
-            "children": [
-                {
-                    "children": [
-                        {
-                            "id": 14,
-                            "currency": "EUR",
-                            "name": "Electricity"
-                        },
-                        {
-                            "id": 15,
-                            "currency": "EUR",
-                            "name": "Internet access"
-                        }
-                    ],
-                    "id": 9,
-                    "currency": "EUR",
-                    "name": "Invoices"
-                }
-            ],
-            "id": 2,
-            "currency": "EUR",
-            "name": "House"
-        }
+        "children": [
+            {
+                "children": [
+                    {
+                        "id": 14,
+                        "currency": "EUR",
+                        "name": "Electricity"
+                    },
+                    {
+                        "id": 15,
+                        "currency": "EUR",
+                        "name": "Internet access"
+                    }
+                ],
+                "id": 9,
+                "currency": "EUR",
+                "name": "Invoices"
+            }
+        ],
+        "id": 2,
+        "currency": "EUR",
+        "name": "House"
     }
 
 Update
@@ -207,31 +196,28 @@ Response
 Example::
 
     {
-        "status": 200,
-        "response": {
-            "children": [
-                {
-                    "children": [
-                        {
-                            "id": 14,
-                            "currency": "EUR",
-                            "name": "Electricity"
-                        },
-                        {
-                            "id": 15,
-                            "currency": "EUR",
-                            "name": "Internet access"
-                        }
-                    ],
-                    "id": 9,
-                    "currency": "EUR",
-                    "name": "Invoices"
-                }
-            ],
-            "id": 2,
-            "currency": "EUR",
-            "name": "House"
-        }
+        "children": [
+            {
+                "children": [
+                    {
+                        "id": 14,
+                        "currency": "EUR",
+                        "name": "Electricity"
+                    },
+                    {
+                        "id": 15,
+                        "currency": "EUR",
+                        "name": "Internet access"
+                    }
+                ],
+                "id": 9,
+                "currency": "EUR",
+                "name": "Invoices"
+            }
+        ],
+        "id": 2,
+        "currency": "EUR",
+        "name": "House"
     }
 
 Delete
@@ -255,7 +241,4 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": "OK Deleted"
-    }
+    "OK Deleted"

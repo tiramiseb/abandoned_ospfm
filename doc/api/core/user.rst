@@ -30,33 +30,28 @@ Response
 For other users::
 
     {
-        "status": 200,
-        "response": {
-            "username": "<username>",
-            "first_name": "<first name>",
-            "last_name": "<last name>",
-        }
+        "username": "<username>",
+        "first_name": "<first name>",
+        "last_name": "<last name>",
     }
 
 For the user's own information::
 
     {
-        "status": 200,
-        "response": {
-            "username": "<username>",
-            "first_name": "<first name>",
-            "last_name": "<last name>",
-            "preferred_currency": "<currency isocode>",
-            "emails": [
-                {
-                    "notification": <true or false>,
-                    "confirmed": <true or false>,
-                    "address": "<email address>",
-                },
-    [...]
-            ]
-        }
+        "username": "<username>",
+        "first_name": "<first name>",
+        "last_name": "<last name>",
+        "preferred_currency": "<currency isocode>",
+        "emails": [
+            {
+                "notification": <true or false>,
+                "confirmed": <true or false>,
+                "address": "<email address>",
+            },
+            [...]
+        ]
     }
+
 Update
 ======
 
@@ -113,21 +108,18 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "username": "<username>",
-            "first_name": "<first name>",
-            "last_name": "<last name>",
-            "preferred_currency": "<currency isocode>",
-            "emails": [
-                {
-                    "notification": <true or false>,
-                    "confirmed": <true or false>,
-                    "address": "<email address>",
-                },
-    [...]
-            ]
-        }
+        "username": "<username>",
+        "first_name": "<first name>",
+        "last_name": "<last name>",
+        "preferred_currency": "<currency isocode>",
+        "emails": [
+            {
+                "notification": <true or false>,
+                "confirmed": <true or false>,
+                "address": "<email address>",
+            },
+            [...]
+        ]
     }
 
 Search
@@ -155,22 +147,19 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": [
-            {
-                "username": "<username>",
-                "first_name": "<first name>",
-                "last_name": "<last name>"
-            },
-            {
-                "username": "<username>",
-                "first_name": "<first name>",
-                "last_name": "<last name>"
-            }
-    [...]
-        ]
-    }
+    [
+        {
+            "username": "<username>",
+            "first_name": "<first name>",
+            "last_name": "<last name>"
+        },
+        {
+            "username": "<username>",
+            "first_name": "<first name>",
+            "last_name": "<last name>"
+        }
+        [...]
+    ]
 
 List contacts
 =============
@@ -189,24 +178,21 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": [
-            {
-                "username": "<username>",
-                "first_name": "<first name>",
-                "last_name": "<last name>",
-                "comment": "<personal comment>"
-            },
-            {
-                "username": "<username>",
-                "first_name": "<first name>",
-                "last_name": "<last name>",
-                "comment": "<personal comment>"
-            }
-    [...]
-        ]
-    }
+    [
+        {
+            "username": "<username>",
+            "first_name": "<first name>",
+            "last_name": "<last name>",
+            "comment": "<personal comment>"
+        },
+        {
+            "username": "<username>",
+            "first_name": "<first name>",
+            "last_name": "<last name>",
+            "comment": "<personal comment>"
+        }
+        [...]
+    ]
 
 Create a contact
 ================
@@ -232,13 +218,10 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "username": "<username>",
-            "first_name": "<first name>",
-            "last_name": "<last name>",
-            "comment": "<personal comment"
-        }
+        "username": "<username>",
+        "first_name": "<first name>",
+        "last_name": "<last name>",
+        "comment": "<personal comment"
     }
 
 Read a contact
@@ -261,13 +244,10 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "username": "<username>",
-            "first_name": "<first name>",
-            "last_name": "<last name>",
-            "comment": "<personal comment"
-        }
+        "username": "<username>",
+        "first_name": "<first name>",
+        "last_name": "<last name>",
+        "comment": "<personal comment"
     }
 
 Update a contact
@@ -295,13 +275,10 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "username": "<username>",
-            "first_name": "<first name>",
-            "last_name": "<last name>",
-            "comment": "<personal comment"
-        }
+        "username": "<username>",
+        "first_name": "<first name>",
+        "last_name": "<last name>",
+        "comment": "<personal comment"
     }
 
 Delete a contact
@@ -323,10 +300,7 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": "OK Deleted"
-    }
+    "OK Deleted"
 
 Preferences
 ===========
@@ -345,20 +319,17 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": [
-            {
-                "name": "<preference name>",
-                "value": "<preference value>"
-            },
-            {
-                "name": "<preference name>",
-                "value": "<preference value>"
-            }
-    [...]
-        ]
-    }
+    [
+        {
+            "name": "<preference name>",
+            "value": "<preference value>"
+        },
+        {
+            "name": "<preference name>",
+            "value": "<preference value>"
+        }
+        [...]
+    ]
 
 Read a preference
 =================
@@ -380,11 +351,8 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "name": "<preference name>",
-            "value": "<preference value>"
-        }
+        "name": "<preference name>",
+        "value": "<preference value>"
     }
 
 
@@ -414,11 +382,8 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "name": "<preference name>",
-            "value": "<preference value>"
-        }
+        "name": "<preference name>",
+        "value": "<preference value>"
     }
 
 Delete a preference
@@ -440,7 +405,4 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": "OK Deleted"
-    }
+    "OK Deleted"

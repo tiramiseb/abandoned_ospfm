@@ -27,19 +27,17 @@ Response
 
 Example::
 
-    {
-        "status": 200,
-        "response": [
-            {
-                "isocode": "AED",
-                "name": "United Arab Emirates dirham"
-            },
-            {
-                "isocode": "AFN",
-                "name": "Afghan afghani"
-            },
+    [
+        {
+            "isocode": "AED",
+            "name": "United Arab Emirates dirham"
+        },
+        {
+            "isocode": "AFN",
+            "name": "Afghan afghani"
+        },
         [...]
-    }
+    ]
 
 Create
 ======
@@ -67,14 +65,11 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "owner": "<username>",
-            "isocode": "<isocode>",
-            "symbol": "<symbol>",
-            "name": "<currency name>",
-            "rate": <currency rate>
-        }
+        "owner": "<username>",
+        "isocode": "<isocode>",
+        "symbol": "<symbol>",
+        "name": "<currency name>",
+        "rate": <currency rate>
     }
 
 Read
@@ -97,25 +92,19 @@ Response
 For global currencies::
 
     {
-        "status": 200,
-        "response": {
-            "isocode": "<isocode of the currency>",
-            "symbol": "<symbol of the currency>",
-            "name": "<name of the currency>"
-        }
+        "isocode": "<isocode of the currency>",
+        "symbol": "<symbol of the currency>",
+        "name": "<name of the currency>"
     }
 
 For user-defined currencies::
 
     {
-        "status": 200,
-        "response": {
-            "owner": "<username>",
-            "isocode": "<isocode>",
-            "symbol": "<symbol>",
-            "name": "<currency name>",
-            "rate": <currency rate>
-        }
+        "owner": "<username>",
+        "isocode": "<isocode>",
+        "symbol": "<symbol>",
+        "name": "<currency name>",
+        "rate": <currency rate>
     }
 
 Update
@@ -148,14 +137,11 @@ Response
 ::
 
     {
-        "status": 200,
-        "response": {
-            "owner": "<username>",
-            "isocode": "<isocode>",
-            "symbol": "<symbol>",
-            "name": "<currency name>",
-            "rate": <currency rate>
-        }
+        "owner": "<username>",
+        "isocode": "<isocode>",
+        "symbol": "<symbol>",
+        "name": "<currency name>",
+        "rate": <currency rate>
     }
 
 Delete
@@ -178,10 +164,7 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": "OK Deleted"
-    }
+    "OK Deleted"
 
 Exchange rate
 =============
@@ -203,7 +186,4 @@ Response
 
 ::
 
-    {
-        "status": 200,
-        "response": <rate>
-    }
+    <rate>
