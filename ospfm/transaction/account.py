@@ -63,6 +63,12 @@ class Account(Object):
         }
 
     def create(self):
+        if not (
+            self.args.has_key('currency') and
+            self.args.has_key('name') and
+            self.args.has_key('start_balance')
+        ):
+            self.badrequest()
         currency = core.Currency.query.filter(
             and_(
                 core.Currency.isocode == self.args['currency'],

@@ -51,16 +51,29 @@ class Category(Object):
         return [c.as_dict() for c in categories]
 
     def create(self):
+        if not (self.args.has_key('currency') and self.args.has_key('name')):
+            self.badrequest()
         if self.args.has_key('parent'):
             parent = self.__own_category(self.args['parent'])
             if not parent:
                 self.badrequest()
         else:
             parent = None
+        currency = core.Currency.query.filter(
+            and_(
+                core.Currency.isocode == self.args['currency'],
+                or_(
+                    core.Currency.owner_username == self.username,
+                    core.Currency.owner == None
+                )
+            )
+        ).first()
+        if not currency:
+            self.badrequest()
         category = models.Category(
                         owner_username=self.username,
                         parent=parent,
-                        currency=self.args['currency'],
+                        currency=currency,
                         name=self.args['name']
                    )
         session.add(category)
