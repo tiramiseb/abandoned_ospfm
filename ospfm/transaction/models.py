@@ -22,7 +22,8 @@ from sqlalchemy import and_, Boolean, Column, Date, ForeignKey, func,\
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import UniqueConstraint
 
-from ospfm import config
+from ospfm import config, helpers
+from ospfm.core import exchangerate
 from ospfm.database import Base, session
 
 cache = config.CACHE
@@ -98,11 +99,11 @@ class Category(Base):
     def balance(self):
         today = datetime.date.today()
 
-        balance = cache.get('currencybalance-{}'.format(self.id))
+        balance = cache.get('categorybalance-{}'.format(self.id))
 
         if not balance:
 
-            balance = {};
+            balance = {'currency': self.currency.isocode};
 
             balance['year'] = session.query(
                 func.sum(TransactionCategory.amount)
@@ -178,15 +179,16 @@ class Category(Base):
 
             # Cache the balance only for 5 seconds : it helps when listing
             # multiple categories by reducing sql requests
-            cache.set('currencybalance-{}'.format(self.id), balance, 5)
+            cache.set('categorybalance-{}'.format(self.id), balance, 5)
 
         for child in self.children:
             child_balance = child.balance()
-            balance['year'] = balance['year'] + child_balance['year']
-            balance['month'] = balance['month'] + child_balance['month']
-            balance['week'] = balance['week'] + child_balance['week']
-            balance['7days'] = balance['7days'] + child_balance['7days']
-            balance['30days'] = balance['30days'] + child_balance['30days']
+            rate =helpers.rate(child_balance['currency'],self.currency.isocode)
+            balance['year'] = balance['year'] + child_balance['year'] * rate
+            balance['month'] = balance['month'] + child_balance['month'] * rate
+            balance['week'] = balance['week'] + child_balance['week'] * rate
+            balance['7days'] = balance['7days'] + child_balance['7days'] * rate
+            balance['30days'] = balance['30days'] +child_balance['30days']*rate
 
         return balance
 

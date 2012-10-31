@@ -21,7 +21,6 @@ from sqlalchemy.orm import joinedload
 from ospfm import helpers
 from ospfm.transaction import models
 from ospfm.core import models as core
-from ospfm.core import currency as corecurrency
 
 def accountbalance(accountid):
     username = helpers.flask_get_username()
@@ -50,8 +49,8 @@ def totalbalance():
                     ).get(username).preferred_currency
     for account in accounts:
         totalbalance += account.balance() * \
-        corecurrency.Currency().rate(account.currency.isocode,
-                                     totalcurrency.isocode)
+        helpers.rate(account.currency.isocode,
+                     totalcurrency.isocode)
     return {
         'balance': totalbalance,
         'currency': totalcurrency.isocode

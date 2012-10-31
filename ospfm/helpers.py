@@ -18,8 +18,11 @@
 import datetime
 
 from flask import request
+from sqlalchemy import and_, or_
 
 from ospfm import config
+from ospfm.core import exchangerate
+from ospfm.core import models as core
 
 def flask_get_username():
     # remote_user contains the user's username when (s)he is authorized by the server
@@ -41,3 +44,53 @@ def date_from_string(string):
         except:
             pass
     return None
+
+def rate(fromisocode, toisocode):
+    if fromisocode == toisocode:
+        return 1
+    username = flask_get_username()
+    # Request the currencies
+    fromcurrency = core.Currency.query.filter(
+        and_(
+            core.Currency.isocode == fromisocode,
+            or_(
+                core.Currency.owner_username == username,
+                core.Currency.owner == None,
+            )
+        )
+    ).first()
+    tocurrency = core.Currency.query.filter(
+        and_(
+            core.Currency.isocode == toisocode,
+            or_(
+                core.Currency.owner_username == username,
+                core.Currency.owner == None,
+            )
+        )
+    ).first()
+    if not fromcurrency or not tocurrency:
+        self.badrequest()
+    # Both currencies are globally defined
+    if (fromcurrency.rate is None) and (tocurrency.rate is None):
+        return exchangerate.getrate(fromcurrency.isocode, tocurrency.isocode)
+    # Both currencies are user-defined
+    elif (fromcurrency.rate is not None) and (tocurrency.rate is not None):
+        return tocurrency.rate / fromcurrency.rate
+    # Mixed user-defined / globally defined rates
+    else:
+        preferred_isocode = core.User.query.filter(
+                                core.User.username==username
+                           ).one().preferred_currency.isocode
+        # From a user-defined currency to a globally defined currency
+        if (fromcurrency.rate is not None) and (tocurrency.rate is None):
+            target_rate = exchangerate.getrate(preferred_isocode,
+                                               tocurrency.isocode)
+            if (fromcurrency.rate == 0):
+                return 0
+            return target_rate / fromcurrency.rate
+        if (fromcurrency.rate is None) and (tocurrency.rate is not None):
+            source_rate = exchangerate.getrate(preferred_isocode,
+                                               fromcurrency.isocode)
+            if (tocurrency.rate == 0):
+                return 0
+            return tocurrency.rate / source_rate

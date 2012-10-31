@@ -18,6 +18,7 @@
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
+from ospfm import helpers
 from ospfm.core import currency as currencylib
 from ospfm.core import models as core
 from ospfm.transaction import models
@@ -103,7 +104,7 @@ class Category(Object):
                 )
             ).first()
             if currency:
-                rate = currencylib.Currency().rate(
+                rate = helpers.rate(
                             category.currency.isocode,
                             currency.isocode
                        )

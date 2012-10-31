@@ -20,6 +20,7 @@ from decimal import Decimal
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
+from ospfm import helpers
 from ospfm.core import models as core
 from ospfm.core import currency as corecurrency
 from ospfm.transaction import models
@@ -52,8 +53,8 @@ class Account(Object):
                         ).get(self.username).preferred_currency
         for account in accounts:
             totalbalance += account.balance() * \
-            corecurrency.Currency().rate(account.currency.isocode,
-                                         totalcurrency.isocode)
+            helpers.rate(account.currency.isocode,
+                         totalcurrency.isocode)
         return {
             'accounts': [a.as_dict() for a in accounts],
             'total': {

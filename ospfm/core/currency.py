@@ -16,8 +16,9 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import abort, jsonify
-from sqlalchemy import and_, or_, func
+from sqlalchemy import and_, or_
 
+from ospfm import helpers
 from ospfm.core import exchangerate, models
 from ospfm.database import session
 from ospfm.transaction import models as transaction
@@ -112,46 +113,8 @@ class Currency(Object):
         session.delete(currency)
         session.commit()
 
-    def rate(self, fromisocode, toisocode):
-        if fromisocode == toisocode:
-            return 1
-        # Initialize the username so we can request the currencies
-        # XXX May be improved if, one day, this is used outside an HTTP request
-        self._Object__init_http()
-        # Request the currencies
-        fromcurrency = self.__own_currency(fromisocode).first()
-        tocurrency = self.__own_currency(toisocode).first()
-        if not fromcurrency or not tocurrency:
-            self.badrequest()
-        # Both currencies are globally defined
-        if (fromcurrency.rate is None) and (tocurrency.rate is None):
-            return exchangerate.getrate(fromcurrency.isocode, tocurrency.isocode)
-        # Both currencies are user-defined
-        elif (fromcurrency.rate is not None) and (tocurrency.rate is not None):
-            return tocurrency.rate / fromcurrency.rate
-        # Mixed user-defined / globally defined rates
-        else:
-            preferred_isocode = models.User.query.filter(
-                                    models.User.username==self.username
-                               ).one().preferred_currency.isocode
-            # From a user-defined currency to a globally defined currency
-            if (fromcurrency.rate is not None) and (tocurrency.rate is None):
-                target_rate = exchangerate.getrate(preferred_isocode,
-                                                   tocurrency.isocode)
-                if (fromcurrency.rate == 0):
-                    return 0
-                return target_rate / fromcurrency.rate
-            if (fromcurrency.rate is None) and (tocurrency.rate is not None):
-                source_rate = exchangerate.getrate(preferred_isocode,
-                                                   fromcurrency.isocode)
-                if (tocurrency.rate == 0):
-                    return 0
-                return tocurrency.rate / source_rate
-        # This should not happen
-        self.badrequest()
-
     def http_rate(self, fromisocode, toisocode):
         return jsonify(
                     status=200,
-                    response=self.rate(fromisocode, toisocode)
+                    response=helpers.rate(fromisocode, toisocode)
                )
