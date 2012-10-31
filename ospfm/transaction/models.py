@@ -102,8 +102,6 @@ class Category(Base):
 
         if not balance:
 
-            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! PAS DE BALANCE"
-
             balance = {};
 
             balance['year'] = session.query(
@@ -181,9 +179,6 @@ class Category(Base):
             # Cache the balance only for 5 seconds : it helps when listing
             # multiple categories by reducing sql requests
             cache.set('currencybalance-{}'.format(self.id), balance, 5)
-
-        else:
-            print "BALANCE !"
 
         for child in self.children:
             child_balance = child.balance()
