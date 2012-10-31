@@ -20,9 +20,6 @@ import json
 import urllib
 from decimal import Decimal
 
-from werkzeug.contrib.cache import SimpleCache
-cache = SimpleCache()
-
 from ospfm import config
 cache = config.CACHE
 
