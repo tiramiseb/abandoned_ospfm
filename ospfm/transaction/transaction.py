@@ -136,9 +136,8 @@ class Transaction(Object):
                                 amount = categorydata['amount']
                         )
                         session.add(tc)
-                    # TODO: Category balance for some periods
-                    #self.add_to_response('categorybalance',
-                    #                     categorydata['category'])
+                    self.add_to_response('categorybalance',
+                                         categorydata['category'])
 
         # Commit everything...
         session.commit()
@@ -251,8 +250,7 @@ class Transaction(Object):
                             )).one()
                             tc.amount = amount
                             tc.verified = False
-                            # TODO: Category balance for some periods
-                            #self.add_to_response('categorybalance', categoryid)
+                            self.add_to_response('categorybalance', categoryid)
                         existing_categories.pop(categoryid)
                     else:
                         # Category is not already linked
@@ -269,8 +267,7 @@ class Transaction(Object):
                                     category = categoryobject,
                                     amount = amount
                             )
-                            # TODO: Category balance for some periods
-                            #self.add_to_response('categorybalance', categoryid)
+                            self.add_to_response('categorybalance', categoryid)
                             session.add(tc)
             # All categories to keep have been poped out from
             # "existing_categories"
@@ -280,8 +277,7 @@ class Transaction(Object):
                     models.TransactionCategory.transaction == transaction,
                     models.TransactionCategory.category_id == categoryid
                 )).one()
-                # TODO: Category balance for some periods
-                #self.add_to_response('categorybalance', categoryid)
+                self.add_to_response('categorybalance', categoryid)
                 session.delete(tc)
 
         session.commit()

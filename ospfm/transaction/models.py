@@ -190,13 +190,20 @@ class Category(Base):
 
         return balance
 
+    def all_parents_ids(self):
+        parents = []
+        if self.parent_id:
+            parents.append(self.parent_id)
+            parents = parents + self.parent.all_parents_ids()
+        return parents
+
     def as_dict(self, parent=True, children=True):
         desc = {
             'id': self.id,
             'name': self.name,
             'currency': self.currency.isocode,
-            'balance': self.balance()
         }
+        desc.update(self.balance())
         if parent and self.parent_id:
             desc['parent'] = self.parent_id
         if children and self.children:

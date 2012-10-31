@@ -56,3 +56,16 @@ def totalbalance():
         'balance': totalbalance,
         'currency': totalcurrency.isocode
     }
+
+def categorybalance(categoryid):
+    username = helpers.flask_get_username()
+    category = models.Category.query.filter(
+                    and_(
+                        models.Category.owner_username == username,
+                        models.Category.id == categoryid
+                    )
+              ).first()
+    result = category.balance()
+    result['id'] = categoryid
+    return result
+
