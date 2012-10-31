@@ -19,7 +19,7 @@ from flask import abort, jsonify
 from sqlalchemy import and_, or_
 
 from ospfm import helpers
-from ospfm.core import exchangerate, models
+from ospfm.core import models
 from ospfm.database import session
 from ospfm.transaction import models as transaction
 from ospfm.objects import Object
