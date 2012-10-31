@@ -80,10 +80,12 @@ class Object:
                 self.delete(arg)
                 response = 'OK Deleted'
             # Create additional data
-            additional_data = {}
+            additional_data = []
             for data in self.add_data:
-                additional_data[data[0]] = \
+                additional_data.append([
+                    data[0],
                     ospfm.additional_methods[data[0]](*data[1:])
+                ])
             # JSON response
             if additional_data:
                 return jsonify(status=200, response=response,
