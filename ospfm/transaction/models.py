@@ -15,13 +15,17 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from sqlalchemy import Boolean, Column, Date, ForeignKey, func,\
+import datetime
+
+from sqlalchemy import and_, Boolean, Column, Date, ForeignKey, func,\
                        Integer, Numeric, String
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import UniqueConstraint
 
+from ospfm import config
 from ospfm.database import Base, session
 
+cache = config.CACHE
 
 class Account(Base):
     __tablename__ = 'account'
@@ -91,14 +95,112 @@ class Category(Base):
     transactions_category = relationship('TransactionCategory',
                                          cascade='all, delete-orphan')
 
-    # TODO: Category balance for some periods
-    #def balance(self):
+    def balance(self):
+        today = datetime.date.today()
+
+        balance = cache.get('currencybalance-{}'.format(self.id))
+
+        if not balance:
+
+            print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! PAS DE BALANCE"
+
+            balance = {};
+
+            balance['year'] = session.query(
+                func.sum(TransactionCategory.amount)
+            ).filter(
+                and_(
+                    TransactionCategory.category_id == self.id,
+                    TransactionCategory.transaction_id == Transaction.id,
+                    Transaction.date.between(
+                        datetime.date(today.year, 1, 1),
+                        datetime.date(today.year, 12, 31)
+                    )
+                )
+            ).one()[0] or 0
+
+            if today.month == 12:
+                lastdayofmonth = datetime.date(today.year, 12, 31)
+            else:
+                lastdayofmonth = datetime.date(today.year, today.month+1, 1) - \
+                                                              datetime.timedelta(1)
+            balance['month'] = session.query(
+                func.sum(TransactionCategory.amount)
+            ).filter(
+                and_(
+                    TransactionCategory.category_id == self.id,
+                    TransactionCategory.transaction_id == Transaction.id,
+                    Transaction.date.between(
+                        datetime.date(today.year, today.month, 1),
+                        lastdayofmonth
+                    )
+                )
+            ).one()[0] or 0
+
+            firstdayofweek = today - datetime.timedelta(today.weekday())
+            lastdayofweek = today + datetime.timedelta(6-today.weekday())
+            balance['week'] = session.query(
+                func.sum(TransactionCategory.amount)
+            ).filter(
+                and_(
+                    TransactionCategory.category_id == self.id,
+                    TransactionCategory.transaction_id == Transaction.id,
+                    Transaction.date.between(
+                        firstdayofweek,
+                        lastdayofweek
+                    )
+                )
+            ).one()[0] or 0
+
+            balance['7days'] = session.query(
+                func.sum(TransactionCategory.amount)
+            ).filter(
+                and_(
+                    TransactionCategory.category_id == self.id,
+                    TransactionCategory.transaction_id == Transaction.id,
+                    Transaction.date.between(
+                        today - datetime.timedelta(6),
+                        today
+                    )
+                )
+            ).one()[0] or 0
+
+            balance['30days'] = session.query(
+                func.sum(TransactionCategory.amount)
+            ).filter(
+                and_(
+                    TransactionCategory.category_id == self.id,
+                    TransactionCategory.transaction_id == Transaction.id,
+                    Transaction.date.between(
+                        today - datetime.timedelta(29),
+                        today
+                    )
+                )
+            ).one()[0] or 0
+
+            # Cache the balance only for 5 seconds : it helps when listing
+            # multiple categories by reducing sql requests
+            cache.set('currencybalance-{}'.format(self.id), balance, 5)
+
+        else:
+            print "BALANCE !"
+
+        for child in self.children:
+            child_balance = child.balance()
+            balance['year'] = balance['year'] + child_balance['year']
+            balance['month'] = balance['month'] + child_balance['month']
+            balance['week'] = balance['week'] + child_balance['week']
+            balance['7days'] = balance['7days'] + child_balance['7days']
+            balance['30days'] = balance['30days'] + child_balance['30days']
+
+        return balance
 
     def as_dict(self, parent=True, children=True):
         desc = {
             'id': self.id,
             'name': self.name,
-            'currency': self.currency.isocode
+            'currency': self.currency.isocode,
+            'balance': self.balance()
         }
         if parent and self.parent_id:
             desc['parent'] = self.parent_id

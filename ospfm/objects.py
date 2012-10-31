@@ -80,7 +80,6 @@ class Object:
                 self.delete(arg)
                 response = 'OK Deleted'
             # Create additional data
-            print self.add_data
             additional_data = {}
             for data in self.add_data:
                 additional_data[data[0]] = \

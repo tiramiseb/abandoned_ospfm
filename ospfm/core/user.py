@@ -97,8 +97,6 @@ class User(Object):
                     previous_emails.append(address.email_address)
                     if address.notification:
                         previous_notifications.append(address.email_address)
-                print previous_emails
-                print previous_notifications
                 if type(emails) == type({}):
                     if emails.has_key('add') and \
                        type(emails['add']) == type([]):
