@@ -15,9 +15,10 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-import json
+import datetime, json
 
-from sqlalchemy import and_, or_
+from flask import jsonify
+from sqlalchemy import and_, or_, desc
 from sqlalchemy.orm import joinedload
 
 from ospfm import helpers
@@ -43,20 +44,17 @@ class Transaction(Object):
                ).first()
 
     def list(self):
-        # XXX Listing all transactions will probably disappear,
-        #     replaced by some sort of search filter
-        transactions = models.Transaction.query.options(
-                          joinedload(models.Transaction.currency),
-                          joinedload(models.Transaction.transaction_accounts),
-                          joinedload(models.Transaction.transaction_categories)
-                       ).order_by(
-                            models.Transaction.date
-                       ).filter(
-                            models.Transaction.owner_username == self.username
-                       ).all()
-        return [t.as_dict() for t in transactions]
+        # Transactions cannot be listed with the API
+        self.forbidden()
 
     def create(self):
+        if not (
+            self.args.has_key('currency') and \
+            self.args.has_key('date') and \
+            self.args.has_key('description') and \
+            self.args.has_key('amount')
+        ):
+            self.badrequest()
         # First, create the transaction object
         currency = core.Currency.query.filter(
             and_(
@@ -289,3 +287,82 @@ class Transaction(Object):
             self.notfound()
         session.delete(transaction)
         session.commit()
+
+    def http_filter(self):
+        self._Object__init_http()
+        return jsonify(status=200, response=self.__filter(self.args))
+
+    def __filter(self, filter):
+        filters = [
+            models.Transaction.owner_username == self.username,
+        ]
+        limit = 100
+        for part in filter.items():
+            if filter_functions.has_key(part[0]):
+                filters.extend(
+                    filter_functions[part[0]](part[1])
+                )
+            elif part[0] == 'limit':
+                print part[1]
+                try:
+                    limit = min(int(part[1]), 100)
+                except:
+                    pass
+        transactions = models.Transaction.query.options(
+                          joinedload(models.Transaction.currency),
+                          joinedload(models.Transaction.transaction_accounts),
+                          joinedload(models.Transaction.transaction_categories)
+                       ).order_by(
+                            desc(models.Transaction.date)
+                       ).filter(
+                            and_(
+                                *filters
+                            )
+                       ).limit(limit).all()
+        return [t.as_dict() for t in transactions]
+
+def account_filter(value):
+    return [
+        models.Transaction.id == models.TransactionAccount.transaction_id,
+        models.TransactionAccount.account_id == value
+    ]
+def category_filter(value):
+    return [
+        models.Transaction.id == models.TransactionCategory.transaction_id,
+        models.TransactionCategory.category_id == value
+    ]
+def currency_filter(value):
+    return [
+        models.Transaction.currency_id == core.Currency.id,
+        core.Currency.isocode == value
+    ]
+def dates_filter(value):
+    try:
+        f = []
+        fromdate, todate = value.split('-')
+        if fromdate:
+            f.append(
+                models.Transaction.date >= datetime.date(
+                                                int(fromdate[:4]),
+                                                int(fromdate[4:6]),
+                                                int(fromdate[6:])
+                                            )
+            )
+        if todate:
+            f.append(
+                models.Transaction.date <= datetime.date(
+                                                int(todate[:4]),
+                                                int(todate[4:6]),
+                                                int(todate[6:])
+                                            )
+            )
+        return f
+    except:
+        return []
+
+filter_functions = {
+    'account': account_filter,
+    'category': category_filter,
+    'currency': currency_filter,
+    'dates': dates_filter
+}

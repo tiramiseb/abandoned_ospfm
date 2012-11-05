@@ -199,13 +199,14 @@ class Category(Base):
             parents = parents + self.parent.all_parents_ids()
         return parents
 
-    def as_dict(self, parent=True, children=True):
+    def as_dict(self, parent=True, children=True, balance=True):
         desc = {
             'id': self.id,
             'name': self.name,
             'currency': self.currency.isocode,
         }
-        desc.update(self.balance())
+        if balance:
+            desc.update(self.balance())
         if parent and self.parent_id:
             desc['parent'] = self.parent_id
         if children and self.children:
@@ -283,7 +284,7 @@ class TransactionCategory(Base):
     category = relationship('Category')
 
     def as_dict(self):
-        data = self.category.as_dict(parent=False,children=False)
+        data = self.category.as_dict(parent=False,children=False,balance=False)
         data['amount'] = self.amount
         return data
 

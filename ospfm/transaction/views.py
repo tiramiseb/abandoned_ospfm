@@ -38,3 +38,7 @@ def categories(categoryid=None):
 @app.route('/transactions/<transactionid>', methods=['GET', 'POST', 'DELETE'])
 def transactions(transactionid=None):
     return Transaction().http_request(transactionid)
+
+@app.route('/transactions/filter')
+def transaction_filter():
+    return Transaction().http_filter()

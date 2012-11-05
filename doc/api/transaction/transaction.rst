@@ -4,81 +4,6 @@ OSPFM REST API : Transaction
 
 This document details the OSPFM REST API for Transaction requests.
 
-List
-====
-
-List all user's transactions
-
-Request
--------
-
-::
-
-    GET /transactions
-
-Response
---------
-
-::
-
-    [
-        {
-            "currency": "<isocode>",
-            "amount": <amount of the transaction>,
-            "accounts": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for this account>,
-                    "verified": <boolean>,
-                    "id": <account id>,
-                    "name": "<account name>"
-                },
-                [...]
-            ],
-            "description": "<transaction description>",
-            "date": "<transaction date>",
-            "original_description": "<transaction original description>",
-            "id": <transaction unique id>,
-            "categories": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for the category>,
-                    "id": <category id>,
-                    "name": "<category name>"
-                },
-                [...]
-            ]
-        },
-        {
-            "currency": "<isocode>",
-            "amount": <amount of the transaction>,
-            "accounts": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for this account>,
-                    "verified": <boolean>,
-                    "id": <account id>,
-                    "name": "<account name>"
-                },
-                [...]
-            ],
-            "description": "<transaction description>",
-            "date": "<transaction date>",
-            "original_description": "<transaction original description>",
-            "id": <transaction unique id>,
-            "categories": [
-                {
-                    "currency": "<isocode>",
-                    "amount": <amount for the category>,
-                    "id": <category id>,
-                    "name": "<category name>"
-                },
-                [...]
-            ]
-        },
-        [...]
-    ]
-
 Create
 ======
 
@@ -356,3 +281,134 @@ Response
 ::
 
     "OK Deleted"
+
+
+
+
+
+
+
+
+
+Filter
+======
+
+List user's transactions
+
+Request
+-------
+
+::
+
+    GET /transactions/filter?<filter>
+
+Response
+--------
+
+::
+
+    [
+        {
+            "currency": "<isocode>",
+            "amount": <amount of the transaction>,
+            "accounts": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for this account>,
+                    "verified": <boolean>,
+                    "id": <account id>,
+                    "name": "<account name>"
+                },
+                [...]
+            ],
+            "description": "<transaction description>",
+            "date": "<transaction date>",
+            "original_description": "<transaction original description>",
+            "id": <transaction unique id>,
+            "categories": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for the category>,
+                    "id": <category id>,
+                    "name": "<category name>"
+                },
+                [...]
+            ]
+        },
+        {
+            "currency": "<isocode>",
+            "amount": <amount of the transaction>,
+            "accounts": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for this account>,
+                    "verified": <boolean>,
+                    "id": <account id>,
+                    "name": "<account name>"
+                },
+                [...]
+            ],
+            "description": "<transaction description>",
+            "date": "<transaction date>",
+            "original_description": "<transaction original description>",
+            "id": <transaction unique id>,
+            "categories": [
+                {
+                    "currency": "<isocode>",
+                    "amount": <amount for the category>,
+                    "id": <category id>,
+                    "name": "<category name>"
+                },
+                [...]
+            ]
+        },
+        [...]
+    ]
+
+Filter format
+-------------
+
+A filter is formatted as any other HTTP query string::
+
+    <parameter>=<value>&<parameter>=<value>&[...]
+
+Example::
+
+    /transactions/filter?account=1&category=12
+
+Filter options
+--------------
+
+limit=<X>
+'''''''''
+
+Limit response to <X> transactions (maximum 100).
+
+account=<id>
+''''''''''''
+
+Only transactions in account <id>.
+
+category=<id>
+'''''''''''''
+
+Only transactions having category <id>.
+
+currency=<isocode>
+''''''''''''''''''
+
+Only transactions in the given currency.
+
+dates=<fromdate>-<todate>
+'''''''''''''''''''''''''
+
+Only transactions between <fromdate> and <todate>. Both dates are optional.
+
+Date format::
+
+    YYYYMMDD
+
+Examples::
+
+    dates=20120101-20121231 # All transactions in 2012 (limited to 100)
+    dates=20121015-         # All dates after 2012-10-15
