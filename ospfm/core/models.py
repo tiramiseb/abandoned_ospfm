@@ -35,7 +35,7 @@ class Currency(Base):
     owner = relationship('User',
                          primaryjoin='Currency.owner_username==User.username')
 
-    def as_dict(self, with_rate=False):
+    def as_dict(self):
         info = {
             'isocode': self.isocode,
             'symbol': self.symbol,

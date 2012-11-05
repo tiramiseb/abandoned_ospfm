@@ -18,7 +18,7 @@
 import json
 import os
 
-from flask import abort, jsonify
+from flask import jsonify
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
