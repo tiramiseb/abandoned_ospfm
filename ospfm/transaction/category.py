@@ -124,10 +124,12 @@ class Category(Object):
                     self.badrequest()
                 if parent.id != category.parent_id:
                     allparents = set([parent.id, category.parent_id] + \
-                                     category.parent.all_parents_ids() + \
                                      parent.all_parents_ids())
+                    if category.parent_id:
+                        allparents.update(category.parent.all_parents_ids())
                     for parentid in allparents:
-                        self.add_to_response('categorybalance', parentid)
+                        if parentid:
+                            self.add_to_response('categorybalance', parentid)
                     category.parent = parent
         session.commit()
         return category.as_dict()

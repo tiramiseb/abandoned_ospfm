@@ -38,3 +38,4 @@ def init_db():
     import ospfm.core.models
     import ospfm.transaction.models
     Base.metadata.create_all(bind=engine)
+    
