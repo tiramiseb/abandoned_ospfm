@@ -108,7 +108,7 @@ def populate_test_db():
     t1 = transaction.Transaction(owner=alice, description='Elec. bill',
                                  original_description='ELECTRIC COMPANY',
                                  amount=-83.42, currency=euro,
-                                 date=datetime.date(2012, 2, 5))
+                                 date=datetime.date(2013, 1, 5))
     ta1 = transaction.TransactionAccount(transaction=t1, account=acct1,
                                          amount=-83.42)
     tc1 = transaction.TransactionCategory(transaction=t1, category=alicecat7,
@@ -116,7 +116,7 @@ def populate_test_db():
     t2 = transaction.Transaction(owner=alice, description='Transfer',
                                  original_description='Transfer',
                                  amount=0, currency=dollar,
-                                 date=datetime.date(2012, 2, 7))
+                                 date=datetime.date(2013, 1, 7))
     ta2_1 = transaction.TransactionAccount(transaction=t2, account=acct2,
                                            amount=-200)
     ta2_2 = transaction.TransactionAccount(transaction=t2, account=acct1,

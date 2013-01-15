@@ -32,7 +32,8 @@ def accountbalance(accountid):
               ).first()
     return {
         'id': accountid,
-        'balance':account.balance()
+        'balance': account.balance(),
+        'transactions_count': account.transactions_count()
     }
 
 def totalbalance():

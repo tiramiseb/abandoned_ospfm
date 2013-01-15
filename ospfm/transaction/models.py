@@ -51,6 +51,12 @@ class Account(Base):
         else:
             return self.start_balance
 
+    def transactions_count(self):
+        return session.query(
+            func.count(TransactionAccount.transaction_id)
+        ).filter(
+            TransactionAccount.account_id == self.id
+        ).one()[0] or 0
 
     def as_dict(self, short=False):
         if short:
@@ -65,7 +71,8 @@ class Account(Base):
                 'name': self.name,
                 'currency': self.currency.isocode,
                 'start_balance': self.start_balance,
-                'balance': self.balance()
+                'balance': self.balance(),
+                'transactions_count': self.transactions_count()
             }
 
 

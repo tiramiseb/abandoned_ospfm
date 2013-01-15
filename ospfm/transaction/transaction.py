@@ -303,7 +303,6 @@ class Transaction(Object):
                     filter_functions[part[0]](part[1])
                 )
             elif part[0] == 'limit':
-                print part[1]
                 try:
                     limit = min(int(part[1]), 100)
                 except:
