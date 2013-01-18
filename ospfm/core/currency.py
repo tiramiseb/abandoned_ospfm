@@ -114,7 +114,11 @@ class Currency(Object):
         session.commit()
 
     def http_rate(self, fromisocode, toisocode):
-        return jsonify(
-                    status=200,
-                    response=helpers.rate(fromisocode, toisocode)
-               )
+        response = helpers.rate(fromisocode, toisocode)
+        if response:
+            return jsonify(
+                        status=200,
+                        response=response
+                )
+        else:
+            self.badrequest()

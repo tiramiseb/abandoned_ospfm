@@ -30,9 +30,11 @@ def accountbalance(accountid):
                         models.Account.id == accountid
                     )
               ).first()
+    balances = account.balance()
     return {
         'id': accountid,
-        'balance': account.balance(),
+        'balance': balances[0],
+        'balance_preferred': balances[1],
         'transactions_count': account.transactions_count()
     }
 
@@ -49,7 +51,7 @@ def totalbalance():
                         joinedload(core.User.preferred_currency)
                     ).get(username).preferred_currency
     for account in accounts:
-        totalbalance += account.balance() * \
+        totalbalance += account.balance()[0] * \
         helpers.rate(account.currency.isocode,
                      totalcurrency.isocode)
     return {

@@ -52,7 +52,7 @@ class Account(Object):
                             joinedload(core.User.preferred_currency)
                         ).get(self.username).preferred_currency
         for account in accounts:
-            totalbalance += account.balance() * \
+            totalbalance += account.balance()[0] * \
             helpers.rate(account.currency.isocode,
                          totalcurrency.isocode)
         return {

@@ -34,7 +34,8 @@ Response
                 "currency": "<currency isocode>",
                 "id": <account unique id>,
                 "name": "<account name>",
-                "balance": <account balance>
+                "balance": <account balance>,
+                "transactions_count": <number of transactions in this account>
             },
             [...]
         ],
@@ -72,7 +73,9 @@ Response
         "start_balance": <start balance>,
         "currency": "<currency isocode>",
         "id": <account unique id>,
-        "name": "<account name>"
+        "name": "<account name>",
+        "balance": 0,
+        "transactions_count": 0
     }
 
 Read
@@ -99,7 +102,8 @@ Response
         "currency": "<currency isocode>",
         "id": <account unique id>,
         "name": "<account name>",
-        "balance": <account balance>
+        "balance": <account balance>,
+        "transactions_count": <number of transactions in this account>
     }
 
 Update
@@ -136,7 +140,8 @@ Response
         "currency": "<currency isocode>",
         "id": <account unique id>,
         "name": "<account name>",
-        "balance": <account balance>
+        "balance": <account balance>,
+        "transactions_count": <number of transactions in this account>
     }
 
 Delete

@@ -282,14 +282,6 @@ Response
 
     "OK Deleted"
 
-
-
-
-
-
-
-
-
 Filter
 ======
 
@@ -366,7 +358,7 @@ Response
     ]
 
 Filter format
--------------
+=============
 
 A filter is formatted as any other HTTP query string::
 
@@ -377,30 +369,30 @@ Example::
     /transactions/filter?account=1&category=12
 
 Filter options
---------------
+==============
 
 limit=<X>
-'''''''''
+---------
 
 Limit response to <X> transactions (maximum 100).
 
 account=<id>
-''''''''''''
+------------
 
 Only transactions in account <id>.
 
 category=<id>
-'''''''''''''
+-------------
 
 Only transactions having category <id>.
 
 currency=<isocode>
-''''''''''''''''''
+------------------
 
 Only transactions in the given currency.
 
 dates=<fromdate>-<todate>
-'''''''''''''''''''''''''
+-------------------------
 
 Only transactions between <fromdate> and <todate>. Both dates are optional.
 

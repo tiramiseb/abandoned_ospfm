@@ -168,7 +168,7 @@ class Transaction(Object):
                 )
             ).first()
             if currency:
-                transaction.currency = self.args['currency']
+                transaction.currency = currency
         if self.args.has_key('date'):
             date = helpers.date_from_string(self.args['date'])
             if date:

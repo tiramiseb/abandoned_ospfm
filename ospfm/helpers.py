@@ -69,7 +69,7 @@ def rate(fromisocode, toisocode):
         )
     ).first()
     if not fromcurrency or not tocurrency:
-        self.badrequest()
+        return None
     # Both currencies are globally defined
     if (fromcurrency.rate is None) and (tocurrency.rate is None):
         return exchangerate.getrate(fromcurrency.isocode, tocurrency.isocode)

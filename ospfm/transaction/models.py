@@ -19,11 +19,11 @@ import datetime
 
 from sqlalchemy import and_, Boolean, Column, Date, ForeignKey, func,\
                        Integer, Numeric, String
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, joinedload
 from sqlalchemy.schema import UniqueConstraint
 
 from ospfm import config, helpers
-from ospfm.core import exchangerate
+from ospfm.core import exchangerate, models as coremodels
 from ospfm.database import Base, session
 
 cache = config.CACHE
@@ -41,15 +41,30 @@ class Account(Base):
                                         cascade='all, delete-orphan')
 
     def balance(self):
+        """
+        Return a list :
+            ( <balance in account currency>, <balance in preferred currency> )
+        """
         balance = session.query(
             func.sum(TransactionAccount.amount)
         ).filter(
             TransactionAccount.account_id == self.id
         ).one()[0]
         if balance:
-            return self.start_balance + balance
+            balances = [ self.start_balance + balance ]
         else:
-            return self.start_balance
+            balances = [ self.start_balance ]
+        balances.append(
+            helpers.rate(
+                self.currency.isocode,
+                coremodels.User.query.options(
+                    joinedload(coremodels.User.preferred_currency)
+                ).get(
+                    helpers.flask_get_username()
+                ).preferred_currency.isocode
+            ) * balances[0]
+        )
+        return balances
 
     def transactions_count(self):
         return session.query(
@@ -66,12 +81,14 @@ class Account(Base):
                 'currency': self.currency.isocode
             }
         else:
+            balances = self.balance()
             return {
                 'id': self.id,
                 'name': self.name,
                 'currency': self.currency.isocode,
                 'start_balance': self.start_balance,
-                'balance': self.balance(),
+                'balance': balances[0],
+                'balance_preferred': balances[1],
                 'transactions_count': self.transactions_count()
             }
 
