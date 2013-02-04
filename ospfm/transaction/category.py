@@ -112,7 +112,7 @@ class Category(Object):
                 for tc in models.TransactionCategory.query.filter(
                             models.TransactionCategory.category == category
                           ).all():
-                    tc.amount = tc.amount * rate
+                    tc.category_amount = tc.category_amount * rate
         if self.args.has_key('parent'):
             if self.args['parent'] == 'NONE':
                 category.parent_id = None

@@ -117,7 +117,8 @@ class Transaction(Object):
             categories = json.loads(self.args['categories'])
             for categorydata in categories:
                 transaction_categories = []
-                if categorydata.has_key('amount'):
+                if categorydata.has_key('transaction_amount') and \
+                   categorydata.has_key('category_amount'):
                     # If no amount is specified, do not associate the category
                     categoryobject = models.Category.query.options(
                         joinedload(models.Category.currency)
@@ -131,7 +132,8 @@ class Transaction(Object):
                         tc = models.TransactionCategory(
                                 transaction = transaction,
                                 category = categoryobject,
-                                amount = categorydata['amount']
+                       transaction_amount = categorydata['transaction_amount'],
+                              category_amount = categorydata['category_amount']
                         )
                         session.add(tc)
                     self.add_to_response('categorybalance',
@@ -234,19 +236,23 @@ class Transaction(Object):
                                         transaction.transaction_categories])
             new_categories_data = json.loads(self.args['categories'])
             for category_data in new_categories_data:
-                if category_data.has_key('amount') and \
+                if category_data.has_key('transaction_amount') and \
+                   category_data.has_key('category_amount') and \
                    category_data.has_key('category'):
-                    amount = category_data['amount']
+                    transaction_amount = category_data['transaction_amount']
+                    category_amount = category_data['category_amount']
                     categoryid = category_data['category']
                     if categoryid in existing_categories.keys():
                         # Category already linked...
-                        if existing_categories[categoryid] != amount:
+                        if existing_categories[categoryid]['category_amount'] \
+                           != category_amount:
                             # ...but the amount is different
                             tc = models.TransactionCategory.query.filter(and_(
                          models.TransactionCategory.transaction == transaction,
                          models.TransactionCategory.category_id == categoryid
                             )).one()
-                            tc.amount = amount
+                            tc.transaction_amount = transaction_amount
+                            tc.category_amount = category_amount
                             tc.verified = False
                             self.add_to_response('categorybalance', categoryid)
                         existing_categories.pop(categoryid)
@@ -263,7 +269,8 @@ class Transaction(Object):
                             tc = models.TransactionCategory(
                                     transaction = transaction,
                                     category = categoryobject,
-                                    amount = amount
+                                    transaction_amount = transaction_amount,
+                                    category_amount = category_amount
                             )
                             self.add_to_response('categorybalance', categoryid)
                             session.add(tc)
@@ -283,6 +290,7 @@ class Transaction(Object):
 
     def delete(self, transactionid):
         transaction = self.__own_transaction(transactionid)
+        # TODO: Additional info, account balance and total balance
         if not transaction:
             self.notfound()
         session.delete(transaction)

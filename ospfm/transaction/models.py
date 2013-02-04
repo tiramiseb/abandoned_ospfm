@@ -130,7 +130,7 @@ class Category(Base):
             balance = {'currency': self.currency.isocode};
 
             balance['year'] = session.query(
-                func.sum(TransactionCategory.amount)
+                func.sum(TransactionCategory.category_amount)
             ).filter(
                 and_(
                     TransactionCategory.category_id == self.id,
@@ -148,7 +148,7 @@ class Category(Base):
                 lastdayofmonth = datetime.date(today.year, today.month+1, 1) - \
                                                               datetime.timedelta(1)
             balance['month'] = session.query(
-                func.sum(TransactionCategory.amount)
+                func.sum(TransactionCategory.category_amount)
             ).filter(
                 and_(
                     TransactionCategory.category_id == self.id,
@@ -163,7 +163,7 @@ class Category(Base):
             firstdayofweek = today - datetime.timedelta(today.weekday())
             lastdayofweek = today + datetime.timedelta(6-today.weekday())
             balance['week'] = session.query(
-                func.sum(TransactionCategory.amount)
+                func.sum(TransactionCategory.category_amount)
             ).filter(
                 and_(
                     TransactionCategory.category_id == self.id,
@@ -176,7 +176,7 @@ class Category(Base):
             ).one()[0] or 0
 
             balance['7days'] = session.query(
-                func.sum(TransactionCategory.amount)
+                func.sum(TransactionCategory.category_amount)
             ).filter(
                 and_(
                     TransactionCategory.category_id == self.id,
@@ -189,7 +189,7 @@ class Category(Base):
             ).one()[0] or 0
 
             balance['30days'] = session.query(
-                func.sum(TransactionCategory.amount)
+                func.sum(TransactionCategory.category_amount)
             ).filter(
                 and_(
                     TransactionCategory.category_id == self.id,
@@ -302,15 +302,23 @@ class TransactionCategory(Base):
     __tablename__ = 'transactioncategory'
     transaction_id = Column(ForeignKey('transaction.id'), primary_key=True)
     category_id = Column(ForeignKey('category.id'), primary_key=True)
-    amount = Column(Numeric(15, 3), nullable=False)
+    transaction_amount = Column(Numeric(15, 3), nullable=False)
+    category_amount = Column(Numeric(15, 3), nullable=False)
 
     transaction = relationship('Transaction')
     category = relationship('Category')
 
     def as_dict(self):
         data = self.category.as_dict(parent=False,children=False,balance=False)
-        data['amount'] = self.amount
+        data['transaction_amount'] = self.transaction_amount
+        data['category_amount'] = self.category_amount
         return data
 
     def as_tuple(self):
-        return (self.category_id, self.amount)
+        return (
+            self.category_id,
+            {
+                'transaction_amount': self.transaction_amount,
+                'category_amount': self.category_amount
+            }
+        )

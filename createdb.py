@@ -85,7 +85,7 @@ def populate_test_db():
     alicecat7 = transaction.Category(owner=alice, parent=alicecat6,
                                      name='Electricity', currency=euro)
     alicecat8 = transaction.Category(owner=alice, parent=alicecat6,
-                                     name='Internet access', currency=euro)
+                                     name='Internet access', currency=dollar)
     alicecat9 = transaction.Category(owner=alice, parent=alicecat3,
                                      name='Danceclub', currency=euro)
     bobcat1 = transaction.Category(owner=bob, name='Car', currency=euro)
@@ -112,7 +112,8 @@ def populate_test_db():
     ta1 = transaction.TransactionAccount(transaction=t1, account=acct1,
                                          amount=-83.42)
     tc1 = transaction.TransactionCategory(transaction=t1, category=alicecat7,
-                                          amount=-83.42)
+                                          transaction_amount=-83.42,
+                                          category_amount=-83.42)
     t2 = transaction.Transaction(owner=alice, description='Transfer',
                                  original_description='Transfer',
                                  amount=0, currency=dollar,
