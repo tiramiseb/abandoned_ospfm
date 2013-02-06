@@ -290,9 +290,13 @@ class Transaction(Object):
 
     def delete(self, transactionid):
         transaction = self.__own_transaction(transactionid)
-        # TODO: Additional info, account balance and total balance
         if not transaction:
             self.notfound()
+        self.add_to_response('totalbalance')
+        for ta in transaction.transaction_accounts:
+            self.add_to_response('accountbalance', ta.account_id)
+        for tc in transaction.transaction_categories:
+            self.add_to_response('categorybalance', tc.category_id)
         session.delete(transaction)
         session.commit()
 
