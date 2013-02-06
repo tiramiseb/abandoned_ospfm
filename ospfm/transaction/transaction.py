@@ -323,7 +323,7 @@ class Transaction(Object):
                     pass
         if after:
             # Get offset of the "from" transaction
-            # TODO: Is there a more efficient way to do so ?
+            # XXX: Is there a more efficient way to do so ?
             all_transactions = session.query(models.Transaction.id).order_by(
                                 desc(models.Transaction.date)
                            ).filter(
