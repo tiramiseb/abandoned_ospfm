@@ -305,6 +305,7 @@ class Transaction(Object):
             models.Transaction.owner_username == self.username,
         ]
         limit = 100
+        after = False
         for part in filter.items():
             if filter_functions.has_key(part[0]):
                 filters.extend(
@@ -315,18 +316,51 @@ class Transaction(Object):
                     limit = min(int(part[1]), 100)
                 except:
                     pass
-        transactions = models.Transaction.query.options(
-                          joinedload(models.Transaction.currency),
-                          joinedload(models.Transaction.transaction_accounts),
-                          joinedload(models.Transaction.transaction_categories)
-                       ).order_by(
-                            desc(models.Transaction.date)
-                       ).filter(
-                            and_(
-                                *filters
-                            )
-                       ).limit(limit).all()
-        return [t.as_dict() for t in transactions]
+            elif part[0] == 'after':
+                try:
+                    after = int(part[1])
+                except:
+                    pass
+        if after:
+            # Get offset of the "from" transaction
+            # TODO: Is there a more efficient way to do so ?
+            all_transactions = session.query(models.Transaction.id).order_by(
+                                desc(models.Transaction.date)
+                           ).filter(
+                                and_(
+                                    *filters
+                                )
+                           )
+            all_ids = [t.id for t in all_transactions]
+            try:
+                offset = all_ids.index(after) + 1
+            except:
+                offset = 0
+            transactions = models.Transaction.query.options(
+                        joinedload(models.Transaction.currency),
+                        joinedload(models.Transaction.transaction_accounts),
+                        joinedload(models.Transaction.transaction_categories)
+                    ).order_by(
+                        desc(models.Transaction.date)
+                    ).filter(
+                        and_(
+                            *filters
+                        )
+                    ).offset(offset).limit(limit)
+            return [t.as_dict() for t in transactions]
+        else:
+            transactions = models.Transaction.query.options(
+                        joinedload(models.Transaction.currency),
+                        joinedload(models.Transaction.transaction_accounts),
+                        joinedload(models.Transaction.transaction_categories)
+                    ).order_by(
+                        desc(models.Transaction.date)
+                    ).filter(
+                        and_(
+                            *filters
+                        )
+                    ).limit(limit)
+            return [t.as_dict() for t in transactions]
 
 def account_filter(value):
     return [
