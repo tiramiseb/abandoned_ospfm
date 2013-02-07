@@ -59,7 +59,7 @@ def totalbalance():
         'currency': totalcurrency.isocode
     }
 
-def categorybalance(categoryid):
+def categoriesbalance(categoryid):
     username = helpers.flask_get_username()
     category = models.Category.query.filter(
                     and_(
@@ -67,7 +67,10 @@ def categorybalance(categoryid):
                         models.Category.id == categoryid
                     )
               ).first()
-    result = category.balance()
-    result['id'] = categoryid
+    balances = category.balance()
+    balances['id'] = categoryid
+    result = [ balances ]
+    # Also return parent category/ies balance(s)
+    if category.parent_id:
+        result.extend(categoriesbalance(category.parent_id))
     return result
-

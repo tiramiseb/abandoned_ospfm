@@ -136,7 +136,7 @@ class Transaction(Object):
                               category_amount = categorydata['category_amount']
                         )
                         session.add(tc)
-                    self.add_to_response('categorybalance',
+                    self.add_to_response('categoriesbalance',
                                          categorydata['category'])
 
         # Commit everything...
@@ -254,7 +254,8 @@ class Transaction(Object):
                             tc.transaction_amount = transaction_amount
                             tc.category_amount = category_amount
                             tc.verified = False
-                            self.add_to_response('categorybalance', categoryid)
+                            self.add_to_response('categoriesbalance',
+                                                 categoryid)
                         existing_categories.pop(categoryid)
                     else:
                         # Category is not already linked
@@ -272,7 +273,8 @@ class Transaction(Object):
                                     transaction_amount = transaction_amount,
                                     category_amount = category_amount
                             )
-                            self.add_to_response('categorybalance', categoryid)
+                            self.add_to_response('categoriesbalance',
+                                                 categoryid)
                             session.add(tc)
             # All categories to keep have been poped out from
             # "existing_categories"
@@ -282,7 +284,7 @@ class Transaction(Object):
                     models.TransactionCategory.transaction == transaction,
                     models.TransactionCategory.category_id == categoryid
                 )).one()
-                self.add_to_response('categorybalance', categoryid)
+                self.add_to_response('categoriesbalance', categoryid)
                 session.delete(tc)
 
         session.commit()
@@ -296,7 +298,7 @@ class Transaction(Object):
         for ta in transaction.transaction_accounts:
             self.add_to_response('accountbalance', ta.account_id)
         for tc in transaction.transaction_categories:
-            self.add_to_response('categorybalance', tc.category_id)
+            self.add_to_response('categoriesbalance', tc.category_id)
         session.delete(transaction)
         session.commit()
 

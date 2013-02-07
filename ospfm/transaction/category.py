@@ -129,7 +129,7 @@ class Category(Object):
                         allparents.update(category.parent.all_parents_ids())
                     for parentid in allparents:
                         if parentid:
-                            self.add_to_response('categorybalance', parentid)
+                            self.add_to_response('categoriesbalance', parentid)
                     category.parent = parent
         session.commit()
         return category.as_dict()
