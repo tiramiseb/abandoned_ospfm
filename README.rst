@@ -4,8 +4,8 @@ OSPFM global README
 
 *OSPFM* stands for *Open Source Personal Finance Management server*.
 
-OSPFM is  meant  to  be the  foundation  for  a  Software-as-a-Service  finance
-application, whose name is still undecided.
+OSPFM is the foundation for a future Software-as-a-Service finance application,
+named everCount.
 
 *OSPFM* official website is http://tiramiseb.github.com/ospfm.
 
