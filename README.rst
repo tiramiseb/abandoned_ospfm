@@ -7,8 +7,6 @@ OSPFM global README
 OSPFM is the foundation for a future Software-as-a-Service finance application,
 named everCount.
 
-*OSPFM* official website is http://tiramiseb.github.com/ospfm.
-
 Documentation as HTML
 =====================
 
