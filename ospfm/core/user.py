@@ -167,7 +167,7 @@ class User(Object):
                 models.UserEmail.confirmation == 'OK'
             )
         else:
-            substring='%{}%'.format(substring)
+            substring='%{0}%'.format(substring)
             corresponding_rows = models.User.query.filter(
                 and_(
                     models.User.username != self.username,

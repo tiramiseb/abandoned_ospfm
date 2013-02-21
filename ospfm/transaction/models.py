@@ -123,7 +123,7 @@ class Category(Base):
     def balance(self):
         today = datetime.date.today()
 
-        balance = cache.get('categorybalance-{}'.format(self.id))
+        balance = cache.get('categorybalance-{0}'.format(self.id))
 
         if not balance:
 
@@ -203,7 +203,7 @@ class Category(Base):
 
             # Cache the balance only for 5 seconds : it helps when listing
             # multiple categories by reducing sql requests
-            cache.set('categorybalance-{}'.format(self.id), balance, 5)
+            cache.set('categorybalance-{0}'.format(self.id), balance, 5)
 
         for child in self.children:
             child_balance = child.balance()

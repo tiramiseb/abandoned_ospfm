@@ -24,7 +24,7 @@ from ospfm import config
 cache = config.CACHE
 
 OPEN_EXCHANGE_RATES_LATEST_VALUES_URL = (
-    'http://openexchangerates.org/api/latest.json?app_id={}'.format(
+    'http://openexchangerates.org/api/latest.json?app_id={0}'.format(
                                                                  config.APP_ID)
 )
 
