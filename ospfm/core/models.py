@@ -84,7 +84,7 @@ class UserContact(Base):
     __table_args__ = (
         UniqueConstraint('user_username', 'contact_username',
                          name='_user_contact_uc'),
-    )
+    {})
 
     user = relationship(
                 'User',
@@ -119,7 +119,7 @@ class UserEmail(Base):
     __table_args__ = (
         UniqueConstraint('user_username', 'email_address',
                          name='_user_address_uc'),
-    )
+    {})
 
     user = relationship('User', backref='emails')
 
@@ -141,7 +141,7 @@ class UserPreference(Base):
     __table_args__ = (
         UniqueConstraint('user_username', 'name',
                          name='_user_preference_uc'),
-    )
+    {})
 
     def as_dict(self):
         return {
