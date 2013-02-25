@@ -28,7 +28,7 @@ def flask_get_username():
     # remote_user contains the user's username when (s)he is authorized by the server
     if request.remote_user:
         return request.remote_user
-    if config.DEVEL:
+    if config.DEVEL and config.DEVEL_USERNAME:
         return config.DEVEL_USERNAME
     return None
 
