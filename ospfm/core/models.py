@@ -53,6 +53,7 @@ class User(Base):
                       primary_key=True)
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
+    passhash = Column(String(60), nullable=False)
     preferred_currency_id = Column(ForeignKey('currency.id'), nullable=False)
 
     preferred_currency = relationship(

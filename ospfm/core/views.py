@@ -39,10 +39,6 @@ def currencies_rate(fromisocode, toisocode):
 def users(username=None):
     return User().http_request(username)
 
-@app.route('/users/me', methods=['GET', 'POST', 'DELETE'])
-def users_me():
-    return users(helpers.flask_get_username())
-
 @app.route('/users/search/<criterion>')
 def users_search(criterion):
     return User().http_search(criterion)

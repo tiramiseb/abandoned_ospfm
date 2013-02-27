@@ -49,7 +49,7 @@ class Category(Object):
                             models.Category.parent_id == None
                         )
                      ).all()
-        return [c.as_dict() for c in categories]
+        return [c.as_dict(self.username) for c in categories]
 
     def create(self):
         if not (self.args.has_key('currency') and self.args.has_key('name')):
@@ -79,12 +79,12 @@ class Category(Object):
                    )
         session.add(category)
         session.commit()
-        return category.as_dict()
+        return category.as_dict(self.username)
 
     def read(self, categoryid):
         category = self.__own_category(categoryid)
         if category:
-            return category.as_dict()
+            return category.as_dict(self.username)
         self.notfound()
 
     def update(self, categoryid):
@@ -105,6 +105,7 @@ class Category(Object):
             ).first()
             if currency:
                 rate = helpers.rate(
+                            self.username,
                             category.currency.isocode,
                             currency.isocode
                        )
@@ -132,7 +133,7 @@ class Category(Object):
                             self.add_to_response('categoriesbalance', parentid)
                     category.parent = parent
         session.commit()
-        return category.as_dict()
+        return category.as_dict(self.username)
 
     def delete(self, categoryid):
         category = self.__own_category(categoryid)

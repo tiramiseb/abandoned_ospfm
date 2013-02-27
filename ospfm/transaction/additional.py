@@ -22,15 +22,14 @@ from ospfm import helpers
 from ospfm.transaction import models
 from ospfm.core import models as core
 
-def accountbalance(accountid):
-    username = helpers.flask_get_username()
+def accountbalance(username, accountid):
     account = models.Account.query.join(models.AccountOwner).filter(
                     and_(
                         models.AccountOwner.owner_username == username,
                         models.Account.id == accountid
                     )
               ).first()
-    balances = account.balance()
+    balances = account.balance(username)
     return {
         'id': accountid,
         'balance': balances[0],
@@ -38,8 +37,7 @@ def accountbalance(accountid):
         'transactions_count': account.transactions_count()
     }
 
-def totalbalance():
-    username = helpers.flask_get_username()
+def totalbalance(username):
     accounts = models.Account.query.options(
                     joinedload(models.Account.currency)
     ).join(models.AccountOwner).filter(
@@ -51,26 +49,26 @@ def totalbalance():
                         joinedload(core.User.preferred_currency)
                     ).get(username).preferred_currency
     for account in accounts:
-        totalbalance += account.balance()[0] * \
-        helpers.rate(account.currency.isocode,
+        totalbalance += account.balance(username)[0] * \
+        helpers.rate(username,
+                     account.currency.isocode,
                      totalcurrency.isocode)
     return {
         'balance': totalbalance,
         'currency': totalcurrency.isocode
     }
 
-def categoriesbalance(categoryid):
-    username = helpers.flask_get_username()
+def categoriesbalance(username, categoryid):
     category = models.Category.query.filter(
                     and_(
                         models.Category.owner_username == username,
                         models.Category.id == categoryid
                     )
               ).first()
-    balances = category.balance()
+    balances = category.balance(username)
     balances['id'] = categoryid
     result = [ balances ]
     # Also return parent category/ies balance(s)
     if category.parent_id:
-        result.extend(categoriesbalance(category.parent_id))
+        result.extend(categoriesbalance(username, category.parent_id))
     return result

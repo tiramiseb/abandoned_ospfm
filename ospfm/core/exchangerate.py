@@ -25,7 +25,7 @@ cache = config.CACHE
 
 OPEN_EXCHANGE_RATES_LATEST_VALUES_URL = (
     'http://openexchangerates.org/api/latest.json?app_id={0}'.format(
-                                                                 config.APP_ID)
+                                                   config.OPEN_EXCHANGE_APP_ID)
 )
 
 def getrate(from_currency, to_currency, amount='1'):

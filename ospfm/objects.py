@@ -23,6 +23,7 @@ except:
     from sqlalchemy.exc import DBAPIError as StatementError
 
 import ospfm
+from ospfm import authentication
 from ospfm.database import session
 
 class Object:
@@ -50,10 +51,12 @@ class Object:
                 self.badrequest()
 
     def __init_http(self):
-        self.username = ospfm.helpers.flask_get_username()
-        if not self.username:
-            abort(401)
         self.args = request.values.to_dict()
+        username = authentication.get_username_auth(self.args.get('key', None))
+        if username:
+            self.username = username
+        else:
+            abort(401)
 
     def add_to_response(self, *args):
         """Adds an additional data to the response"""
@@ -63,7 +66,6 @@ class Object:
         """Deal with all HTTP requests"""
         # Prepare the environment
         self.__init_http()
-
         try:
             # Execute the request
             if request.method == 'GET':
@@ -88,7 +90,7 @@ class Object:
             for data in self.add_data:
                 additional_data.append([
                     data[0],
-                    ospfm.additional_methods[data[0]](*data[1:])
+                    ospfm.additional_methods[data[0]](self.username, *data[1:])
                 ])
             # JSON response
             if additional_data:

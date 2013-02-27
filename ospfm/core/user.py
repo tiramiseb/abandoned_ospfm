@@ -37,13 +37,13 @@ class User(Object):
         self.forbidden()
 
     def read(self, username):
-        if username == self.username:
+        if username == 'me' or username == self.username:
             # When requesting his own information, a user gets more details
             user = models.User.query.options(
                 joinedload(models.User.emails),
                 joinedload(models.User.preferred_currency)
             ).filter(
-                models.User.username == username
+                models.User.username == self.username
             ).one()
             return user.as_dict(own=True)
         else:
@@ -55,11 +55,11 @@ class User(Object):
             return user.as_dict()
 
     def update(self, username):
-        if username == self.username:
+        if username == 'me' or username == self.username:
             user = models.User.query.options(
                 joinedload(models.User.emails)
             ).filter(
-                models.User.username == username
+                models.User.username == self.username
             ).one()
             # A user can only modify his own information
             if self.args.has_key('first_name'):
@@ -83,7 +83,7 @@ class User(Object):
                         currency.isocode
                     )
                     for c in models.Currency.query.filter(
-                        models.Currency.owner_username == username
+                        models.Currency.owner_username == self.username
                     ):
                         c.rate = c.rate * multiplier
                     user.preferred_currency = currency
@@ -109,9 +109,9 @@ class User(Object):
                                 randomhash = os.urandom(8).encode('hex')
                                 session.add(
                                     models.UserEmail(
-                                        user_username=self.username,
-                                        email_address=address,
-                                        confirmation=randomhash
+                                        user_username = self.username,
+                                        email_address = address,
+                                        confirmation = randomhash
                                     )
                                 )
                     if emails.has_key('remove') and \
@@ -197,7 +197,7 @@ class UserContact(Object):
         contacts = models.UserContact.query.options(
                         joinedload(models.UserContact.contact)
         ).filter(
-                        models.UserContact.user_username==self.username
+                        models.UserContact.user_username == self.username
         )
         return [c.as_dict() for c in contacts.all()]
 

@@ -24,13 +24,13 @@ from ospfm import config
 from ospfm.core import exchangerate
 from ospfm.core import models as core
 
-def flask_get_username():
-    # remote_user contains the user's username when (s)he is authorized by the server
-    if request.remote_user:
-        return request.remote_user
-    if config.DEVEL and config.DEVEL_USERNAME:
-        return config.DEVEL_USERNAME
-    return None
+#~def flask_get_username():
+    #~# remote_user contains the user's username when (s)he is authorized by the server
+    #~if request.remote_user:
+        #~return request.remote_user
+    #~if config.DEVEL and config.DEVEL_USERNAME:
+        #~return config.DEVEL_USERNAME
+    #~return None
 
 def date_from_string(string):
     # Convert a "YYYY-MM-DD" string to a date
@@ -45,10 +45,9 @@ def date_from_string(string):
             pass
     return None
 
-def rate(fromisocode, toisocode):
+def rate(username, fromisocode, toisocode):
     if fromisocode == toisocode:
         return 1
-    username = flask_get_username()
     # Request the currencies
     fromcurrency = core.Currency.query.filter(
         and_(

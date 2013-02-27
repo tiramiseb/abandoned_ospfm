@@ -141,12 +141,12 @@ class Transaction(Object):
 
         # Commit everything...
         session.commit()
-        return transaction.as_dict()
+        return transaction.as_dict(self.username)
 
     def read(self, transactionid):
         transaction = self.__own_transaction(transactionid)
         if transaction:
-            return transaction.as_dict()
+            return transaction.as_dict(self.username)
         self.notfound()
 
     def update(self, transactionid):
@@ -288,7 +288,7 @@ class Transaction(Object):
                 session.delete(tc)
 
         session.commit()
-        return transaction.as_dict()
+        return transaction.as_dict(self.username)
 
     def delete(self, transactionid):
         transaction = self.__own_transaction(transactionid)
@@ -353,7 +353,7 @@ class Transaction(Object):
                             *filters
                         )
                     ).offset(offset).limit(limit)
-            return [t.as_dict() for t in transactions]
+            return [t.as_dict(self.username) for t in transactions]
         else:
             transactions = models.Transaction.query.options(
                         joinedload(models.Transaction.currency),
@@ -366,7 +366,7 @@ class Transaction(Object):
                             *filters
                         )
                     ).limit(limit)
-            return [t.as_dict() for t in transactions]
+            return [t.as_dict(self.username) for t in transactions]
 
 def account_filter(value):
     return [

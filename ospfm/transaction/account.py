@@ -52,11 +52,12 @@ class Account(Object):
                             joinedload(core.User.preferred_currency)
                         ).get(self.username).preferred_currency
         for account in accounts:
-            totalbalance += account.balance()[0] * \
-            helpers.rate(account.currency.isocode,
+            totalbalance += account.balance(self.username)[0] * \
+            helpers.rate(self.username,
+                         account.currency.isocode,
                          totalcurrency.isocode)
         return {
-            'accounts': [a.as_dict() for a in accounts],
+            'accounts': [a.as_dict(self.username) for a in accounts],
             'total': {
                 'balance': totalbalance,
                 'currency': totalcurrency.isocode
@@ -94,12 +95,12 @@ class Account(Object):
         session.add_all((a, ao))
         session.commit()
         self.add_to_response('totalbalance')
-        return a.as_dict()
+        return a.as_dict(self.username)
 
     def read(self, accountid):
         account = self.__own_account(accountid)
         if account:
-            return account.as_dict()
+            return account.as_dict(self.username)
         self.notfound()
 
     def update(self, accountid):
@@ -128,7 +129,7 @@ class Account(Object):
             account.start_balance = Decimal(self.args['start_balance'])
             self.add_to_response('totalbalance')
         session.commit()
-        return account.as_dict()
+        return account.as_dict(self.username)
 
     def delete(self, accountid):
         account = self.__own_account(accountid)

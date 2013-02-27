@@ -30,12 +30,16 @@ def populate_test_db():
     yen = core.Currency.query.filter(core.Currency.isocode=='JPY').one()
 
     # Users
+    # (passwords == usernames)
     alice = core.User(username='alice', first_name='Alice',
-                      last_name='In Wonderland', preferred_currency=euro)
+                      last_name='In Wonderland', preferred_currency=euro,
+       passhash='$2a$11$9jBMBYateRXaxp1tQgiLpOR8LGzpJ0JC5g0Ez2dzcXbyARjL3vG82')
     bob = core.User(username='bob', first_name='Bob', last_name='Sponge',
-                    preferred_currency=dollar)
+                    preferred_currency=dollar,
+       passhash='$2a$11$R2Oo6WtystSglh6CA2DENefv22On5YMDgqR0x4W3ObW5zNpcn718K')
     carol = core.User(username='carol', first_name='Carol', last_name='Markus',
-                      preferred_currency=yen)
+                      preferred_currency=yen,
+       passhash='$2a$11$Foj4ZwoojAXRqQxm7Sgh8uG84r84Qxc8kcgsFKjs6Q.eDNtwaAkFa')
     db.session.add_all((alice, bob, carol))
 
     # Users email addresses

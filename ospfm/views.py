@@ -15,11 +15,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from ospfm import app, config
-
-@app.route('/')
-def root():
-    return 'This is an OSPFM server. More documentation will come later.'
+from ospfm import app, authentication, config
 
 if config.DEVEL:
     @app.after_request
@@ -29,6 +25,13 @@ if config.DEVEL:
         response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
         return response
 
+@app.route('/')
+def root():
+    return 'This is an OSPFM server. More documentation will come later.'
+
+@app.route('/login', methods=['POST'])
+def login():
+    return authentication.authenticate()
 
 from ospfm.core import views
 from ospfm.transaction import views

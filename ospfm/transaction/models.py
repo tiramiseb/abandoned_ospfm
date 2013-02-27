@@ -40,7 +40,7 @@ class Account(Base):
     transactions_account = relationship('TransactionAccount',
                                         cascade='all, delete-orphan')
 
-    def balance(self):
+    def balance(self, username):
         """
         Return a list :
             ( <balance in account currency>, <balance in preferred currency> )
@@ -56,11 +56,12 @@ class Account(Base):
             balances = [ self.start_balance ]
         balances.append(
             helpers.rate(
+                username,
                 self.currency.isocode,
                 coremodels.User.query.options(
                     joinedload(coremodels.User.preferred_currency)
                 ).get(
-                    helpers.flask_get_username()
+                    username
                 ).preferred_currency.isocode
             ) * balances[0]
         )
@@ -73,7 +74,7 @@ class Account(Base):
             TransactionAccount.account_id == self.id
         ).one()[0] or 0
 
-    def as_dict(self, short=False):
+    def as_dict(self, username, short=False):
         if short:
             return {
                 'id': self.id,
@@ -81,7 +82,7 @@ class Account(Base):
                 'currency': self.currency.isocode
             }
         else:
-            balances = self.balance()
+            balances = self.balance(username)
             return {
                 'id': self.id,
                 'name': self.name,
@@ -120,7 +121,7 @@ class Category(Base):
     transactions_category = relationship('TransactionCategory',
                                          cascade='all, delete-orphan')
 
-    def balance(self):
+    def balance(self, username):
         today = datetime.date.today()
 
         balance = cache.get('categorybalance-{0}'.format(self.id))
@@ -206,8 +207,9 @@ class Category(Base):
             cache.set('categorybalance-{0}'.format(self.id), balance, 5)
 
         for child in self.children:
-            child_balance = child.balance()
-            rate =helpers.rate(child_balance['currency'],self.currency.isocode)
+            child_balance = child.balance(username)
+            rate = helpers.rate(username,
+                              child_balance['currency'], self.currency.isocode)
             balance['year'] = balance['year'] + child_balance['year'] * rate
             balance['month'] = balance['month'] + child_balance['month'] * rate
             balance['week'] = balance['week'] + child_balance['week'] * rate
@@ -223,18 +225,19 @@ class Category(Base):
             parents = parents + self.parent.all_parents_ids()
         return parents
 
-    def as_dict(self, parent=True, children=True, balance=True):
+    def as_dict(self, username, parent=True, children=True, balance=True):
         desc = {
             'id': self.id,
             'name': self.name,
             'currency': self.currency.isocode,
         }
         if balance:
-            desc.update(self.balance())
+            desc.update(self.balance(username))
         if parent and self.parent_id:
             desc['parent'] = self.parent_id
         if children and self.children:
-            desc['children'] = [c.as_dict(False) for c in self.children]
+            desc['children'] = [c.as_dict(username, False) \
+                                                        for c in self.children]
         return desc
 
     def contains_category(self, categoryid):
@@ -265,7 +268,7 @@ class Transaction(Base):
     transaction_categories = relationship('TransactionCategory',
                                           cascade='all, delete-orphan')
 
-    def as_dict(self):
+    def as_dict(self, username):
         return {
             'id': self.id,
             'description': self.description,
@@ -273,8 +276,10 @@ class Transaction(Base):
             'amount': self.amount,
             'currency': self.currency.isocode,
             'date': self.date.strftime('%Y-%m-%d'),
-            'accounts': [ta.as_dict() for ta in self.transaction_accounts],
-            'categories': [tc.as_dict() for tc in self.transaction_categories]
+            'accounts': [ta.as_dict(username) \
+                                          for ta in self.transaction_accounts],
+            'categories': [tc.as_dict(username) \
+                                         for tc in self.transaction_categories]
         }
 
 
@@ -288,8 +293,8 @@ class TransactionAccount(Base):
     transaction = relationship('Transaction')
     account = relationship('Account')
 
-    def as_dict(self):
-        data = self.account.as_dict(short=True)
+    def as_dict(self, username):
+        data = self.account.as_dict(username, short=True)
         data['amount'] = self.amount
         data['verified'] = self.verified
         return data
@@ -308,8 +313,9 @@ class TransactionCategory(Base):
     transaction = relationship('Transaction')
     category = relationship('Category')
 
-    def as_dict(self):
-        data = self.category.as_dict(parent=False,children=False,balance=False)
+    def as_dict(self, username):
+        data = self.category.as_dict(username, parent=False,
+                                     children=False,balance=False)
         data['transaction_amount'] = self.transaction_amount
         data['category_amount'] = self.category_amount
         return data

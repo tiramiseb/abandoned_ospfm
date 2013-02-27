@@ -16,11 +16,12 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Flask
+
 app = Flask(__name__)
 
+# App routing, etc
 import ospfm.errorpages
 import ospfm.views
-
 
 from ospfm.transaction import additional as add_transaction
 
