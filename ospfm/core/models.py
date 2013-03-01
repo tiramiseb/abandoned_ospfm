@@ -110,7 +110,7 @@ class UserEmail(Base):
     __tablename__ = 'useremail'
     id = Column(Integer, primary_key=True)
     user_username = Column(ForeignKey('user.username'), nullable=False)
-    email_address = Column(String(200), nullable=False)
+    email_address = Column(String(256), nullable=False)
     # Notification is to be used by (an)other process(es), OSPFM itself doesn't
     # send notifications. This field make it possible to know which email
     # addresses should be used by this/these other process(es).
