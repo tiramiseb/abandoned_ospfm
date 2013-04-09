@@ -18,10 +18,13 @@
 import json
 import os
 
+import bcrypt
+
 from flask import jsonify
 from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
+from ospfm import authentication, config
 from ospfm.core import exchangerate, models
 from ospfm.database import session
 from ospfm.objects import Object
@@ -56,16 +59,31 @@ class User(Object):
 
     def update(self, username):
         if username == 'me' or username == self.username:
+            # A user can only modify his own information
             user = models.User.query.options(
                 joinedload(models.User.emails)
             ).filter(
                 models.User.username == self.username
             ).one()
-            # A user can only modify his own information
             if self.args.has_key('first_name'):
                 user.first_name = self.args['first_name']
             if self.args.has_key('last_name'):
                 user.last_name = self.args['last_name']
+            if self.args.has_key('password'):
+                if self.args.has_key('currentpassword') and \
+                   authentication.authenticate(
+                    username,
+                    self.args['currentpassword'],
+                    False
+                   ):
+                    user.passhash = bcrypt.hashpw(
+                                        self.args['password'],
+                                        bcrypt.gensalt(
+                                            config.PASSWORD_SALT_COMPLEXITY
+                                        )
+                                    )
+                else:
+                    self.badrequest()
             if self.args.has_key('preferred_currency'):
                 currency = models.Currency.query.filter(
                   and_(

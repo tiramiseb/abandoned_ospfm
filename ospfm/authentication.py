@@ -45,26 +45,35 @@ cache = config.CACHE
 #
 # Moving to a database storage is not excluded.
 
-def authenticate():
-    username = request.values['username']
-    password = request.values['password']
+def authenticate(username=None, password=None, http_abort=True):
+    if not username:
+        username = request.values['username']
+    if not password:
+        password = request.values['password']
 
     user = core.User.query.filter(
                 core.User.username == username
             ).first()
     if not user:
-        abort(401)
+        if http_abort:
+            abort(401)
+        else:
+            return False
     hashed = user.passhash
     if bcrypt.hashpw(password, hashed) == hashed:
         key = str(uuid.uuid4())
         cache.set(request.remote_addr+'---'+key, username, 3600)
         return jsonify(status=200, response={'key': key})
-    else:
+    elif http_abort:
         abort(401)
+    else:
+        return False
 
 def get_username_auth(key):
-    if key:
-        username = cache.get(request.remote_addr+'---'+key)
-        if username:
-            return username
-    return False
+        if key:
+            username = cache.get(request.remote_addr+'---'+key)
+            if username:
+                return username
+        if config.DEVEL and config.DEVEL_USERNAME:
+            return config.DEVEL_USERNAME
+        return False
