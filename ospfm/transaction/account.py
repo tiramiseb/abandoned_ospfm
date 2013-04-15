@@ -66,9 +66,9 @@ class Account(Object):
 
     def create(self):
         if not (
-            self.args.has_key('currency') and
-            self.args.has_key('name') and
-            self.args.has_key('start_balance')
+            'currency' in self.args and
+            'name' in self.args and
+            'start_balance' in self.args
         ):
             self.badrequest()
         currency = core.Currency.query.filter(
@@ -107,9 +107,9 @@ class Account(Object):
         account = self.__own_account(accountid)
         if not account:
             self.notfound()
-        if self.args.has_key('name'):
+        if 'name' in self.args:
             account.name = self.args['name']
-        if self.args.has_key('currency'):
+        if 'currency' in self.args:
             # Do not update currency if account has transactions
             if not models.TransactionAccount.query.filter(
                         models.TransactionAccount.account == account
@@ -125,7 +125,7 @@ class Account(Object):
                 ).first()
                 if currency:
                     account.currency = currency
-        if self.args.has_key('start_balance'):
+        if 'start_balance' in self.args:
             account.start_balance = Decimal(self.args['start_balance'])
             self.add_to_response('totalbalance')
         session.commit()

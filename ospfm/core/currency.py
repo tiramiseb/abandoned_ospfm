@@ -78,16 +78,16 @@ class Currency(Object):
         if not currency.owner_username:
             self.forbidden()
 
-        if self.args.has_key('symbol'):
+        if 'symbol' in self.args:
             # With user-defined currencies, isocode=symbol
             newsymbol = self.args['symbol']
             testcurrency = self.__own_currency(newsymbol).first()
             if not testcurrency:
                 currency.isocode = newsymbol
                 currency.symbol = newsymbol
-        if self.args.has_key('name'):
+        if 'name' in self.args:
             currency.name = self.args['name']
-        if self.args.has_key('rate'):
+        if 'rate' in self.args:
             currency.rate = self.args['rate']
             self.add_to_response('totalbalance')
         session.commit()

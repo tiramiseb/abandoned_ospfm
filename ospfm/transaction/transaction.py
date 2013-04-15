@@ -49,10 +49,10 @@ class Transaction(Object):
 
     def create(self):
         if not (
-            self.args.has_key('currency') and \
-            self.args.has_key('date') and \
-            self.args.has_key('description') and \
-            self.args.has_key('amount')
+            'currency' in self.args and \
+            'date' in self.args and \
+            'description' in self.args and \
+            'amount' in self.args
         ):
             self.badrequest()
         # First, create the transaction object
@@ -71,7 +71,7 @@ class Transaction(Object):
         if not date:
             self.badrequest()
         description = self.args['description']
-        if self.args.has_key('original_description'):
+        if 'original_description' in self.args:
             original_description = self.args['original_description']
         else:
             original_description = description
@@ -86,11 +86,11 @@ class Transaction(Object):
         session.add(transaction)
 
         # Next, create the links from the transaction to its accounts
-        if self.args.has_key('accounts'):
+        if 'accounts' in self.args:
             accounts = json.loads(self.args['accounts'])
             for accountdata in accounts:
                 transaction_accounts = []
-                if accountdata.has_key('amount'):
+                if 'amount' in accountdata:
                     # If no amount is specified, do not associate the account
                     accountobject = models.Account.query.options(
                         joinedload(models.Account.account_owners)
@@ -113,12 +113,12 @@ class Transaction(Object):
             self.add_to_response('totalbalance')
 
         # Next, create the links from the transaction to its categories
-        if self.args.has_key('categories'):
+        if 'categories' in self.args:
             categories = json.loads(self.args['categories'])
             for categorydata in categories:
                 transaction_categories = []
-                if categorydata.has_key('transaction_amount') and \
-                   categorydata.has_key('category_amount'):
+                if 'transaction_amount' in categorydata and \
+                   'category_amount' in categorydata:
                     # If no amount is specified, do not associate the category
                     categoryobject = models.Category.query.options(
                         joinedload(models.Category.currency)
@@ -155,11 +155,11 @@ class Transaction(Object):
             self.notfound()
 
         # First, modifications on the Transaction object itself
-        if self.args.has_key('description'):
+        if 'description' in self.args:
             transaction.description = self.args['description']
-        if self.args.has_key('amount'):
+        if 'amount' in self.args:
             transaction.amount = self.args['amount']
-        if self.args.has_key('currency'):
+        if 'currency' in self.args:
             currency = core.Currency.query.filter(
                 and_(
                     core.Currency.isocode == self.args['currency'],
@@ -171,19 +171,18 @@ class Transaction(Object):
             ).first()
             if currency:
                 transaction.currency = currency
-        if self.args.has_key('date'):
+        if 'date' in self.args:
             date = helpers.date_from_string(self.args['date'])
             if date:
                 transaction.date = date
 
         # Next, update accounts
-        if self.args.has_key('accounts'):
+        if 'accounts' in self.args:
             existing_accounts = dict([ta.as_tuple() for ta in
                                       transaction.transaction_accounts])
             new_accounts_data = json.loads(self.args['accounts'])
             for account_data in new_accounts_data:
-                if account_data.has_key('amount') and \
-                   account_data.has_key('account'):
+                if 'amount' in account_data and 'account' in account_data:
                     amount = account_data['amount']
                     accountid = account_data['account']
                     if accountid in existing_accounts.keys():
@@ -231,14 +230,14 @@ class Transaction(Object):
             self.add_to_response('totalbalance')
 
         # Then, update categories
-        if self.args.has_key('categories'):
+        if 'categories' in self.args:
             existing_categories = dict([tc.as_tuple() for tc in
                                         transaction.transaction_categories])
             new_categories_data = json.loads(self.args['categories'])
             for category_data in new_categories_data:
-                if category_data.has_key('transaction_amount') and \
-                   category_data.has_key('category_amount') and \
-                   category_data.has_key('category'):
+                if 'transaction_amount' in category_data and \
+                   'category_amount' in category_data and \
+                   'category' in category_data:
                     transaction_amount = category_data['transaction_amount']
                     category_amount = category_data['category_amount']
                     categoryid = category_data['category']
@@ -313,7 +312,7 @@ class Transaction(Object):
         limit = 100
         after = False
         for part in filter.items():
-            if filter_functions.has_key(part[0]):
+            if part[0] in filter_functions:
                 filters.extend(
                     filter_functions[part[0]](part[1])
                 )

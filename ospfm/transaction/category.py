@@ -52,9 +52,9 @@ class Category(Object):
         return [c.as_dict(self.username) for c in categories]
 
     def create(self):
-        if not (self.args.has_key('currency') and self.args.has_key('name')):
+        if not ('currency' in self.args and 'name' in self.args):
             self.badrequest()
-        if self.args.has_key('parent'):
+        if 'parent' in self.args:
             parent = self.__own_category(self.args['parent'])
             if not parent:
                 self.badrequest()
@@ -91,9 +91,9 @@ class Category(Object):
         category = self.__own_category(categoryid)
         if not category:
             self.notfound()
-        if self.args.has_key('name'):
+        if 'name' in self.args:
             category.name = self.args['name']
-        if self.args.has_key('currency'):
+        if 'currency' in self.args:
             currency = core.Currency.query.filter(
                 and_(
                     core.Currency.isocode == self.args['currency'],
@@ -114,7 +114,7 @@ class Category(Object):
                             models.TransactionCategory.category == category
                           ).all():
                     tc.category_amount = tc.category_amount * rate
-        if self.args.has_key('parent'):
+        if 'parent' in self.args:
             if self.args['parent'] == 'NONE':
                 category.parent_id = None
             else:

@@ -65,12 +65,12 @@ class User(Object):
             ).filter(
                 models.User.username == self.username
             ).one()
-            if self.args.has_key('first_name'):
+            if 'first_name' in self.args:
                 user.first_name = self.args['first_name']
-            if self.args.has_key('last_name'):
+            if 'last_name' in self.args:
                 user.last_name = self.args['last_name']
-            if self.args.has_key('password'):
-                if self.args.has_key('currentpassword') and \
+            if 'password' in self.args:
+                if 'currentpassword' in self.args and \
                    authentication.authenticate(
                     username,
                     self.args['currentpassword'],
@@ -84,7 +84,7 @@ class User(Object):
                                     )
                 else:
                     self.badrequest()
-            if self.args.has_key('preferred_currency'):
+            if 'preferred_currency' in self.args:
                 currency = models.Currency.query.filter(
                   and_(
                      models.Currency.isocode == self.args['preferred_currency'],
@@ -106,7 +106,7 @@ class User(Object):
                         c.rate = c.rate * multiplier
                     user.preferred_currency = currency
                     self.add_to_response('totalbalance')
-            if self.args.has_key('emails'):
+            if 'emails' in self.args:
                 emails = json.loads(self.args['emails'])
                 previous_emails = []
                 previous_notifications = []
@@ -116,7 +116,7 @@ class User(Object):
                     if address.notification:
                         previous_notifications.append(address.email_address)
                 if type(emails) == type({}):
-                    if emails.has_key('add') and \
+                    if 'add' in emails and \
                        type(emails['add']) == type([]):
                         for address in emails['add']:
                             if address not in previous_emails:
@@ -132,8 +132,7 @@ class User(Object):
                                         confirmation = randomhash
                                     )
                                 )
-                    if emails.has_key('remove') and \
-                       type(emails['remove']) == type([]):
+                    if 'remove' in emails and type(emails['remove'])==type([]):
                         for address in emails['remove']:
                             if address in previous_emails:
                                 session.delete(
@@ -144,7 +143,7 @@ class User(Object):
                                         )
                                     ).first()
                                 )
-                    if emails.has_key('enablenotifications') and \
+                    if 'enablenotifications' in emails and \
                        type(emails['enablenotifications']) == type([]):
                         for address in emails['enablenotifications']:
                             if address not in previous_notifications:
@@ -154,7 +153,7 @@ class User(Object):
                                models.UserEmail.email_address == address
                                     )
                                 ).first().notification = True
-                    if emails.has_key('disablenotifications') and \
+                    if 'disablenotifications' in emails and \
                        type(emails['disablenotifications']) == type([]):
                         for address in emails['disablenotifications']:
                             if address in previous_notifications:
@@ -220,7 +219,7 @@ class UserContact(Object):
         return [c.as_dict() for c in contacts.all()]
 
     def create(self):
-        if not self.args.has_key('username'):
+        if not 'username' in self.arg:
             self.badrequest()
         # Verify the contact exists
         contactuser = models.User.query.filter(
@@ -268,7 +267,7 @@ class UserContact(Object):
         if not contact:
             self.notfound()
         # Only the comment can be updated
-        if self.args.has_key('comment'):
+        if 'comment' in self.args:
             contact.comment = self.args['comment']
             session.commit()
         return contact.as_dict()

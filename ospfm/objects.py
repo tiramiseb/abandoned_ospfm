@@ -74,7 +74,7 @@ class Object:
                 else:
                     response = self.list()
             elif request.method == 'POST':
-                if self.args.has_key('_method') and self.args['_method'] == 'delete':
+                if '_method' in self.args and self.args['_method'] == 'delete':
                     self.delete(arg)
                     response = 'OK Deleted'
                 else:
