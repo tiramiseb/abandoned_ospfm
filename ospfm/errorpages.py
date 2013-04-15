@@ -49,8 +49,14 @@ def error405(e):
     response.status_code = 405
     return response
 
+@app.errorhandler(500)
+def error500(e):
+    response = jsonify(status=500, response='Server Error')
+    response.status_code = 500
+    return response
+
 @app.errorhandler(NotImplementedError)
-def error405(e):
+def error500notimplemented(e):
     response = jsonify(status=500, response='Not implemented')
     response.status_code = 500
     return response
