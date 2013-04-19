@@ -16,7 +16,7 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, Numeric, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 from sqlalchemy.schema import UniqueConstraint
 
 from ospfm.database import Base
@@ -26,14 +26,19 @@ class Currency(Base):
     __tablename__ = 'currency'
     id = Column(Integer, primary_key=True)
     owner_username = Column(String(50), ForeignKey('user.username',
-                            use_alter=True, name='fk_owner'))
+                                               use_alter=True, name='fk_owner',
+                                                   ondelete='CASCADE'))
     isocode = Column(String(5), nullable=False)
     symbol = Column(String(5), nullable=False)
     name = Column(String(50), nullable=False)
     rate = Column(Numeric(16, 4))
 
-    owner = relationship('User',
-                         primaryjoin='Currency.owner_username==User.username')
+    owner = relationship(
+                'User',
+                primaryjoin = 'Currency.owner_username==User.username',
+                backref = backref('currencies',
+                                  cascade='all, delete-orphan')
+            )
 
     def as_dict(self):
         info = {
@@ -78,8 +83,10 @@ class User(Base):
 class UserContact(Base):
     __tablename__ = 'usercontact'
     id = Column(Integer, primary_key=True)
-    user_username = Column(ForeignKey('user.username'), nullable=False)
-    contact_username = Column(ForeignKey('user.username'), nullable=False)
+    user_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
+                           nullable=False)
+    contact_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
+                              nullable=False)
     comment = Column(String(100), default='', nullable=False)
 
     __table_args__ = (
@@ -109,7 +116,8 @@ class UserContact(Base):
 class UserEmail(Base):
     __tablename__ = 'useremail'
     id = Column(Integer, primary_key=True)
-    user_username = Column(ForeignKey('user.username'), nullable=False)
+    user_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
+                           nullable=False)
     email_address = Column(String(256), nullable=False)
     # Notification is to be used by (an)other process(es), OSPFM itself doesn't
     # send notifications. This field make it possible to know which email
@@ -122,7 +130,8 @@ class UserEmail(Base):
                          name='_user_address_uc'),
     {})
 
-    user = relationship('User', backref='emails')
+    user = relationship('User', backref=backref('emails',
+                                                cascade='all, delete-orphan'))
 
     def as_dict(self):
         return {
@@ -135,7 +144,8 @@ class UserEmail(Base):
 class UserPreference(Base):
     __tablename__ = 'userpreference'
     id = Column(Integer, primary_key=True)
-    user_username = Column(ForeignKey('user.username'), nullable=False)
+    user_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
+                           nullable=False)
     name = Column(String(200), nullable=False)
     value = Column(String(2048))
 

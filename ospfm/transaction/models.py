@@ -32,13 +32,11 @@ class Account(Base):
     __tablename__ = 'account'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
-    currency_id = Column(ForeignKey('currency.id'))
+    currency_id = Column(ForeignKey('currency.id', ondelete='CASCADE'))
     start_balance = Column(Numeric(15, 3), nullable=False)
 
-    currency = relationship('Currency')
-    account_owners = relationship('AccountOwner', cascade='all, delete-orphan')
-    transactions_account = relationship('TransactionAccount',
-                                        cascade='all, delete-orphan')
+    currency = relationship('Currency', backref=backref(
+                                     'accounts', cascade='all, delete-orphan'))
 
     def balance(self, username):
         """
@@ -96,30 +94,33 @@ class Account(Base):
 
 class AccountOwner(Base):
     __tablename__ = 'accountowner'
-    account_id = Column(ForeignKey('account.id'), primary_key=True)
-    owner_username = Column(ForeignKey('user.username'), primary_key=True)
+    account_id = Column(ForeignKey('account.id', ondelete='CASCADE'),
+                        primary_key=True)
+    owner_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
+                            primary_key=True)
 
-    account = relationship('Account')
-    owner = relationship('User')
+    account = relationship('Account', backref=backref(
+                               'account_owners', cascade='all, delete-orphan'))
+    owner = relationship('User', backref=backref(
+                               'accounts_owner', cascade='all, delete-orphan'))
 
 
 class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
-    owner_username = Column(ForeignKey('user.username'), nullable=False)
-    parent_id = Column(ForeignKey('category.id'))
-    currency_id = Column(ForeignKey('currency.id'))
+    owner_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
+                            nullable=False)
+    parent_id = Column(ForeignKey('category.id', ondelete='SET NULL'))
+    currency_id = Column(ForeignKey('currency.id', ondelete='CASCADE'))
     name = Column(String(50), nullable=False)
 
-    owner = relationship('User')
+    owner = relationship('User', backref=backref(
+                                   'categories', cascade='all, delete-orphan'))
     children = relationship('Category',
                             backref=backref('parent', remote_side=[id]),
                             order_by='Category.name')
-    currency = relationship('Currency')
-
-    # When deleting a category, delete all its associations to transactions
-    transactions_category = relationship('TransactionCategory',
-                                         cascade='all, delete-orphan')
+    currency = relationship('Currency', backref=backref(
+                                   'categories', cascade='all, delete-orphan'))
 
     def balance(self, username):
         today = datetime.date.today()
@@ -146,8 +147,8 @@ class Category(Base):
             if today.month == 12:
                 lastdayofmonth = datetime.date(today.year, 12, 31)
             else:
-                lastdayofmonth = datetime.date(today.year, today.month+1, 1) - \
-                                                              datetime.timedelta(1)
+                lastdayofmonth = datetime.date(today.year, today.month+1, 1) -\
+                                                          datetime.timedelta(1)
             balance['month'] = session.query(
                 func.sum(TransactionCategory.category_amount)
             ).filter(
@@ -253,20 +254,20 @@ class Category(Base):
 class Transaction(Base):
     __tablename__ = 'transaction'
     id = Column(Integer, primary_key=True)
-    owner_username = Column(ForeignKey('user.username'), nullable=False)
+    owner_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
+                            nullable=False)
     description = Column(String(200), nullable=False)
     original_description = Column(String(200), nullable=False)
     amount = Column(Numeric(15, 3), nullable=False)
-    currency_id = Column(ForeignKey('currency.id'), nullable=False)
+    currency_id = Column(ForeignKey('currency.id', ondelete='CASCADE'),
+                         nullable=False)
     date = Column(Date, nullable=False)
 
-    owner = relationship('User')
-    currency = relationship('Currency')
+    owner = relationship('User', backref=
+                          backref('transactions', cascade='all, delete-orphan'))
+    currency = relationship('Currency', backref=
+                          backref('transactions', cascade='all, delete-orphan'))
 
-    transaction_accounts = relationship('TransactionAccount',
-                                        cascade='all, delete-orphan')
-    transaction_categories = relationship('TransactionCategory',
-                                          cascade='all, delete-orphan')
 
     def as_dict(self, username):
         return {
@@ -285,13 +286,17 @@ class Transaction(Base):
 
 class TransactionAccount(Base):
     __tablename__ = 'transactionaccount'
-    transaction_id = Column(ForeignKey('transaction.id'), primary_key=True)
-    account_id = Column(ForeignKey('account.id'), primary_key=True)
+    transaction_id = Column(ForeignKey('transaction.id', ondelete='CASCADE'),
+                            primary_key=True)
+    account_id = Column(ForeignKey('account.id', ondelete='CASCADE'),
+                        primary_key=True)
     amount = Column(Numeric(15, 3), nullable=False)
     verified = Column(Boolean, nullable=False, default=False)
 
-    transaction = relationship('Transaction')
-    account = relationship('Account')
+    transaction = relationship('Transaction', backref=backref(
+                          'transaction_accounts', cascade='all, delete-orphan'))
+    account = relationship('Account', backref=backref(
+                          'transactions_account', cascade='all, delete-orphan'))
 
     def as_dict(self, username):
         data = self.account.as_dict(username, short=True)
@@ -305,13 +310,17 @@ class TransactionAccount(Base):
 
 class TransactionCategory(Base):
     __tablename__ = 'transactioncategory'
-    transaction_id = Column(ForeignKey('transaction.id'), primary_key=True)
-    category_id = Column(ForeignKey('category.id'), primary_key=True)
+    transaction_id = Column(ForeignKey('transaction.id', ondelete='CASCADE'),
+                            primary_key=True)
+    category_id = Column(ForeignKey('category.id', ondelete='CASCADE'),
+                         primary_key=True)
     transaction_amount = Column(Numeric(15, 3), nullable=False)
     category_amount = Column(Numeric(15, 3), nullable=False)
 
-    transaction = relationship('Transaction')
-    category = relationship('Category')
+    transaction = relationship('Transaction', backref=backref(
+                        'transaction_categories', cascade='all, delete-orphan'))
+    category = relationship('Category', backref=backref(
+                         'transactions_category', cascade='all, delete-orphan'))
 
     def as_dict(self, username):
         data = self.category.as_dict(username, parent=False,
