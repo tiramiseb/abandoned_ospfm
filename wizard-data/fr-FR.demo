@@ -1,0 +1,1737 @@
+########################################################### Compte pour épargne
+[account-3]
+name: Livret A
+currency: EUR
+balance: 247.05
+
+###################################################### Charges mensuelles fixes
+[transaction-0]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-12/03
+accounts: 0
+categories: 114
+
+[transaction-1]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-12/04
+accounts: 0
+categories: 39
+
+[transaction-2]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-12/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-3]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-12/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-4]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-12/05
+accounts: 0
+categories: 57
+
+[transaction-5]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-12/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-6]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-12/07
+accounts: 0
+categories: 59
+
+[transaction-7]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-12/16
+accounts: 0
+categories: 68
+
+[transaction-8]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-11/03
+accounts: 0
+categories: 114
+
+[transaction-9]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-11/04
+accounts: 0
+categories: 39
+
+[transaction-10]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-11/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-11]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-11/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-12]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-11/05
+accounts: 0
+categories: 57
+
+[transaction-13]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-11/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-14]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-11/07
+accounts: 0
+categories: 59
+
+[transaction-15]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-11/16
+accounts: 0
+categories: 68
+
+[transaction-16]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-10/03
+accounts: 0
+categories: 114
+
+[transaction-17]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-10/04
+accounts: 0
+categories: 39
+
+[transaction-18]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-10/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-19]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-10/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-20]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-10/05
+accounts: 0
+categories: 57
+
+[transaction-21]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-10/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-22]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-10/07
+accounts: 0
+categories: 59
+
+[transaction-23]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-10/16
+accounts: 0
+categories: 68
+
+[transaction-24]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-9/03
+accounts: 0
+categories: 114
+
+[transaction-25]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-9/04
+accounts: 0
+categories: 39
+
+[transaction-26]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-9/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-27]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-9/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-28]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-9/05
+accounts: 0
+categories: 57
+
+[transaction-29]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-9/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-30]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-9/07
+accounts: 0
+categories: 59
+
+[transaction-31]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-9/16
+accounts: 0
+categories: 68
+
+[transaction-32]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-8/03
+accounts: 0
+categories: 114
+
+[transaction-33]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-8/04
+accounts: 0
+categories: 39
+
+[transaction-34]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-8/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-35]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-8/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-36]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-8/05
+accounts: 0
+categories: 57
+
+[transaction-37]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-8/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-38]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-8/07
+accounts: 0
+categories: 59
+
+[transaction-39]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-8/16
+accounts: 0
+categories: 68
+
+[transaction-40]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-7/03
+accounts: 0
+categories: 114
+
+[transaction-41]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-7/04
+accounts: 0
+categories: 39
+
+[transaction-42]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-7/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-43]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-7/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-44]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-7/05
+accounts: 0
+categories: 57
+
+[transaction-45]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-7/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-46]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-7/07
+accounts: 0
+categories: 59
+
+[transaction-47]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-7/16
+accounts: 0
+categories: 68
+
+[transaction-48]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-6/03
+accounts: 0
+categories: 114
+
+[transaction-49]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-6/04
+accounts: 0
+categories: 39
+
+[transaction-50]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-6/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-51]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-6/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-52]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-6/05
+accounts: 0
+categories: 57
+
+[transaction-53]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-6/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-54]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-6/07
+accounts: 0
+categories: 59
+
+[transaction-55]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-6/16
+accounts: 0
+categories: 68
+
+[transaction-56]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-5/03
+accounts: 0
+categories: 114
+
+[transaction-57]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-5/04
+accounts: 0
+categories: 39
+
+[transaction-58]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-5/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-5/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-59]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-5/05
+accounts: 0
+categories: 57
+
+[transaction-60]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-5/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-61]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-5/07
+accounts: 0
+categories: 59
+
+[transaction-62]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-5/16
+accounts: 0
+categories: 68
+
+[transaction-63]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-4/03
+accounts: 0
+categories: 114
+
+[transaction-64]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-4/04
+accounts: 0
+categories: 39
+
+[transaction-65]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-4/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-66]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-4/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-67]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-4/05
+accounts: 0
+categories: 57
+
+[transaction-68]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-4/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-69]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-4/07
+accounts: 0
+categories: 59
+
+[transaction-70]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-4/16
+accounts: 0
+categories: 68
+
+[transaction-71]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-3/03
+accounts: 0
+categories: 114
+
+[transaction-72]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-3/04
+accounts: 0
+categories: 39
+
+[transaction-73]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-3/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-74]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-3/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-75]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-3/05
+accounts: 0
+categories: 57
+
+[transaction-76]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-3/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-77]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-3/07
+accounts: 0
+categories: 59
+
+[transaction-78]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-3/16
+accounts: 0
+categories: 68
+
+[transaction-79]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-2/03
+accounts: 0
+categories: 114
+
+[transaction-80]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-2/04
+accounts: 0
+categories: 39
+
+[transaction-81]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-2/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-82]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-2/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-83]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-2/05
+accounts: 0
+categories: 57
+
+[transaction-84]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-2/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-85]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-2/07
+accounts: 0
+categories: 59
+
+[transaction-86]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-2/16
+accounts: 0
+categories: 68
+
+[transaction-87]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: /-1/03
+accounts: 0
+categories: 114
+
+[transaction-88]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: /-1/04
+accounts: 0
+categories: 39
+
+[transaction-89]
+description: Loyer
+amount: -550
+currency: EUR
+date: /-1/05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-90]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: /-1/05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-91]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: /-1/05
+accounts: 0
+categories: 57
+
+[transaction-92]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: /-1/05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-93]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: /-1/07
+accounts: 0
+categories: 59
+
+[transaction-94]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: /-1/16
+accounts: 0
+categories: 68
+
+[transaction-95]
+description: Salaire
+original_description: VIR EMPLOI
+amount: 1427.54
+currency: EUR
+date: //03
+accounts: 0
+categories: 114
+
+[transaction-96]
+description: Abonnement compte bancaire
+original_description: PRELEV FRAIS FCT CPTE
+amount: -12.3
+currency: EUR
+date: //04
+accounts: 0
+categories: 39
+
+[transaction-97]
+description: Loyer
+amount: -550
+currency: EUR
+date: //05
+accounts: 0
+categories: 55:-500 47:-50
+
+[transaction-98]
+description: Électricité et gaz
+original_description: FACT ENERGIE
+amount: -70
+currency: EUR
+date: //05
+accounts: 0
+categories: 49:-30 53:-40
+
+[transaction-99]
+description: Abonnement mobile
+original_description: PRELEV MOBILE
+amount: -29
+currency: EUR
+date: //05
+accounts: 0
+categories: 57
+
+[transaction-100]
+description: Assurance voiture et habitation
+original_description: PRELEV ASSURPLUS
+amount: -55
+currency: EUR
+date: //05
+accounts: 0
+categories: 11:-40 117:-15
+
+[transaction-101]
+description: Abonnement internet
+original_description: PRELEV INTERNETTE
+amount: -29.99
+currency: EUR
+date: //07
+accounts: 0
+categories: 59
+
+[transaction-102]
+description: Mensualité impôts sur le revenu
+original_description: PRELEV TRESOR PUBLIC IMPOT
+amount: -124
+currency: EUR
+date: //16
+accounts: 0
+categories: 68
+
+####################################################################### Essence
+
+[transaction-103]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -65.48
+currency: EUR
+date: //-360
+accounts: 0
+categories: 12
+
+[transaction-104]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -57.39
+currency: EUR
+date: //-339
+accounts: 0
+categories: 12
+
+[transaction-105]
+description: Plein d'essence
+original_description: CB DAC LEFONSSÉ
+amount: -58.45
+currency: EUR
+date: //-315
+accounts: 0
+categories: 12
+
+[transaction-106]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -61.54
+currency: EUR
+date: //-297
+accounts: 0
+categories: 12
+
+[transaction-107]
+description: Plein d'essence
+original_description: CB DAC LEFONSSÉ
+amount: -60.58
+currency: EUR
+date: //-270
+accounts: 0
+categories: 12
+
+[transaction-108]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -59.65
+currency: EUR
+date: //-250
+accounts: 0
+categories: 12
+
+[transaction-109]
+description: Plein d'essence
+original_description: CB ET SAUT
+amount: -68.54
+currency: EUR
+date: //-231
+accounts: 0
+categories: 12
+
+[transaction-110]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -58.98
+currency: EUR
+date: //-207
+accounts: 0
+categories: 12
+
+[transaction-111]
+description: Plein d'essence
+original_description: CB DAC LEFONSSÉ
+amount: -66.59
+currency: EUR
+date: //-180
+accounts: 0
+categories: 12
+
+[transaction-112]
+description: Plein d'essence
+original_description: CB DAC LEFONSSÉ
+amount: -61.57
+currency: EUR
+date: //-155
+accounts: 0
+categories: 12
+
+[transaction-113]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -60.02
+currency: EUR
+date: //-136
+accounts: 0
+categories: 12
+
+[transaction-114]
+description: Plein d'essence
+original_description: CB DAC LEFONSSÉ
+amount: -55.49
+currency: EUR
+date: //-112
+accounts: 0
+categories: 12
+
+[transaction-115]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -62.54
+currency: EUR
+date: //-95
+accounts: 0
+categories: 12
+
+[transaction-116]
+description: Plein d'essence
+original_description: CB TOTALLE
+amount: -67.55
+currency: EUR
+date: //-74
+accounts: 0
+categories: 12
+
+[transaction-117]
+description: Plein d'essence
+original_description: CB DAC LEFONSSÉ
+amount: -61.94
+currency: EUR
+date: //-50
+accounts: 0
+categories: 12
+
+[transaction-118]
+description: Plein d'essence
+original_description: CB DAC LEFONSSÉ
+amount: -58.74
+currency: EUR
+date: //-33
+accounts: 0
+categories: 12
+
+[transaction-119]
+description: Plein d'essence
+original_description: CB ET SAUT
+amount: -58.75
+currency: EUR
+date: //-10
+accounts: 0
+categories: 12
+
+################################################################ Notes de frais
+
+[transaction-120]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 114.88
+currency: EUR
+date: /-12/17
+accounts: 0
+categories: 115
+
+[transaction-121]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 118.66
+currency: EUR
+date: /-11/17
+accounts: 0
+categories: 115
+
+[transaction-122]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 97.18
+currency: EUR
+date: /-9/17
+accounts: 0
+categories: 115
+
+[transaction-123]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 120.55
+currency: EUR
+date: /-7/17
+accounts: 0
+categories: 115
+
+[transaction-124]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 49.5
+currency: EUR
+date: /-5/17
+accounts: 0
+categories: 115
+
+[transaction-125]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 98.18
+currency: EUR
+date: /-4/17
+accounts: 0
+categories: 115
+
+[transaction-126]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 27.99
+currency: EUR
+date: /-2/17
+accounts: 0
+categories: 115
+
+[transaction-127]
+description: Note de frais
+original_description: VIR EMPLOI FRAIS
+amount: 57.68
+currency: EUR
+date: /-1/17
+accounts: 0
+categories: 115
+
+############################################################# Taxe d'habitation
+
+[transaction-128]
+description: Taxe d'habitation
+original_description: Taxe d'habitation
+amount: -387
+currency: EUR
+date: /1/3
+accounts: 0
+categories: 66
+
+###################################################################### Médecins
+
+[transaction-129]
+description: Médecin Robert
+original_description: CB DR LEVIVANT
+amount: -22
+currency: EUR
+date: /-11/25
+accounts: 0
+categories: 89
+
+[transaction-130]
+description: Dentiste Jean
+original_description: CHQ 159728
+amount: -70
+currency: EUR
+date: /-11/28
+accounts: 0
+categories: 89
+
+[transaction-131]
+description: Médecin Valentine
+original_description: CB DR LEVIVANT
+amount: -22
+currency: EUR
+date: /-10/14
+accounts: 0
+categories: 89
+
+[transaction-132]
+description: Radiographie Valentine
+original_description: CB CABINET RADIO
+amount: -49.9
+currency: EUR
+date: /-10/16
+accounts: 0
+categories: 89
+
+[transaction-133]
+description: Dentiste Jean
+original_description: CHQ 159729
+amount: -70
+currency: EUR
+date: /-10/18
+accounts: 0
+categories: 89
+
+[transaction-134]
+description: Médecin Valentine
+original_description: CB DR LEVIVANT
+amount: -22
+currency: EUR
+date: /-8/15
+accounts: 0
+categories: 89
+
+[transaction-135]
+description: Médecin Robert
+original_description: CB DR LEVIVANT
+amount: -22
+currency: EUR
+date: /-6/13
+accounts: 0
+categories: 89
+
+[transaction-136]
+description: Médecin Jean
+original_description: CB DR LEVIVANT
+amount: -22
+currency: EUR
+date: /-5/12
+accounts: 0
+categories: 89
+
+[transaction-137]
+description: Gynécologue Valentine
+original_description: CHQ 159730
+amount: -30
+currency: EUR
+date: /-4/11
+accounts: 0
+categories: 89
+
+[transaction-138]
+description: Dentiste Jean
+original_description: CB DR ARACHDANS
+amount: -50
+currency: EUR
+date: /-2/15
+accounts: 0
+categories: 89
+
+####################################################################### Cadeaux
+
+[transaction-139]
+description: Cadeaux de Noël
+original_description: Cadeaux de Noël
+amount: -248.99
+currency: EUR
+date: -1/12/07
+accounts: 0
+categories: 18
+
+[transaction-140]
+description: Cadeaux de Noël
+original_description: Cadeaux de Noël
+amount: -137.47
+currency: EUR
+date: -1/12/15
+accounts: 0
+categories: 18
+
+[transaction-141]
+description: Anniversaire Jean
+original_description: CB NIKO-LÀ
+amount: -30
+currency: EUR
+date: /-9/16
+accounts: 0
+categories: 18
+
+[transaction-142]
+description: Anniversaire Thomas
+original_description: CB TOUT-A-TOYS
+amount: -25
+currency: EUR
+date: /-3/04
+accounts: 0
+categories: 18
+
+[transaction-143]
+description: Anniversaire Stéphanie
+original_description: CHQ 159731
+amount: -42
+currency: EUR
+date: /-5/24
+accounts: 0
+categories: 18
+
+####################################################################### Courses
+
+[transaction-144]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -98.47
+currency: EUR
+date: /-12/06
+accounts: 0
+categories: 1
+
+[transaction-145]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -104.67
+currency: EUR
+date: /-12/25
+accounts: 0
+categories: 1
+
+[transaction-146]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -92.44
+currency: EUR
+date: /-11/06
+accounts: 0
+categories: 1
+
+[transaction-147]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -109.08
+currency: EUR
+date: /-11/25
+accounts: 0
+categories: 1
+
+[transaction-148]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -89.77
+currency: EUR
+date: /-10/06
+accounts: 0
+categories: 1
+
+[transaction-149]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -101.59
+currency: EUR
+date: /-10/25
+accounts: 0
+categories: 1
+
+[transaction-150]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -106.47
+currency: EUR
+date: /-9/06
+accounts: 0
+categories: 1
+
+[transaction-151]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -95.22
+currency: EUR
+date: /-9/25
+accounts: 0
+categories: 1
+
+[transaction-152]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -89.94
+currency: EUR
+date: /-8/06
+accounts: 0
+categories: 1
+
+[transaction-153]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -95.56
+currency: EUR
+date: /-8/25
+accounts: 0
+categories: 1
+
+[transaction-154]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -98.63
+currency: EUR
+date: /-7/06
+accounts: 0
+categories: 1
+
+[transaction-155]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -92.63
+currency: EUR
+date: /-7/25
+accounts: 0
+categories: 1
+
+[transaction-156]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -100.65
+currency: EUR
+date: /-6/06
+accounts: 0
+categories: 1
+
+[transaction-157]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -109.55
+currency: EUR
+date: /-6/25
+accounts: 0
+categories: 1
+
+[transaction-158]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -97.69
+currency: EUR
+date: /-5/06
+accounts: 0
+categories: 1
+
+[transaction-159]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -99.66
+currency: EUR
+date: /-5/25
+accounts: 0
+categories: 1
+
+[transaction-160]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -79.52
+currency: EUR
+date: /-4/06
+accounts: 0
+categories: 1
+
+[transaction-161]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -98.61
+currency: EUR
+date: /-4/25
+accounts: 0
+categories: 1
+
+[transaction-162]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -98.15
+currency: EUR
+date: /-3/06
+accounts: 0
+categories: 1
+
+[transaction-163]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -103.09
+currency: EUR
+date: /-3/25
+accounts: 0
+categories: 1
+
+[transaction-164]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -100.68
+currency: EUR
+date: /-2/06
+accounts: 0
+categories: 1
+
+[transaction-165]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -94.78
+currency: EUR
+date: /-2/25
+accounts: 0
+categories: 1
+
+[transaction-166]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -96.98
+currency: EUR
+date: /-1/06
+accounts: 0
+categories: 1
+
+[transaction-166]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -102.57
+currency: EUR
+date: /-1/25
+accounts: 0
+categories: 1
+
+[transaction-166]
+description: Courses
+original_description: CB LEFONSSÉ
+amount: -86.10
+currency: EUR
+date: //06
+accounts: 0
+categories: 1
+
+####################################################################### Épargne
+
+
+[transaction-167]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-12/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-168]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-11/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-169]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-10/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-170]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-9/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-171]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-8/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-172]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-7/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-173]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-6/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-174]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-5/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-175]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-4/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-176]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-3/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-177]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-2/28
+accounts: 0:-100 3:100
+categories:
+
+
+[transaction-178]
+description: Épargne
+original_description: Épargne
+amount: 0
+currency: EUR
+date: /-1/28
+accounts: 0:-100 3:100
+categories:
+
+
+############################################################# Entretien voiture
+
+[transaction-179]
+description: Révision voiture
+original_description: CB GARAGE JEAN CAISSE
+amount: -180
+currency: EUR
+date: /-8/16
+accounts: 0
+categories: 13
+
+[transaction-180]
+description: Réparation voiture suite à panne
+original_description: CB GARAGE JEAN CAISSE
+amount: -759.98
+currency: EUR
+date: /-3/06
+accounts: 0
+categories: 13
+
+
+##################################################################### Vêtements
+
+[transaction-181]
+description: Vêtements
+original_description: CHQ 159732
+amount: -358.87
+currency: EUR
+date: /-2/16
+accounts: 0
+categories: 61:-97 62:-117.51 63:-144.36
+
+[transaction-182]
+description: Chaussures Valentine
+original_description: CB CHAUD SOEUR
+amount: -139.99
+currency: EUR
+date: /-8/24
+accounts: 0
+categories: 63
+
+######################################################################## Divers
+
+[transaction-183]
+description: Crêperie
+original_description: CB TOUTATIS CREPES
+amount: -87
+currency: EUR
+date: /-10/21
+accounts: 0
+categories: 2
+
+[transaction-184]
+description: Pizzeria
+original_description: CB LA PIZZA MIA
+amount: -59
+currency: EUR
+date: /-6/05
+accounts: 0
+categories: 2
+
+[transaction-185]
+description: Restaurant
+original_description: CB RESTE AU RANG
+amount: -119
+currency: EUR
+date: /-3/15
+accounts: 0
+categories: 2
+
+[transaction-186]
+description: Restaurant
+original_description: CB RESTE AU RANG
+amount: 18.7
+currency: EUR
+date: /01/08
+accounts: 0
+categories: 122

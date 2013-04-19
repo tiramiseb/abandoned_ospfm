@@ -1,0 +1,518 @@
+[currency-0]
+name: Ticket restaurant
+symbol: TR
+rate: 7
+
+[account-0]
+name: Compte courant
+currency: EUR
+balance: 0
+
+[account-1]
+name: Porte-monnaie
+currency: EUR
+balance: 0
+
+[account-2]
+name: Tickets restaurant
+currency: TR
+balance: 0
+
+[category-0]
+name: Alimentation
+
+[category-1]
+name: Courses
+parent: 0
+
+[category-2]
+name: Restaurant
+parent: 0
+
+[category-3]
+name: Invitation
+parent: 0
+
+[category-4]
+name: Animaux domestique
+
+[category-5]
+name: Alimentation
+parent: 4
+
+[category-6]
+name: Fournitures diverses
+parent: 4
+
+[category-7]
+name: Toilettage
+parent: 4
+
+[category-8]
+name: Vétérinaire
+parent: 4
+
+[category-9]
+name: Auto moto
+
+[category-10]
+name: Amendes
+parent: 9
+
+[category-11]
+name: Assurance
+parent: 9
+
+[category-12]
+name: Carburant
+parent: 9
+
+[category-13]
+name: Entretien / réparation
+parent: 9
+
+[category-14]
+name: Stationnement
+parent: 9
+
+[category-15]
+name: Divers
+
+[category-16]
+name: Avance
+parent: 15
+
+[category-17]
+name: Caisse
+parent: 15
+
+[category-18]
+name: Cadeaux
+parent: 15
+
+[category-19]
+name: Dons
+parent: 15
+
+[category-20]
+name: Retrait espèces
+parent: 15
+
+[category-21]
+name: Enfants
+
+[category-22]
+name: Argent de poche
+parent: 21
+
+[category-23]
+name: Assurance
+parent: 21
+
+[category-24]
+name: Cantine
+parent: 21
+
+[category-25]
+name: Crèche
+parent: 21
+
+[category-26]
+name: Études
+parent: 21
+
+[category-27]
+name: Frais de transport
+parent: 21
+
+[category-28]
+name: Frais de scolarité
+parent: 21
+
+[category-29]
+name: Frais divers
+parent: 21
+
+[category-30]
+name: Epargne
+
+[category-31]
+name: Assurance vie
+parent: 30
+
+[category-32]
+name: Compte épargne logement
+parent: 30
+
+[category-33]
+name: Livret avenir
+parent: 30
+
+[category-34]
+name: Livret A
+parent: 30
+
+[category-35]
+name: Livret d'abonnement durable
+parent: 30
+
+[category-36]
+name: Livret d'épargne populaire
+parent: 30
+
+[category-37]
+name: Parts sociales
+parent: 30
+
+[category-38]
+name: Frais bancaire
+
+[category-39]
+name: Carte de paiement
+parent: 38
+
+[category-40]
+name: Divers
+parent: 38
+
+[category-41]
+name: Prêt
+parent: 38
+
+[category-42]
+name: Remboursement
+parent: 38
+
+[category-43]
+name: Service abonnement
+parent: 38
+
+[category-44]
+name: Logement
+
+[category-45]
+name: Ameublement
+parent: 44
+
+[category-46]
+name:  Bricolage / outils
+parent: 44
+
+[category-47]
+name: Charges
+parent: 44
+
+[category-48]
+name: Eau
+parent: 44
+
+[category-49]
+name: Électricité
+parent: 44
+
+[category-50]
+name: Équipement
+parent: 44
+
+[category-51]
+name: Électroménager
+parent: 44
+
+[category-52]
+name: Déco / réparation
+parent: 44
+
+[category-53]
+name: Gaz
+parent: 44
+
+[category-54]
+name: Jardinage
+parent: 44
+
+[category-55]
+name: Loyer
+parent: 44
+
+[category-56]
+name: Ordinateur / télévision
+parent: 44
+
+[category-57]
+name: Téléphone portable
+parent: 44
+
+[category-58]
+name: Salarié à domicile
+parent: 44
+
+[category-59]
+name: Téléphone fixe
+parent: 44
+
+[category-60]
+name: Habillement
+
+[category-61]
+name: Robert
+parent: 60
+
+[category-62]
+name: Jean
+parent: 60
+
+[category-63]
+name: Valentine
+parent: 60
+
+[category-64]
+name: Impôts
+
+[category-65]
+name: fonciers
+parent: 64
+
+[category-66]
+name: locaux
+parent: 64
+
+[category-67]
+name: sur la fortune
+parent: 64
+
+[category-68]
+name: sur le revenu
+parent: 64
+
+[category-69]
+name: Loisirs
+
+[category-70]
+name: Activité sportive
+parent: 69
+
+[category-71]
+name: Cinéma / spectacle
+parent: 69
+
+[category-72]
+name: CD / DVD / Blu-Ray
+parent: 69
+
+[category-73]
+name: Collection
+parent: 69
+
+[category-74]
+name: Livres / journaux
+parent: 69
+
+[category-75]
+name: Jeux
+parent: 69
+
+[category-76]
+name: Musée / exposition
+parent: 69
+
+[category-77]
+name: Sorties diverses
+parent: 69
+
+[category-78]
+name: Crédit
+
+[category-79]
+name: Voiture / moto / scooter
+parent: 78
+
+[category-80]
+name: Habitation
+parent: 78
+
+[category-81]
+name: Consommation
+parent: 78
+
+[category-82]
+name: Divers
+parent: 78
+
+[category-83]
+name: Santé
+
+[category-84]
+name: Analyses
+parent: 83
+
+[category-85]
+name: Assurance complémentaire
+parent: 83
+
+[category-86]
+name: Dentiste
+parent: 83
+
+[category-87]
+name: Hôpital
+parent: 83
+
+[category-88]
+name: Kinésithérapie
+parent: 83
+
+[category-89]
+name: Médecin
+parent: 83
+
+[category-90]
+name: Ophtalmologiste
+parent: 83
+
+[category-91]
+name: Ostéopathe
+parent: 83
+
+[category-92]
+name: Pharmacie
+parent: 83
+
+[category-93]
+name: Radiographies
+parent: 83
+
+[category-94]
+name: Soins de la personne
+
+[category-95]
+name: Coiffeur
+parent: 94
+
+[category-96]
+name: Esthéticienne
+parent: 94
+
+[category-97]
+name: Parfumerie
+parent: 94
+
+[category-98]
+name: Pédicure
+parent: 94
+
+[category-99]
+name: Produits de beauté
+parent: 94
+
+[category-100]
+name: Thalasso
+parent: 94
+
+[category-101]
+name: Transport
+
+[category-102]
+name: Bus
+parent: 101
+
+[category-103]
+name: Métro
+parent: 101
+
+[category-104]
+name: Péage
+parent: 101
+
+[category-105]
+name: Train
+parent: 101
+
+[category-106]
+name: Tram
+parent: 101
+
+[category-107]
+name: Vacances
+
+[category-108]
+name: Alimentation
+parent: 107
+
+[category-109]
+name: Divers
+parent: 107
+
+[category-110]
+name: Séjour
+parent: 107
+
+[category-111]
+name: Trajet
+parent: 107
+
+[category-112]
+name: Visite
+parent: 107
+
+[category-113]
+name: Revenus
+
+[category-114]
+name: Salaire
+parent: 113
+
+[category-115]
+name: Notes de frais
+parent: 113
+
+[category-116]
+name: Loyer
+parent: 113
+
+[category-117]
+name: Assurance
+parent: 44
+
+[category-118]
+name: Allocations familiales
+parent: 113
+
+[category-119]
+name: ARE (chômage)
+parent: 113
+
+[category-120]
+name: Don / cadeau
+parent: 113
+
+[category-121]
+name: Héritage
+parent: 113
+
+[category-122]
+name: Intérêt sur placement
+parent: 113
+
+[category-123]
+name: Jeux
+parent: 113
+
+[category-124]
+name: Primes diverses
+parent: 113
+
+[category-125]
+name: Remboursement avance
+parent: 113
+
+[category-126]
+name: Vente
+parent: 113
+
+[category-127]
+name: Remboursement S.S.
+parent: 83
+
+[category-128]
+name: Remboursement Compl. Santé
+parent: 83
