@@ -35,3 +35,4 @@ def login():
 
 from ospfm.core import views
 from ospfm.transaction import views
+import wizard

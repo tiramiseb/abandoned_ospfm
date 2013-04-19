@@ -156,7 +156,11 @@ class Transaction(Object):
 
         # First, modifications on the Transaction object itself
         if 'description' in self.args:
-            transaction.description = self.args['description']
+            desc = self.args['description']
+            if desc.strip() == '':
+                transaction.description = transaction.original_description
+            else:
+                transaction.description = desc
         if 'amount' in self.args:
             transaction.amount = self.args['amount']
         if 'currency' in self.args:
@@ -373,9 +377,19 @@ def account_filter(value):
         models.TransactionAccount.account_id == value
     ]
 def category_filter(value):
+    def subcategories(categoryid, categorylist):
+        for cat in models.Category.query.filter(
+                        models.Category.parent_id == categoryid
+                    ):
+            categorylist.append(cat.id)
+            categorylist = subcategories(cat.id, categorylist)
+        return categorylist
+
+    categorylist = subcategories(value, [ int(value) ])
     return [
         models.Transaction.id == models.TransactionCategory.transaction_id,
-        models.TransactionCategory.category_id == value
+        or_(*[ models.TransactionCategory.category_id == value \
+               for value in categorylist ])
     ]
 def currency_filter(value):
     return [
