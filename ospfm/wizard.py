@@ -216,33 +216,41 @@ def create(username, wizard, locale, prefcurrency):
         currency = currencies[curname]
         # Calculate date
         year, month, day = data.get(tra, 'date').split('/')
-        # Year
-        if year:
-            if year[0] in ('-', '+'):
-                year = today.year + int(year)
-            else:
-                year = int(year)
-        else:
-            year = today.year
         # Month
         if month:
             if month[0] in ('-', '+'):
                 month = today.month + int(month)
             else:
                 month = int(month)
-            def month_outside_bounds(month, year):
-                if month < 1:
-                    month = month + 12
-                    year = year - 1
-                    month, year = month_outside_bounds(month, year)
-                elif month > 12:
-                    month = month - 12
-                    year = year + 1
-                    month, year = month_outside_bounds(month, year)
-                return month, year
-            month, year = month_outside_bounds(month, year)
         else:
             month = today.month
+        # Year
+        if year:
+            if year[0] in ('-', '+'):
+                year = today.year + int(year)
+            elif year == '?':
+                # If year = "?", point to the last passed year containing the
+                # defined month (either current year or previous year)
+                if month < today.month:
+                    year = today.year
+                else:
+                    year = today.year - 1
+            else:
+                year = int(year)
+        else:
+            year = today.year
+        # Check the month is not outside bounds, or correct the year
+        def month_outside_bounds(month, year):
+            if month < 1:
+                month = month + 12
+                year = year - 1
+                month, year = month_outside_bounds(month, year)
+            elif month > 12:
+                month = month - 12
+                year = year + 1
+                month, year = month_outside_bounds(month, year)
+            return month, year
+        month, year = month_outside_bounds(month, year)
         # Day
         if day:
             if day[0] in ('-', '+'):

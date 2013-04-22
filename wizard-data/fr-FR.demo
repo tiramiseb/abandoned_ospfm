@@ -1735,3 +1735,78 @@ currency: EUR
 date: /01/08
 accounts: 0
 categories: 122
+
+###################################################################### Vacances
+
+[transaction-187]
+description: Trajet en train
+original_description: CB HASSAN CIHEF
+amount: -402
+currency: EUR
+date: ?/07/01
+accounts: 0
+categories: 111
+
+[transaction-188]
+description: Location de voiture
+original_description: CB EUROP KAR
+amount: -250
+currency: EUR
+date: ?/07/04
+accounts: 0
+categories: 111
+
+[transaction-189]
+description: Courses alimentaires
+original_description: CB LEFONSSE
+amount: -60
+currency: EUR
+date: ?/07/05
+accounts: 0
+categories: 108
+
+[transaction-190]
+description: Restaurant
+original_description: CB RESTE-O
+amount: -80
+currency: EUR
+date: ?/07/12
+accounts: 0
+categories: 108
+
+[transaction-191]
+description: Location bungalow
+original_description: CB BING A L'EAU
+amount: -299
+currency: EUR
+date: ?/07/01
+accounts: 0
+categories: 110
+
+[transaction-192]
+description: Retrait GAB pour visites
+original_description: DAB ITUDE
+amount: -140
+currency: EUR
+date: ?/07/05
+accounts: 0
+categories: 112
+
+[transaction-193]
+description: Virement de l'épargne pour vacances
+original_description: Épargne
+amount: 0
+currency: EUR
+date: ?/07/01
+accounts: 0:900 3:-900
+categories:
+
+
+[transaction-194]
+description: Plein d'essence voiture de location
+original_description: DAC LEFONSSE
+amount: -98.47
+currency: EUR
+date: ?/07/13
+accounts: 0
+categories: 109
