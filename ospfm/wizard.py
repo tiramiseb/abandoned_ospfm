@@ -38,9 +38,11 @@ from ospfm.transaction import models as transaction
 def wizards(wizard, locale, currency):
     username = authentication.get_username_auth(
                                      request.values.to_dict().get('key', None))
-    delete_everything(username)
-    return create(username, wizard, locale, currency)
-
+    if username:
+        delete_everything(username)
+        return create(username, wizard, locale, currency)
+    else:
+        abort(403)
 
 
 def delete_everything(username):
@@ -87,6 +89,10 @@ def delete_everything(username):
 
 def create(username, wizard, locale, prefcurrency):
     """Create entries from wizard files"""
+
+    # /!\ Does not work in Python < 2.7
+    #
+    # (sections order is important)
 
     ########## Initialization
     data = ConfigParser.RawConfigParser()
@@ -138,7 +144,7 @@ def create(username, wizard, locale, prefcurrency):
                         isocode = symbol,
                         symbol = symbol,
                         name = data.get(cur, 'name'),
-                        rate = data.getfloat(cur, 'rate')
+                        rate = data.get(cur, 'rate')
                     )
         session.add(currency)
         currencies[symbol] = currency
