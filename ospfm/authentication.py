@@ -76,4 +76,4 @@ def get_username_auth(key):
                 return username
         if config.DEVEL and config.DEVEL_USERNAME:
             return config.DEVEL_USERNAME
-        return False
+        abort(401)

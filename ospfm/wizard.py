@@ -38,11 +38,8 @@ from ospfm.transaction import models as transaction
 def wizards(wizard, locale, currency):
     username = authentication.get_username_auth(
                                      request.values.to_dict().get('key', None))
-    if username:
-        delete_everything(username)
-        return create(username, wizard, locale, currency)
-    else:
-        abort(403)
+    delete_everything(username)
+    return create(username, wizard, locale, currency)
 
 
 def delete_everything(username):

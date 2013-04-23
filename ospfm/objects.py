@@ -48,11 +48,9 @@ class Object:
 
     def __init_http(self):
         self.args = request.values.to_dict()
-        username = authentication.get_username_auth(self.args.get('key', None))
-        if username:
-            self.username = username
-        else:
-            abort(401)
+        self.username = authentication.get_username_auth(
+                            self.args.get('key', None)
+                        )
 
     def add_to_response(self, *args):
         """Adds an additional data to the response"""
