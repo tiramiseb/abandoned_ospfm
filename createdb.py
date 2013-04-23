@@ -31,14 +31,14 @@ def populate_test_db():
 
     # Users
     # (passwords == usernames)
-    alice = core.User(username='alice', first_name='Alice',
-                      last_name='In Wonderland', preferred_currency=euro,
+    alice = core.User(username='alice', first_name='',
+                      last_name='', preferred_currency=euro,
        passhash='$2a$11$9jBMBYateRXaxp1tQgiLpOR8LGzpJ0JC5g0Ez2dzcXbyARjL3vG82')
-    bob = core.User(username='bob', first_name='Bob', last_name='Sponge',
-                    preferred_currency=dollar,
+    bob = core.User(username='bob', first_name='',
+                      last_name='', preferred_currency=dollar,
        passhash='$2a$11$R2Oo6WtystSglh6CA2DENefv22On5YMDgqR0x4W3ObW5zNpcn718K')
-    carol = core.User(username='carol', first_name='Carol', last_name='Markus',
-                      preferred_currency=yen,
+    carol = core.User(username='carol', first_name='',
+                      last_name='', preferred_currency=yen,
        passhash='$2a$11$Foj4ZwoojAXRqQxm7Sgh8uG84r84Qxc8kcgsFKjs6Q.eDNtwaAkFa')
     db.session.add_all((alice, bob, carol))
 
@@ -61,72 +61,6 @@ def populate_test_db():
     bob_carol = core.UserContact(user=bob, contact=carol)
     carol_alice = core.UserContact(user=carol, contact=alice)
     db.session.add_all((alice_bob, bob_carol, carol_alice))
-
-    # Accounts
-    acct1 = transaction.Account(name='Default account', currency=euro,
-                                start_balance=0)
-    acct2 = transaction.Account(name='Shared account', currency=dollar,
-                                start_balance=100)
-    acct3 = transaction.Account(name='Default account', currency=euro,
-                                start_balance=12.34)
-    alice_acct1 = transaction.AccountOwner(account=acct1, owner=alice)
-    alice_acct2 = transaction.AccountOwner(account=acct2, owner=alice)
-    bob_acct2 = transaction.AccountOwner(account=acct2, owner=bob)
-    carol_acct3 = transaction.AccountOwner(account=acct3, owner=carol)
-    db.session.add_all((acct1, acct2, acct3,
-                        alice_acct1, alice_acct2, bob_acct2, carol_acct3))
-
-    # Categories
-    alicecat1 = transaction.Category(owner=alice, name='Car', currency=euro)
-    alicecat2 = transaction.Category(owner=alice, name='House', currency=euro)
-    alicecat3 = transaction.Category(owner=alice, name='Fun', currency=euro)
-    alicecat4 = transaction.Category(owner=alice, parent=alicecat1,
-                                     name='Insurance', currency=euro)
-    alicecat5 = transaction.Category(owner=alice, parent=alicecat1,
-                                     name='Fuel', currency=euro)
-    alicecat6 = transaction.Category(owner=alice, parent=alicecat2,
-                                     name='Invoices', currency=euro)
-    alicecat7 = transaction.Category(owner=alice, parent=alicecat6,
-                                     name='Electricity', currency=euro)
-    alicecat8 = transaction.Category(owner=alice, parent=alicecat6,
-                                     name='Internet access', currency=dollar)
-    alicecat9 = transaction.Category(owner=alice, parent=alicecat3,
-                                     name='Danceclub', currency=euro)
-    bobcat1 = transaction.Category(owner=bob, name='Car', currency=euro)
-    bobcat2 = transaction.Category(owner=bob, name='Fun', currency=dollar)
-    bobcat3 = transaction.Category(owner=bob, parent=bobcat1,
-                                   name='Fuel', currency=euro)
-    bobcat4 = transaction.Category(owner=bob, parent=bobcat2,
-                                   name='Books', currency=dollar)
-    bobcat5 = transaction.Category(owner=bob, parent=bobcat2,
-                                   name='Music', currency=dollar)
-    carolcat1 = transaction.Category(owner=carol, name='House', currency=yen)
-
-    db.session.add_all((
-        alicecat1, alicecat2, alicecat3, alicecat4, alicecat5, alicecat6,
-        alicecat7, alicecat8, alicecat9, bobcat1, bobcat2, bobcat3, bobcat4,
-        bobcat5, carolcat1
-    ))
-
-    # Transactions
-    t1 = transaction.Transaction(owner=alice, description='Elec. bill',
-                                 original_description='ELECTRIC COMPANY',
-                                 amount=-83.42, currency=euro,
-                                 date=datetime.date(2013, 1, 5))
-    ta1 = transaction.TransactionAccount(transaction=t1, account=acct1,
-                                         amount=-83.42)
-    tc1 = transaction.TransactionCategory(transaction=t1, category=alicecat7,
-                                          transaction_amount=-83.42,
-                                          category_amount=-83.42)
-    t2 = transaction.Transaction(owner=alice, description='Transfer',
-                                 original_description='Transfer',
-                                 amount=0, currency=dollar,
-                                 date=datetime.date(2013, 1, 7))
-    ta2_1 = transaction.TransactionAccount(transaction=t2, account=acct2,
-                                           amount=-200)
-    ta2_2 = transaction.TransactionAccount(transaction=t2, account=acct1,
-                                           amount=158.31)
-    db.session.add_all((t1, ta1, tc1, t2, ta2_1, ta2_2))
 
     db.session.commit()
 
