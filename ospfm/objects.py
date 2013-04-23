@@ -16,11 +16,7 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import abort, jsonify, request
-try:
-    from sqlalchemy.exc import StatementError
-except:
-    # Dirty workaround for older SQLAlchemy versions (<0.7)
-    from sqlalchemy.exc import DBAPIError as StatementError
+from sqlalchemy.exc import StatementError
 
 import ospfm
 from ospfm import authentication
