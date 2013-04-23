@@ -16,8 +16,13 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+
+from ospfm import config
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE
+db = SQLAlchemy(app)
 
 # App routing, etc
 import ospfm.errorpages
