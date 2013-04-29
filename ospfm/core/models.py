@@ -24,8 +24,10 @@ from ospfm import db
 class Currency(db.Model):
     id             = db.Column(db.Integer, primary_key=True)
     owner_username = db.Column(db.String(50),
-                               db.ForeignKey('user.username',
-                                             use_alter=True, name='fk_owner'))
+                               db.ForeignKey('user.username', use_alter=True,
+                                             onupdate='CASCADE',
+                                             ondelete='CASCADE',
+                                             name='fk_owner'))
     isocode        = db.Column(db.String(5), nullable=False)
     symbol         = db.Column(db.String(5), nullable=False)
     name           = db.Column(db.String(50), nullable=False)
@@ -76,8 +78,14 @@ class User(db.Model):
 
 class UserContact(db.Model):
     id               = db.Column(db.Integer, primary_key=True)
-    user_username    = db.Column(db.ForeignKey('user.username'),nullable=False)
-    contact_username = db.Column(db.ForeignKey('user.username'),nullable=False)
+    user_username    = db.Column(db.ForeignKey('user.username',
+                                               onupdate='CASCADE',
+                                               ondelete='CASCADE'),
+                                 nullable=False)
+    contact_username = db.Column(db.ForeignKey('user.username',
+                                               onupdate='CASCADE',
+                                               ondelete='CASCADE'),
+                                 nullable=False)
     comment          = db.Column(db.String(100), default='', nullable=False)
 
     __table_args__ = (
@@ -102,7 +110,10 @@ class UserContact(db.Model):
 
 class UserEmail(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
-    user_username = db.Column(db.ForeignKey('user.username'), nullable=False)
+    user_username = db.Column(db.ForeignKey('user.username',
+                                            onupdate='CASCADE',
+                                            ondelete='CASCADE'),
+                              nullable=False)
     email_address = db.Column(db.String(256), nullable=False)
     # Notification is to be used by (an)other process(es), OSPFM itself doesn't
     # send notifications. This field make it possible to know which email
@@ -128,7 +139,10 @@ class UserEmail(db.Model):
 
 class UserPreference(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
-    user_username = db.Column(db.ForeignKey('user.username'), nullable=False)
+    user_username = db.Column(db.ForeignKey('user.username',
+                                            onupdate='CASCADE',
+                                            ondelete='CASCADE'),
+                              nullable=False)
     name          = db.Column(db.String(200), nullable=False)
     value         = db.Column(db.String(2048))
 

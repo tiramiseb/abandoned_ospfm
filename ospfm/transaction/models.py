@@ -28,7 +28,7 @@ cache = config.CACHE
 class Account(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
     name          = db.Column(db.String(50), nullable=False)
-    currency_id   = db.Column(db.ForeignKey('currency.id'))
+    currency_id   = db.Column(db.ForeignKey('currency.id', ondelete='CASCADE'))
     start_balance = db.Column(db.Numeric(15, 3), nullable=False)
 
     currency = db.relationship('Currency')
@@ -89,8 +89,12 @@ class Account(db.Model):
 
 
 class AccountOwner(db.Model):
-    account_id     = db.Column(db.ForeignKey('account.id'), primary_key=True)
-    owner_username = db.Column(db.ForeignKey('user.username'), primary_key=True)
+    account_id     = db.Column(db.ForeignKey('account.id', ondelete='CASCADE'),
+                               primary_key=True)
+    owner_username = db.Column(db.ForeignKey('user.username',
+                                             onupdate='CASCADE',
+                                             ondelete='CASCADE'),
+                               primary_key=True)
 
     account = db.relationship('Account', backref=db.backref('account_owners'))
     owner = db.relationship('User', backref=db.backref('accounts_owner'))
@@ -99,9 +103,14 @@ class AccountOwner(db.Model):
 
 class Category(db.Model):
     id             = db.Column(db.Integer, primary_key=True)
-    owner_username = db.Column(db.ForeignKey('user.username'), nullable=False)
-    parent_id      = db.Column(db.ForeignKey('category.id'))
-    currency_id    = db.Column(db.ForeignKey('currency.id'))
+    owner_username = db.Column(db.ForeignKey('user.username',
+                                             onupdate='CASCADE',
+                                             ondelete='CASCADE'),
+                               nullable=False)
+    parent_id      = db.Column(db.ForeignKey('category.id',
+                                             ondelete='SET NULL'))
+    currency_id    = db.Column(db.ForeignKey('currency.id',
+                                             ondelete='CASCADE'))
     name           = db.Column(db.String(50), nullable=False)
 
     currency = db.relationship('Currency')
@@ -239,12 +248,15 @@ class Category(db.Model):
 
 class Transaction(db.Model):
     id                   = db.Column(db.Integer, primary_key=True)
-    owner_username       = db.Column(db.ForeignKey('user.username'),
+    owner_username       = db.Column(db.ForeignKey('user.username',
+                                                   onupdate='CASCADE',
+                                                   ondelete='CASCADE'),
                                      nullable=False)
     description          = db.Column(db.String(200), nullable=False)
     original_description = db.Column(db.String(200), nullable=False)
     amount               = db.Column(db.Numeric(15, 3), nullable=False)
-    currency_id          = db.Column(db.ForeignKey('currency.id'),
+    currency_id          = db.Column(db.ForeignKey('currency.id',
+                                                   ondelete='CASCADE'),
                                      nullable=False)
     date                 = db.Column(db.Date, nullable=False)
 
@@ -269,7 +281,8 @@ class Transaction(db.Model):
 class TransactionAccount(db.Model):
     transaction_id = db.Column(db.ForeignKey('transaction.id'),
                                primary_key=True)
-    account_id     = db.Column(db.ForeignKey('account.id'), primary_key=True)
+    account_id     = db.Column(db.ForeignKey('account.id', ondelete='CASCADE'),
+                               primary_key=True)
     amount         = db.Column(db.Numeric(15, 3), nullable=False)
     verified       = db.Column(db.Boolean, nullable=False, default=False)
 
@@ -289,9 +302,11 @@ class TransactionAccount(db.Model):
 
 
 class TransactionCategory(db.Model):
-    transaction_id     = db.Column(db.ForeignKey('transaction.id'),
+    transaction_id     = db.Column(db.ForeignKey('transaction.id',
+                                                 ondelete='CASCADE'),
                                    primary_key=True)
-    category_id        = db.Column(db.ForeignKey('category.id'),
+    category_id        = db.Column(db.ForeignKey('category.id',
+                                                 ondelete='CASCADE'),
                                    primary_key=True)
     transaction_amount = db.Column(db.Numeric(15, 3), nullable=False)
     category_amount    = db.Column(db.Numeric(15, 3), nullable=False)
