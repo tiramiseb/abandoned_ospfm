@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -16,11 +16,9 @@
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import abort, jsonify
-from sqlalchemy import and_, or_
 
-from ospfm import helpers
+from ospfm import db, helpers
 from ospfm.core import models
-from ospfm.database import session
 from ospfm.transaction import models as transaction
 from ospfm.objects import Object
 
@@ -28,20 +26,20 @@ class Currency(Object):
 
     def __own_currency(self, isocode):
         return models.Currency.query.filter(
-            and_(
+            db.and_(
                 models.Currency.isocode == isocode,
-                or_(
+                db.or_(
                     models.Currency.owner_username == self.username,
-                    models.Currency.owner == None,
+                    models.Currency.owner_username == None,
                 )
             )
         )
 
     def list(self):
         currencies = models.Currency.query.filter(
-            or_(
+            db.or_(
                 models.Currency.owner_username == self.username,
-                models.Currency.owner == None,
+                models.Currency.owner_username == None,
             )
         )
         return [c.as_dict() for c in currencies]
@@ -60,8 +58,8 @@ class Currency(Object):
                 name = self.args['name'],
                 rate = self.args['rate']
         )
-        session.add(c)
-        session.commit()
+        db.session.add(c)
+        db.session.commit()
         return c.as_dict()
 
     def read(self, isocode):
@@ -90,7 +88,7 @@ class Currency(Object):
         if 'rate' in self.args:
             currency.rate = self.args['rate']
             self.add_to_response('totalbalance')
-        session.commit()
+        db.session.commit()
         return currency.as_dict()
 
     def delete(self, isocode):
@@ -110,8 +108,8 @@ class Currency(Object):
                 transaction.Account.currency == currency
            ).count():
                 self.badrequest()
-        session.delete(currency)
-        session.commit()
+        db.session.delete(currency)
+        db.session.commit()
 
     def http_rate(self, fromisocode, toisocode):
         response = helpers.rate(self.username, fromisocode, toisocode)

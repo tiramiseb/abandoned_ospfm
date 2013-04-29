@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -15,6 +15,8 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
+########## App initialisation
+
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -24,13 +26,26 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE
 db = SQLAlchemy(app)
 
-# App routing, etc
+########## App routing, etc
+
 import ospfm.errorpages
 import ospfm.views
 
+########## Additional methods
+
 from ospfm.transaction import additional as add_transaction
+# ^ Add a line for each section
 
 additional_methods = {}
 for function in dir(add_transaction):
     if not function.startswith('__'):
         additional_methods[function] = getattr(add_transaction, function)
+
+########## Database initialization
+
+def init_db():
+    """Create the database tables"""
+    import ospfm.core.models
+    import ospfm.transaction.models
+    # ^ Add a line for each section
+    db.create_all()

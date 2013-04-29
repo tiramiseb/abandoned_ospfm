@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -17,14 +17,10 @@
 
 from decimal import Decimal
 
-from sqlalchemy import and_, or_
-from sqlalchemy.orm import joinedload
-
-from ospfm import helpers
+from ospfm import db, helpers
 from ospfm.core import models as core
 from ospfm.core import currency as corecurrency
 from ospfm.transaction import models
-from ospfm.database import session
 from ospfm.objects import Object
 
 
@@ -32,24 +28,24 @@ class Account(Object):
 
     def __own_account(self, accountid):
         return models.Account.query.options(
-                        joinedload(models.Account.currency)
-               ).join(models.AccountOwner).filter(
-                    and_(
+                        db.joinedload(models.Account.currency)
+                ).join(models.AccountOwner).filter(
+                    db.and_(
                         models.AccountOwner.owner_username == self.username,
                         models.Account.id == accountid
                     )
-               ).first()
+                ).first()
 
     def list(self):
         accounts = models.Account.query.options(
-                        joinedload(models.Account.currency)
+                        db.joinedload(models.Account.currency)
         ).join(models.AccountOwner).filter(
             models.AccountOwner.owner_username == self.username
         ).all()
         # Calculate the total balance, in the user's preferred currency
         totalbalance = 0
         totalcurrency = core.User.query.options(
-                            joinedload(core.User.preferred_currency)
+                            db.joinedload(core.User.preferred_currency)
                         ).get(self.username).preferred_currency
         for account in accounts:
             totalbalance += account.balance(self.username)[0] * \
@@ -72,11 +68,11 @@ class Account(Object):
         ):
             self.badrequest()
         currency = core.Currency.query.filter(
-            and_(
+            db.and_(
                 core.Currency.isocode == self.args['currency'],
-                or_(
+                db.or_(
                     core.Currency.owner_username == self.username,
-                    core.Currency.owner == None
+                    core.Currency.owner_username == None
                 )
             )
         ).first()
@@ -92,8 +88,8 @@ class Account(Object):
                 start_balance=start_balance
         )
         ao = models.AccountOwner(account=a, owner_username=self.username)
-        session.add_all((a, ao))
-        session.commit()
+        db.session.add_all((a, ao))
+        db.session.commit()
         self.add_to_response('totalbalance')
         return a.as_dict(self.username)
 
@@ -115,11 +111,11 @@ class Account(Object):
                         models.TransactionAccount.account == account
                    ).count():
                 currency = core.Currency.query.filter(
-                    and_(
+                    db.and_(
                         core.Currency.isocode == self.args['currency'],
-                        or_(
+                        db.or_(
                             core.Currency.owner_username == self.username,
-                            core.Currency.owner == None
+                            core.Currency.owner_username == None
                         )
                     )
                 ).first()
@@ -128,13 +124,13 @@ class Account(Object):
         if 'start_balance' in self.args:
             account.start_balance = Decimal(self.args['start_balance'])
             self.add_to_response('totalbalance')
-        session.commit()
+        db.session.commit()
         return account.as_dict(self.username)
 
     def delete(self, accountid):
         account = self.__own_account(accountid)
         if not account:
             self.notfound()
-        session.delete(account)
-        session.commit()
+        db.session.delete(account)
+        db.session.commit()
         self.add_to_response('totalbalance')

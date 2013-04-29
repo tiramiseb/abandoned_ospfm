@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -18,9 +18,8 @@
 import datetime
 
 from flask import request
-from sqlalchemy import and_, or_
 
-from ospfm import config
+from ospfm import config, db
 from ospfm.core import exchangerate
 from ospfm.core import models as core
 
@@ -42,20 +41,20 @@ def rate(username, fromisocode, toisocode):
         return 1
     # Request the currencies
     fromcurrency = core.Currency.query.filter(
-        and_(
+        db.and_(
             core.Currency.isocode == fromisocode,
-            or_(
+            db.or_(
                 core.Currency.owner_username == username,
-                core.Currency.owner == None,
+                core.Currency.owner_username == None,
             )
         )
     ).first()
     tocurrency = core.Currency.query.filter(
-        and_(
+        db.and_(
             core.Currency.isocode == toisocode,
-            or_(
+            db.or_(
                 core.Currency.owner_username == username,
-                core.Currency.owner == None,
+                core.Currency.owner_username == None,
             )
         )
     ).first()

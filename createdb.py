@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -20,7 +20,8 @@
 
 import datetime, sys
 
-from ospfm import database as db
+from ospfm import db, init_db
+
 from ospfm.core import models as core
 from ospfm.transaction import models as transaction
 
@@ -44,22 +45,29 @@ def populate_test_db():
 
     # Users email addresses
     somehash = '1234567890123456'
-    alice1 = core.UserEmail(user=alice, email_address='alice@wonderland.org',
+    alice1 = core.UserEmail(user_username='alice',
+                            email_address='alice@wonderland.org',
                             confirmation='OK')
-    alice2 = core.UserEmail(user=alice, email_address='alice@springs.au',
+    alice2 = core.UserEmail(user_username='alice',
+                            email_address='alice@springs.au',
                             confirmation=somehash)
-    bob1 = core.UserEmail(user=bob, email_address='spongebob@gmail.com',
+    bob1 = core.UserEmail(user_username='bob',
+                          email_address='spongebob@gmail.com',
                           confirmation=somehash)
-    carol1 = core.UserEmail(user=carol, email_address='carol@markus.space',
+    carol1 = core.UserEmail(user_username='carol',
+                            email_address='carol@markus.space',
                             confirmation=somehash)
-    carol2 = core.UserEmail(user=carol, email_address='carol.markus@gmail.com',
+    carol2 = core.UserEmail(user_username='carol',
+                            email_address='carol.markus@gmail.com',
                             confirmation=somehash)
     db.session.add_all((alice1, alice2, bob1, carol1, carol2))
 
     # Users contacts
-    alice_bob = core.UserContact(user=alice, contact=bob, comment="My brother")
-    bob_carol = core.UserContact(user=bob, contact=carol)
-    carol_alice = core.UserContact(user=carol, contact=alice)
+    alice_bob = core.UserContact(user_username='alice',
+                                 contact_username='bob', comment="My brother")
+    bob_carol = core.UserContact(user_username='bob', contact_username='carol')
+    carol_alice = core.UserContact(user_username='carol',
+                                   contact_username='alice')
     db.session.add_all((alice_bob, bob_carol, carol_alice))
 
     db.session.commit()
@@ -244,7 +252,7 @@ def populate_currencies():
     db.session.commit()
 
 if __name__ == '__main__':
-    db.init_db()
+    init_db()
 
     populate_currencies()
 

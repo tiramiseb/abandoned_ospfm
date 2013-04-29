@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -18,14 +18,11 @@
 import datetime, json
 
 from flask import jsonify
-from sqlalchemy import and_, or_, desc
-from sqlalchemy.orm import joinedload
 
-from ospfm import helpers
+from ospfm import db, helpers
 from ospfm.core import currency
 from ospfm.core import models as core
 from ospfm.transaction import models
-from ospfm.database import session
 from ospfm.objects import Object
 
 
@@ -33,11 +30,11 @@ class Transaction(Object):
 
     def __own_transaction(self, transactionid):
         return models.Transaction.query.options(
-                          joinedload(models.Transaction.currency),
-                          joinedload(models.Transaction.transaction_accounts),
-                          joinedload(models.Transaction.transaction_categories)
+                          db.joinedload(models.Transaction.currency),
+                          db.joinedload(models.Transaction.transaction_accounts),
+                          db.joinedload(models.Transaction.transaction_categories)
                ).filter(
-                    and_(
+                    db.and_(
                         models.Transaction.owner_username == self.username,
                         models.Transaction.id == transactionid
                     )
@@ -57,11 +54,11 @@ class Transaction(Object):
             self.badrequest()
         # First, create the transaction object
         currency = core.Currency.query.filter(
-            and_(
+            db.and_(
                 core.Currency.isocode == self.args['currency'],
-                or_(
+                db.or_(
                     core.Currency.owner_username == self.username,
-                    core.Currency.owner == None
+                    core.Currency.owner_username == None
                 )
             )
         ).first()
@@ -83,7 +80,7 @@ class Transaction(Object):
             currency = currency,
             date = date
         )
-        session.add(transaction)
+        db.session.add(transaction)
 
         # Next, create the links from the transaction to its accounts
         if 'accounts' in self.args:
@@ -93,9 +90,9 @@ class Transaction(Object):
                 if 'amount' in accountdata:
                     # If no amount is specified, do not associate the account
                     accountobject = models.Account.query.options(
-                        joinedload(models.Account.account_owners)
+                        db.joinedload(models.Account.account_owners)
                     ).filter(
-                        and_(
+                        db.and_(
                            models.Account.id == accountdata['account'],
                            models.AccountOwner.owner_username == self.username,
                         )
@@ -107,7 +104,7 @@ class Transaction(Object):
                                 amount = accountdata['amount'],
                                 verified = False
                         )
-                        session.add(ta)
+                        db.session.add(ta)
                     self.add_to_response('accountbalance',
                                          accountdata['account'])
             self.add_to_response('totalbalance')
@@ -121,9 +118,9 @@ class Transaction(Object):
                    'category_amount' in categorydata:
                     # If no amount is specified, do not associate the category
                     categoryobject = models.Category.query.options(
-                        joinedload(models.Category.currency)
+                        db.joinedload(models.Category.currency)
                     ).filter(
-                        and_(
+                        db.and_(
                             models.Category.id == categorydata['category'],
                             models.Category.owner_username == self.username,
                         )
@@ -135,12 +132,12 @@ class Transaction(Object):
                        transaction_amount = categorydata['transaction_amount'],
                               category_amount = categorydata['category_amount']
                         )
-                        session.add(tc)
+                        db.session.add(tc)
                     self.add_to_response('categoriesbalance',
                                          categorydata['category'])
 
         # Commit everything...
-        session.commit()
+        db.session.commit()
         return transaction.as_dict(self.username)
 
     def read(self, transactionid):
@@ -165,11 +162,11 @@ class Transaction(Object):
             transaction.amount = self.args['amount']
         if 'currency' in self.args:
             currency = core.Currency.query.filter(
-                and_(
+                db.and_(
                     core.Currency.isocode == self.args['currency'],
-                    or_(
+                    db.or_(
                         core.Currency.owner_username == self.username,
-                        core.Currency.owner == None
+                        core.Currency.owner_username == None
                     )
                 )
             ).first()
@@ -193,7 +190,7 @@ class Transaction(Object):
                         # Account already linked...
                         if existing_accounts[accountid] != amount:
                             # ...but the amount is different
-                            ta = models.TransactionAccount.query.filter(and_(
+                            ta = models.TransactionAccount.query.filter(db.and_(
                           models.TransactionAccount.transaction == transaction,
                           models.TransactionAccount.account_id == accountid
                             )).one()
@@ -205,9 +202,9 @@ class Transaction(Object):
                         # Account is not already linked
                         # Verify the account is owned by the user
                         accountobject = models.Account.query.options(
-                            joinedload(models.Account.account_owners)
+                            db.joinedload(models.Account.account_owners)
                         ).filter(
-                          and_(
+                          db.and_(
                             models.Account.id == accountid,
                             models.AccountOwner.owner_username == self.username
                          )
@@ -220,16 +217,16 @@ class Transaction(Object):
                                     verified = False
                             )
                             self.add_to_response('accountbalance', accountid)
-                            session.add(ta)
+                            db.session.add(ta)
             # All accounts to keep have been poped out from "existing_accounts"
             # Delete all links remaining from this transaction to accounts
             for accountid in existing_accounts.keys():
-                ta = models.TransactionAccount.query.filter(and_(
+                ta = models.TransactionAccount.query.filter(db.and_(
                     models.TransactionAccount.transaction == transaction,
                     models.TransactionAccount.account_id == accountid
                 )).one()
                 self.add_to_response('accountbalance', accountid)
-                session.delete(ta)
+                db.session.delete(ta)
 
             self.add_to_response('totalbalance')
 
@@ -250,7 +247,7 @@ class Transaction(Object):
                         if existing_categories[categoryid]['category_amount'] \
                            != category_amount:
                             # ...but the amount is different
-                            tc = models.TransactionCategory.query.filter(and_(
+                            tc = models.TransactionCategory.query.filter(db.and_(
                          models.TransactionCategory.transaction == transaction,
                          models.TransactionCategory.category_id == categoryid
                             )).one()
@@ -264,7 +261,7 @@ class Transaction(Object):
                         # Category is not already linked
                         # Verify the category is owned by the user
                         categoryobject = models.Category.query.filter(
-                          and_(
+                          db.and_(
                            models.Category.id == categoryid,
                            models.Category.owner_username == self.username
                          )
@@ -278,19 +275,19 @@ class Transaction(Object):
                             )
                             self.add_to_response('categoriesbalance',
                                                  categoryid)
-                            session.add(tc)
+                            db.session.add(tc)
             # All categories to keep have been poped out from
             # "existing_categories"
             # Delete all links remaining from this transaction to categories
             for categoryid in existing_categories.keys():
-                tc = models.TransactionCategory.query.filter(and_(
+                tc = models.TransactionCategory.query.filter(db.and_(
                     models.TransactionCategory.transaction == transaction,
                     models.TransactionCategory.category_id == categoryid
                 )).one()
                 self.add_to_response('categoriesbalance', categoryid)
-                session.delete(tc)
+                db.session.delete(tc)
 
-        session.commit()
+        db.session.commit()
         return transaction.as_dict(self.username)
 
     def delete(self, transactionid):
@@ -302,8 +299,8 @@ class Transaction(Object):
             self.add_to_response('accountbalance', ta.account_id)
         for tc in transaction.transaction_categories:
             self.add_to_response('categoriesbalance', tc.category_id)
-        session.delete(transaction)
-        session.commit()
+        db.session.delete(transaction)
+        db.session.commit()
 
     def http_filter(self):
         self._Object__init_http()
@@ -333,10 +330,10 @@ class Transaction(Object):
         if after:
             # Get offset of the "from" transaction
             # XXX: Is there a more efficient way to do so ?
-            all_transactions = session.query(models.Transaction.id).order_by(
-                                desc(models.Transaction.date)
+            all_transactions = db.session.query(models.Transaction.id).order_by(
+                                db.desc(models.Transaction.date)
                            ).filter(
-                                and_(
+                                db.and_(
                                     *filters
                                 )
                            )
@@ -346,26 +343,26 @@ class Transaction(Object):
             except:
                 offset = 0
             transactions = models.Transaction.query.options(
-                        joinedload(models.Transaction.currency),
-                        joinedload(models.Transaction.transaction_accounts),
-                        joinedload(models.Transaction.transaction_categories)
+                        db.joinedload(models.Transaction.currency),
+                        db.joinedload(models.Transaction.transaction_accounts),
+                        db.joinedload(models.Transaction.transaction_categories)
                     ).order_by(
-                        desc(models.Transaction.date)
+                        db.desc(models.Transaction.date)
                     ).filter(
-                        and_(
+                        db.and_(
                             *filters
                         )
                     ).offset(offset).limit(limit)
             return [t.as_dict(self.username) for t in transactions]
         else:
             transactions = models.Transaction.query.options(
-                        joinedload(models.Transaction.currency),
-                        joinedload(models.Transaction.transaction_accounts),
-                        joinedload(models.Transaction.transaction_categories)
+                        db.joinedload(models.Transaction.currency),
+                        db.joinedload(models.Transaction.transaction_accounts),
+                        db.joinedload(models.Transaction.transaction_categories)
                     ).order_by(
-                        desc(models.Transaction.date)
+                        db.desc(models.Transaction.date)
                     ).filter(
-                        and_(
+                        db.and_(
                             *filters
                         )
                     ).limit(limit)
@@ -388,7 +385,7 @@ def category_filter(value):
     categorylist = subcategories(value, [ int(value) ])
     return [
         models.Transaction.id == models.TransactionCategory.transaction_id,
-        or_(*[ models.TransactionCategory.category_id == value \
+        db.or_(*[ models.TransactionCategory.category_id == value \
                for value in categorylist ])
     ]
 def currency_filter(value):

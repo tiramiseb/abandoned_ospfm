@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -15,14 +15,10 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from sqlalchemy import and_, or_
-from sqlalchemy.orm import joinedload
-
-from ospfm import helpers
+from ospfm import db, helpers
 from ospfm.core import currency as currencylib
 from ospfm.core import models as core
 from ospfm.transaction import models
-from ospfm.database import session
 from ospfm.objects import Object
 
 
@@ -30,9 +26,9 @@ class Category(Object):
 
     def __own_category(self, categoryid):
         return models.Category.query.options(
-                        joinedload(models.Category.currency)
+                        db.joinedload(models.Category.currency)
                ).filter(
-                    and_(
+                    db.and_(
                         models.Category.owner_username == self.username,
                         models.Category.id == categoryid
                     )
@@ -42,9 +38,9 @@ class Category(Object):
         categories = models.Category.query.order_by(
                         models.Category.name
                      ).options(
-                        joinedload(models.Category.currency)
+                        db.joinedload(models.Category.currency)
                      ).filter(
-                        and_(
+                        db.and_(
                             models.Category.owner_username == self.username,
                             models.Category.parent_id == None
                         )
@@ -61,11 +57,11 @@ class Category(Object):
         else:
             parent = None
         currency = core.Currency.query.filter(
-            and_(
+            db.and_(
                 core.Currency.isocode == self.args['currency'],
-                or_(
+                db.or_(
                     core.Currency.owner_username == self.username,
-                    core.Currency.owner == None
+                    core.Currency.owner_username == None
                 )
             )
         ).first()
@@ -77,8 +73,8 @@ class Category(Object):
                         currency=currency,
                         name=self.args['name']
                    )
-        session.add(category)
-        session.commit()
+        db.session.add(category)
+        db.session.commit()
         return category.as_dict(self.username)
 
     def read(self, categoryid):
@@ -95,11 +91,11 @@ class Category(Object):
             category.name = self.args['name']
         if 'currency' in self.args:
             currency = core.Currency.query.filter(
-                and_(
+                db.and_(
                     core.Currency.isocode == self.args['currency'],
-                    or_(
+                    db.or_(
                         core.Currency.owner_username == self.username,
-                        core.Currency.owner == None
+                        core.Currency.owner_username == None
                     )
                 )
             ).first()
@@ -132,12 +128,12 @@ class Category(Object):
                         if parentid:
                             self.add_to_response('categoriesbalance', parentid)
                     category.parent = parent
-        session.commit()
+        db.session.commit()
         return category.as_dict(self.username)
 
     def delete(self, categoryid):
         category = self.__own_category(categoryid)
         if not category:
             self.notfound()
-        session.delete(category)
-        session.commit()
+        db.session.delete(category)
+        db.session.commit()

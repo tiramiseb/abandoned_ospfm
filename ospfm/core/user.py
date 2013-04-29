@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -21,12 +21,9 @@ import os
 import bcrypt
 
 from flask import jsonify
-from sqlalchemy import and_, or_
-from sqlalchemy.orm import joinedload
 
-from ospfm import authentication, config
+from ospfm import authentication, config, db
 from ospfm.core import exchangerate, models
-from ospfm.database import session
 from ospfm.objects import Object
 
 class User(Object):
@@ -43,8 +40,8 @@ class User(Object):
         if username == 'me' or username == self.username:
             # When requesting his own information, a user gets more details
             user = models.User.query.options(
-                joinedload(models.User.emails),
-                joinedload(models.User.preferred_currency)
+                db.joinedload(models.User.emails),
+                db.joinedload(models.User.preferred_currency)
             ).filter(
                 models.User.username == self.username
             ).one()
@@ -61,7 +58,7 @@ class User(Object):
         if username == 'me' or username == self.username:
             # A user can only modify his own information
             user = models.User.query.options(
-                joinedload(models.User.emails)
+                db.joinedload(models.User.emails)
             ).filter(
                 models.User.username == self.username
             ).one()
@@ -86,9 +83,9 @@ class User(Object):
                     self.badrequest()
             if 'preferred_currency' in self.args:
                 currency = models.Currency.query.filter(
-                  and_(
+                  db.and_(
                      models.Currency.isocode == self.args['preferred_currency'],
-                     models.Currency.owner == None,
+                     models.Currency.owner_username == None,
                   )
                 ).first()
                 if currency:
@@ -125,7 +122,7 @@ class User(Object):
                                 # Another process must read the database and
                                 # send confirmation emails
                                 randomhash = os.urandom(8).encode('hex')
-                                session.add(
+                                db.session.add(
                                     models.UserEmail(
                                         user_username = self.username,
                                         email_address = address,
@@ -135,9 +132,9 @@ class User(Object):
                     if 'remove' in emails and type(emails['remove'])==type([]):
                         for address in emails['remove']:
                             if address in previous_emails:
-                                session.delete(
+                                db.session.delete(
                                     models.UserEmail.query.filter(
-                                        and_(
+                                        db.and_(
                                models.UserEmail.user_username == self.username,
                                models.UserEmail.email_address == address
                                         )
@@ -148,7 +145,7 @@ class User(Object):
                         for address in emails['enablenotifications']:
                             if address not in previous_notifications:
                                 models.UserEmail.query.filter(
-                                    and_(
+                                    db.and_(
                                models.UserEmail.user_username == self.username,
                                models.UserEmail.email_address == address
                                     )
@@ -158,14 +155,14 @@ class User(Object):
                         for address in emails['disablenotifications']:
                             if address in previous_notifications:
                                 models.UserEmail.query.filter(
-                                    and_(
+                                    db.and_(
                                models.UserEmail.user_username == self.username,
                                models.UserEmail.email_address == address
                                     )
                                 ).first().notification = False
 
 
-            session.commit()
+            db.session.commit()
             return self.read(username)
         else:
             self.forbidden()
@@ -186,9 +183,9 @@ class User(Object):
         else:
             substring='%{0}%'.format(substring)
             corresponding_rows = models.User.query.filter(
-                and_(
+                db.and_(
                     models.User.username != self.username,
-                    or_(
+                    db.or_(
                         models.User.username.like(substring),
                         models.User.first_name.like(substring),
                         models.User.last_name.like(substring),
@@ -212,7 +209,7 @@ class UserContact(Object):
 
     def list(self):
         contacts = models.UserContact.query.options(
-                        joinedload(models.UserContact.contact)
+                        db.joinedload(models.UserContact.contact)
         ).filter(
                         models.UserContact.user_username == self.username
         )
@@ -230,7 +227,7 @@ class UserContact(Object):
             self.notfound()
         # Verify the user doesn't already have this contact
         testcontact = models.UserContact.query.filter(
-                        and_(
+                        db.and_(
                             models.UserContact.user_username == self.username,
                    models.UserContact.contact_username == self.args['username']
                         )
@@ -242,13 +239,13 @@ class UserContact(Object):
                     contact=contactuser,
                     comment=self.args.get('comment', '')
                   )
-        session.add(contact)
-        session.commit()
+        db.session.add(contact)
+        db.session.commit()
         return contact.as_dict()
 
     def read(self, username):
         contact = models.UserContact.query.filter(
-            and_(
+            db.and_(
                 models.UserContact.user_username == self.username,
                 models.UserContact.contact_username == self.args['username']
             )
@@ -259,7 +256,7 @@ class UserContact(Object):
 
     def update(self, username):
         contact = models.UserContact.query.filter(
-            and_(
+            db.and_(
                 models.UserContact.user_username == self.username,
                 models.UserContact.contact_username == self.args['username']
             )
@@ -269,17 +266,17 @@ class UserContact(Object):
         # Only the comment can be updated
         if 'comment' in self.args:
             contact.comment = self.args['comment']
-            session.commit()
+            db.session.commit()
         return contact.as_dict()
 
     def delete(self, username):
         contact = models.UserContact.query.filter(
-                    and_(
+                    db.and_(
                         models.UserContact.user_username == self.username,
                         models.UserContact.contact_username == username
                     )
         ).first()
         if not contact:
             self.notfound()
-        session.delete(contact)
-        session.commit()
+        db.session.delete(contact)
+        db.session.commit()

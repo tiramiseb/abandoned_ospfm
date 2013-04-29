@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -19,8 +19,7 @@ from flask import abort, jsonify, request
 from sqlalchemy.exc import StatementError
 
 import ospfm
-from ospfm import authentication
-from ospfm.database import session
+from ospfm import authentication, db
 
 class Object:
     """
@@ -93,7 +92,7 @@ class Object:
             else:
                 return jsonify(status=200, response=response)
         except StatementError:
-            session.rollback()
+            db.session.rollback()
             self.badrequest()
 
     def list(self):

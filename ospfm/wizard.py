@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -23,11 +23,9 @@ import ConfigParser
 
 from flask import abort, jsonify, request
 
-from sqlalchemy import and_, or_
-from sqlalchemy.orm import backref
+from sqlalchemy.exc import StatementError
 
-from ospfm import app, authentication, config, helpers
-from ospfm.database import session
+from ospfm import app, authentication, config, db, helpers
 
 from ospfm.core import models as core
 from ospfm.transaction import models as transaction
@@ -36,10 +34,13 @@ from ospfm.transaction import models as transaction
 
 @app.route('/wizard/<wizard>/<locale>/<currency>')
 def wizards(wizard, locale, currency):
-    username = authentication.get_username_auth(
+    try:
+        username = authentication.get_username_auth(
                                      request.values.to_dict().get('key', None))
-    delete_everything(username)
-    return create(username, wizard, locale, currency)
+        delete_everything(username)
+        return create(username, wizard, locale, currency)
+    except StatementError:
+        db.session.rollback()
 
 
 def delete_everything(username):
@@ -73,14 +74,14 @@ def delete_everything(username):
             )
     if deleteaccounts:
         transaction.Account.query.filter(
-            or_(*deleteaccounts)
+            db.or_(*deleteaccounts)
         ).delete()
     # Currency
     core.Currency.query.filter(
         core.Currency.owner_username == username
     ).delete()
     # Commit deletes
-    session.commit()
+    db.session.commit()
 
 
 
@@ -118,7 +119,7 @@ def create(username, wizard, locale, prefcurrency):
         return jsonify(status=200, response='OK')
     try:
         preferred_currency = core.Currency.query.filter(
-                                    and_(
+                                    db.and_(
                                         core.Currency.isocode == prefcurrency,
                                         core.Currency.owner_username == None
                                     )
@@ -143,9 +144,9 @@ def create(username, wizard, locale, prefcurrency):
                         name = data.get(cur, 'name'),
                         rate = data.get(cur, 'rate')
                     )
-        session.add(currency)
+        db.session.add(currency)
         currencies[symbol] = currency
-    session.commit()
+    db.session.commit()
 
     ########## Account
     accounts = {}
@@ -154,7 +155,7 @@ def create(username, wizard, locale, prefcurrency):
             curname = data.get(acc, 'currency')
             if curname not in currencies:
                 currencies[curname] = core.Currency.query.filter(
-                    and_(
+                    db.and_(
                         core.Currency.owner_username == None,
                         core.Currency.isocode == curname
                     )
@@ -166,15 +167,15 @@ def create(username, wizard, locale, prefcurrency):
             currency = currencies[curname],
             start_balance = data.get(acc, 'balance')
         )
-        session.add(account)
+        db.session.add(account)
         accounts[acc.split('-')[1]] = account
-        session.add(
+        db.session.add(
             transaction.AccountOwner(
                 account = account,
                 owner_username = username
             )
         )
-    session.commit()
+    db.session.commit()
 
     ########## Category
     categories = {}
@@ -183,7 +184,7 @@ def create(username, wizard, locale, prefcurrency):
             curname = data.get(cat, 'currency')
             if curname not in currencies:
                 currencies[curname] = core.Currency.query.filter(
-                    and_(
+                    db.and_(
                         core.Currency.owner_username == None,
                         core.Currency.isocode == curname
                     )
@@ -199,9 +200,9 @@ def create(username, wizard, locale, prefcurrency):
             category.parent = categories[data.get(cat, 'parent')]
         except:
             pass
-        session.add(category)
+        db.session.add(category)
         categories[cat.split('-')[1]] = category
-    session.commit()
+    db.session.commit()
 
     ########## Transaction
     for tra in subsections('transaction-'):
@@ -209,7 +210,7 @@ def create(username, wizard, locale, prefcurrency):
             curname = data.get(tra, 'currency')
             if curname not in currencies:
                 currencies[curname] = core.Currency.query.filter(
-                    and_(
+                    db.and_(
                         core.Currency.owner_username == None,
                         core.Currency.isocode == curname
                     )
@@ -281,7 +282,7 @@ def create(username, wizard, locale, prefcurrency):
             trans.original_description = data.get(tra, 'original_description')
         except:
             trans.original_description = data.get(tra, 'description')
-        session.add(trans)
+        db.session.add(trans)
         # Links to accounts
         for accountdata in data.get(tra, 'accounts').split():
             accountdatatb = accountdata.split(':')
@@ -296,7 +297,7 @@ def create(username, wizard, locale, prefcurrency):
                                             currency.isocode,
                                             account.currency.isocode
                                         )
-            session.add(
+            db.session.add(
                 transaction.TransactionAccount(
                     transaction = trans,
                     account = account,
@@ -317,7 +318,7 @@ def create(username, wizard, locale, prefcurrency):
                                             currency.isocode,
                                             category.currency.isocode
                                         )
-            session.add(
+            db.session.add(
                 transaction.TransactionCategory(
                     transaction = trans,
                     category = category,
@@ -325,7 +326,7 @@ def create(username, wizard, locale, prefcurrency):
                     category_amount = categoryamount
                 )
             )
-    session.commit()
+    db.session.commit()
 
     ########## OK, finished
     return jsonify(status=200, response='OK')

@@ -1,4 +1,4 @@
-#    Copyright 2012 Sebastien Maccagnoni-Munch
+#    Copyright 2012-2013 Sebastien Maccagnoni-Munch
 #
 #    This file is part of OSPFM.
 #
@@ -15,30 +15,21 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, Numeric, String
-from sqlalchemy.orm import backref, relationship
 from sqlalchemy.schema import UniqueConstraint
 
-from ospfm.database import Base
+from ospfm import db
 
 
-class Currency(Base):
-    __tablename__ = 'currency'
-    id = Column(Integer, primary_key=True)
-    owner_username = Column(String(50), ForeignKey('user.username',
-                                               use_alter=True, name='fk_owner',
-                                                   ondelete='CASCADE'))
-    isocode = Column(String(5), nullable=False)
-    symbol = Column(String(5), nullable=False)
-    name = Column(String(50), nullable=False)
-    rate = Column(Numeric(16, 4))
 
-    owner = relationship(
-                'User',
-                primaryjoin = 'Currency.owner_username==User.username',
-                backref = backref('currencies',
-                                  cascade='all, delete-orphan')
-            )
+class Currency(db.Model):
+    id             = db.Column(db.Integer, primary_key=True)
+    owner_username = db.Column(db.String(50),
+                               db.ForeignKey('user.username',
+                                             use_alter=True, name='fk_owner'))
+    isocode        = db.Column(db.String(5), nullable=False)
+    symbol         = db.Column(db.String(5), nullable=False)
+    name           = db.Column(db.String(50), nullable=False)
+    rate           = db.Column(db.Numeric(16, 4))
 
     def as_dict(self):
         info = {
@@ -52,16 +43,18 @@ class Currency(Base):
             info['rate'] = self.rate
         return info
 
-class User(Base):
-    __tablename__ = 'user'
-    username = Column(String(50), nullable=False, unique=True,
-                      primary_key=True)
-    first_name = Column(String(50), nullable=False)
-    last_name = Column(String(50), nullable=False)
-    passhash = Column(String(60), nullable=False)
-    preferred_currency_id = Column(ForeignKey('currency.id'), nullable=False)
 
-    preferred_currency = relationship(
+
+class User(db.Model):
+    username              = db.Column(db.String(50), nullable=False,
+                                      unique=True, primary_key=True)
+    first_name            = db.Column(db.String(50), nullable=False)
+    last_name             = db.Column(db.String(50), nullable=False)
+    passhash              = db.Column(db.String(60), nullable=False)
+    preferred_currency_id = db.Column(db.ForeignKey('currency.id'),
+                                      nullable=False)
+
+    preferred_currency = db.relationship(
                           'Currency',
                           primaryjoin='User.preferred_currency_id==Currency.id'
                          )
@@ -80,29 +73,22 @@ class User(Base):
         return info
 
 
-class UserContact(Base):
-    __tablename__ = 'usercontact'
-    id = Column(Integer, primary_key=True)
-    user_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
-                           nullable=False)
-    contact_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
-                              nullable=False)
-    comment = Column(String(100), default='', nullable=False)
+
+class UserContact(db.Model):
+    id               = db.Column(db.Integer, primary_key=True)
+    user_username    = db.Column(db.ForeignKey('user.username'),nullable=False)
+    contact_username = db.Column(db.ForeignKey('user.username'),nullable=False)
+    comment          = db.Column(db.String(100), default='', nullable=False)
 
     __table_args__ = (
         UniqueConstraint('user_username', 'contact_username',
                          name='_user_contact_uc'),
-    {})
+    )
 
-    user = relationship(
-                'User',
-                primaryjoin='UserContact.user_username==User.username'
-           )
-
-    contact = relationship(
-                'User',
-                primaryjoin='UserContact.contact_username==User.username'
-           )
+    contact = db.relationship(
+                    'User',
+                    primaryjoin='UserContact.contact_username==User.username'
+                )
 
     def as_dict(self):
         return {
@@ -113,25 +99,23 @@ class UserContact(Base):
         }
 
 
-class UserEmail(Base):
-    __tablename__ = 'useremail'
-    id = Column(Integer, primary_key=True)
-    user_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
-                           nullable=False)
-    email_address = Column(String(256), nullable=False)
+
+class UserEmail(db.Model):
+    id            = db.Column(db.Integer, primary_key=True)
+    user_username = db.Column(db.ForeignKey('user.username'), nullable=False)
+    email_address = db.Column(db.String(256), nullable=False)
     # Notification is to be used by (an)other process(es), OSPFM itself doesn't
     # send notifications. This field make it possible to know which email
     # addresses should be used by this/these other process(es).
-    notification = Column(Boolean(), default=False)
-    confirmation = Column(String(16), nullable=False)
+    notification  = db.Column(db.Boolean, default=False)
+    confirmation  = db.Column(db.String(16), nullable=False)
 
     __table_args__ = (
         UniqueConstraint('user_username', 'email_address',
                          name='_user_address_uc'),
-    {})
+    )
 
-    user = relationship('User', backref=backref('emails',
-                                                cascade='all, delete-orphan'))
+    user = db.relationship('User', backref=db.backref('emails'))
 
     def as_dict(self):
         return {
@@ -141,18 +125,16 @@ class UserEmail(Base):
         }
 
 
-class UserPreference(Base):
-    __tablename__ = 'userpreference'
-    id = Column(Integer, primary_key=True)
-    user_username = Column(ForeignKey('user.username', ondelete='CASCADE'),
-                           nullable=False)
-    name = Column(String(200), nullable=False)
-    value = Column(String(2048))
+
+class UserPreference(db.Model):
+    id            = db.Column(db.Integer, primary_key=True)
+    user_username = db.Column(db.ForeignKey('user.username'), nullable=False)
+    name          = db.Column(db.String(200), nullable=False)
+    value         = db.Column(db.String(2048))
 
     __table_args__ = (
-        UniqueConstraint('user_username', 'name',
-                         name='_user_preference_uc'),
-    {})
+        UniqueConstraint('user_username', 'name', name='_user_preference_uc'),
+    )
 
     def as_dict(self):
         return {
