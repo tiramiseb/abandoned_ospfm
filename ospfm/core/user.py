@@ -18,7 +18,7 @@
 import json
 import os
 
-import bcrypt
+from passlib.hash import sha512_crypt
 
 from flask import jsonify
 
@@ -73,11 +73,9 @@ class User(Object):
                     self.args['currentpassword'],
                     False
                    ):
-                    user.passhash = bcrypt.hashpw(
+                    user.passhash = sha512_crypt.encrypt(
                                         self.args['password'],
-                                        bcrypt.gensalt(
-                                            config.PASSWORD_SALT_COMPLEXITY
-                                        )
+                                        config.PASSWORD_SALT_COMPLEXITY
                                     )
                 else:
                     self.badrequest()
@@ -203,6 +201,7 @@ class User(Object):
         return jsonify(status=200, response=self.__search(substring))
 
 
+
 class UserContact(Object):
 
     emptyvalid = ['comment']
@@ -215,6 +214,7 @@ class UserContact(Object):
         )
         return [c.as_dict() for c in contacts.all()]
 
+    # TODO: Refuse new contacts unless at least one UserEmail is validated
     def create(self):
         if not 'username' in self.arg:
             self.badrequest()

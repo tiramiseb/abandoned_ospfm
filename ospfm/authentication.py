@@ -15,8 +15,9 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with OSPFM.  If not, see <http://www.gnu.org/licenses/>.
 
-import bcrypt
 import uuid
+
+from passlib.hash import sha512_crypt
 
 from flask import abort, jsonify, request
 
@@ -59,8 +60,7 @@ def authenticate(username=None, password=None, http_abort=True):
             abort(401)
         else:
             return False
-    hashed = user.passhash
-    if bcrypt.hashpw(password, hashed) == hashed:
+    if sha512_crypt.verify(password, user.passhash):
         key = str(uuid.uuid4())
         cache.set(request.remote_addr+'---'+key, username, 3600)
         return jsonify(status=200, response={'key': key})

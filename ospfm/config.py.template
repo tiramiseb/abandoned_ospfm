@@ -34,8 +34,8 @@ LISTEN_PORT = 5001
 # OpenExchange app id
 OPEN_EXCHANGE_APP_ID = '<OpenExchange app id>'
 
-# Complexity of the bcrypt password salt
-PASSWORD_SALT_COMPLEXITY = 11
+# Complexity of the passlib sha512 password salt (number of rounds)
+PASSWORD_SALT_COMPLEXITY = 500000
 
 # Path to the wizard data
 WIZARD_DATA = '/opt/ospfm/wizard-data'
