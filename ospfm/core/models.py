@@ -52,7 +52,7 @@ class User(db.Model):
                                       unique=True, primary_key=True)
     first_name            = db.Column(db.String(50), nullable=False)
     last_name             = db.Column(db.String(50), nullable=False)
-    passhash              = db.Column(db.String(60), nullable=False)
+    passhash              = db.Column(db.String(120), nullable=False)
     preferred_currency_id = db.Column(db.ForeignKey('currency.id'),
                                       nullable=False)
 
