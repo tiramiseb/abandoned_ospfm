@@ -289,7 +289,9 @@ class TransactionAccount(db.Model):
 
     account = db.relationship('Account')
     transaction = db.relationship('Transaction', backref=db.backref(
-                                                       'transaction_accounts'))
+                                                  'transaction_accounts',
+                                                   cascade="all, delete-orphan"
+                                                 ))
 
     def as_dict(self, username):
         data = self.account.as_dict(username, short=True)
@@ -314,7 +316,9 @@ class TransactionCategory(db.Model):
 
     category = db.relationship('Category')
     transaction = db.relationship('Transaction', backref=db.backref(
-                                                     'transaction_categories'))
+                                                   'transaction_categories',
+                                                   cascade="all, delete-orphan"
+                                                 ))
 
     def as_dict(self, username):
         data = self.category.as_dict(username, parent=False,
