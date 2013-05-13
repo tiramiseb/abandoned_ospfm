@@ -279,7 +279,8 @@ class Transaction(db.Model):
 
 
 class TransactionAccount(db.Model):
-    transaction_id = db.Column(db.ForeignKey('transaction.id'),
+    transaction_id = db.Column(db.ForeignKey('transaction.id',
+                                             ondelete='CASCADE'),
                                primary_key=True)
     account_id     = db.Column(db.ForeignKey('account.id', ondelete='CASCADE'),
                                primary_key=True)
