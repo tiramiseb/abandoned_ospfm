@@ -34,13 +34,13 @@ def populate_test_db():
     # (passwords == usernames)
     alice = core.User(username='alice', first_name='',
                       last_name='', preferred_currency=euro,
-       passhash='$2a$11$9jBMBYateRXaxp1tQgiLpOR8LGzpJ0JC5g0Ez2dzcXbyARjL3vG82')
+       passhash='$6$rounds=40000$VwHviU9A68JEC0qm$uI96g.dq14L9SUaGhtvKdxur8F2rOE.sxAyip2dySLJDG5Gzp7.QiYnLzkZYcDf2IJxfClOfyTHsFI1FEf9B..')
     bob = core.User(username='bob', first_name='',
                       last_name='', preferred_currency=dollar,
-       passhash='$2a$11$R2Oo6WtystSglh6CA2DENefv22On5YMDgqR0x4W3ObW5zNpcn718K')
+       passhash='$6$rounds=40000$Rt17nzYLNFP.oL/Q$fmqfuBIQhuQFfpOCeSnBq0faXzkBiw7QgVps9ItPVBowDdMusK2botHOeT8YAhIyHCRHQGQddXMfYgNYyqLUt/')
     carol = core.User(username='carol', first_name='',
                       last_name='', preferred_currency=yen,
-       passhash='$2a$11$Foj4ZwoojAXRqQxm7Sgh8uG84r84Qxc8kcgsFKjs6Q.eDNtwaAkFa')
+       passhash='$6$rounds=40000$BvWjXrTqHz4izUI.$COoA8jN89HYDykQ7U.7rT9dcGIq4stHTVWuungu/CJW9qjEQOKaw0hPuB52EAFhsfDL0dcBLoXqnNmtu2/H2I.')
     db.session.add_all((alice, bob, carol))
 
     # Users email addresses
