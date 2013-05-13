@@ -96,7 +96,10 @@ class AccountOwner(db.Model):
                                              ondelete='CASCADE'),
                                primary_key=True)
 
-    account = db.relationship('Account', backref=db.backref('account_owners'))
+    account = db.relationship('Account', backref=db.backref(
+                                                   'account_owners',
+                                                   cascade="all, delete-orphan"
+                                                ))
     owner = db.relationship('User', backref=db.backref('accounts_owner'))
 
 
