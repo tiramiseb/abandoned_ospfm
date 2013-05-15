@@ -1,0 +1,44 @@
+[transaction-0]
+description: Sorry, there is no real-life-inspired demo in english yet
+original_description: Sorry, there is no real-life-inspired demo in english yet
+amount: 0
+currency: USD
+date: //-1
+accounts: 0
+categories: 
+
+[transaction-1]
+description: You may find example transactions below
+original_description: You may find example transactions below
+amount: 0
+currency: USD
+date: //-2
+accounts: 0
+categories: 
+
+[transaction-2]
+description: Expense...
+original_description: EXPENSE
+amount: -10
+currency: USD
+date: //-3
+accounts: 1
+categories: 1
+
+[transaction-3]
+description: Income...
+original_description: INCOME
+amount: 10
+currency: USD
+date: //-3
+accounts: 0
+categories: 102
+
+[transaction-4]
+description: Transfer...
+original_description: TRANSFER
+amount: 0
+currency: USD
+date: //-3
+accounts: 0:-10 1:10
+categories: 

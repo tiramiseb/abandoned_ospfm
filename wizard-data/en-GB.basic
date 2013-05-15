@@ -1,0 +1,452 @@
+[account-0]
+name: Main account
+currency: GBP
+balance: 0
+
+[account-1]
+name: Wallet
+currency: GBP
+balance: 0
+
+[category-0]
+name: Food
+
+[category-1]
+name: Grocery
+parent: 0
+
+[category-2]
+name: Retaurant
+parent: 0
+
+[category-3]
+name: Invitation
+parent: 0
+
+[category-4]
+name: Pets
+
+[category-5]
+name: Food
+parent: 4
+
+[category-6]
+name: Miscellaneous
+parent: 4
+
+[category-7]
+name: Grooming
+parent: 4
+
+[category-8]
+name: Veterinary
+parent: 4
+
+[category-9]
+name: Vehicle
+
+[category-10]
+name: Fine
+parent: 9
+
+[category-11]
+name: Insurance
+parent: 9
+
+[category-12]
+name: Fuel
+parent: 9
+
+[category-13]
+name: Maintenance
+parent: 9
+
+[category-14]
+name: Parking
+parent: 9
+
+[category-15]
+name: Miscellaneous
+
+[category-16]
+name: Loan
+parent: 15
+
+[category-17]
+name: Gifts
+parent: 15
+
+[category-18]
+name: Charity
+parent: 15
+
+[category-19]
+name: Cash withdrawal
+parent: 15
+
+[category-20]
+name: Children
+
+[category-21]
+name: Allowance
+parent: 20
+
+[category-22]
+name: Insurance
+parent: 20
+
+[category-23]
+name: Cafeteria
+parent: 20
+
+[category-24]
+name: Nursery
+parent: 20
+
+[category-25]
+name: School
+parent: 20
+
+[category-26]
+name: Transport
+parent: 20
+
+[category-27]
+name: Miscellaneous
+parent: 20
+
+[category-28]
+name: Saving
+
+[category-29]
+name: Life insurance
+parent: 28
+
+[category-30]
+name: Savings account
+parent: 28
+
+[category-31]
+name: Bank charges
+
+[category-32]
+name: Credit card
+parent: 31
+
+[category-33]
+name: Miscellaneous
+parent: 31
+
+[category-34]
+name: Loan
+parent: 31
+
+[category-35]
+name: Refund
+parent: 31
+
+[category-36]
+name: Subscription
+parent: 31
+
+[category-37]
+name: House
+
+[category-38]
+name: Furniture
+parent: 37
+
+[category-39]
+name: DIY
+parent: 37
+
+[category-40]
+name: Charges
+parent: 37
+
+[category-41]
+name: Water
+parent: 37
+
+[category-42]
+name: Electricity
+parent: 37
+
+[category-43]
+name: Appliances
+parent: 37
+
+[category-44]
+name: Decoration
+parent: 37
+
+[category-45]
+name: Gas
+parent: 37
+
+[category-46]
+name: Gardening
+parent: 37
+
+[category-47]
+name: Rental
+parent: 37
+
+[category-48]
+name: Computer / television
+parent: 37
+
+[category-49]
+name: Mobile phone
+parent: 37
+
+[category-50]
+name: Clothes
+
+[category-51]
+name: Alice
+parent: 50
+
+[category-52]
+name: Bob
+parent: 50
+
+[category-53]
+name: Carol
+parent: 50
+
+[category-54]
+name: Taxes
+
+[category-55]
+name: Property taxes
+parent: 54
+
+[category-56]
+name: Local taxes
+parent: 54
+
+[category-57]
+name: Income taxes
+parent: 54
+
+[category-58]
+name: Spare-time activities
+
+[category-59]
+name: Sports
+parent: 58
+
+[category-60]
+name: Cinema / shows
+parent: 58
+
+[category-61]
+name: CD / DVD / Blu-Ray
+parent: 58
+
+[category-62]
+name: Collection
+parent: 58
+
+[category-63]
+name: Books / Newspapers
+parent: 58
+
+[category-64]
+name: Games
+parent: 58
+
+[category-65]
+name: Museums / Exhibitions
+parent: 58
+
+[category-66]
+name: Miscellaneous trips
+parent: 58
+
+[category-67]
+name: Loans
+
+[category-68]
+name: Car / motorbike / scooter
+parent: 67
+
+[category-69]
+name: Home loan
+parent: 67
+
+[category-70]
+name: Consumer loan
+parent: 67
+
+[category-71]
+name: Miscellaneous
+parent: 67
+
+[category-72]
+name: Health
+
+[category-73]
+name: Analysis
+parent: 72
+
+[category-74]
+name: Dentist
+parent: 72
+
+[category-75]
+name: Hospital
+parent: 72
+
+[category-76]
+name: Physiotherapy
+parent: 72
+
+[category-77]
+name: Doctor
+parent: 72
+
+[category-78]
+name: Ophtalmologist
+parent: 72
+
+[category-79]
+name: Osteopath
+parent: 72
+
+[category-80]
+name: Drugstore
+parent: 72
+
+[category-81]
+name: Radiography
+parent: 72
+
+[category-82]
+name: Personal care
+
+[category-83]
+name: Hairdresser
+parent: 82
+
+[category-84]
+name: Beautician
+parent: 82
+
+[category-85]
+name: Perfumery
+parent: 82
+
+[category-86]
+name: Pedicure
+parent: 82
+
+[category-87]
+name: Cosmetics
+parent: 82
+
+[category-88]
+name: Thalasso
+parent: 82
+
+[category-89]
+name: Transport
+
+[category-90]
+name: Bus
+parent: 89
+
+[category-91]
+name: Subway
+parent: 89
+
+[category-92]
+name: Toll
+parent: 89
+
+[category-93]
+name: Train
+parent: 89
+
+[category-94]
+name: Flight
+parent: 89
+
+[category-95]
+name: Holidays
+
+[category-96]
+name: Supply
+parent: 95
+
+[category-97]
+name: Miscellaneous
+parent: 95
+
+[category-98]
+name: Stay
+parent: 95
+
+[category-99]
+name: Journey
+parent: 95
+
+[category-100]
+name: Visit
+parent: 95
+
+[category-101]
+name: Earnings
+
+[category-102]
+name: Salary
+parent: 101
+
+[category-103]
+name: Expenses refund
+parent: 101
+
+[category-104]
+name: Rent
+parent: 101
+
+[category-105]
+name: Insurance
+parent: 37
+
+[category-106]
+name: Gift
+parent: 101
+
+[category-107]
+name: Inheritance
+parent: 101
+
+[category-108]
+name: Interest on investment
+parent: 101
+
+[category-109]
+name: Unemployment Insurance
+parent: 101
+
+[category-110]
+name: Games
+parent: 101
+
+[category-111]
+name: Reimbursement
+parent: 101
+
+[category-112]
+name: Miscellaneous
+parent: 101
+
+[category-113]
+name: Sale
+parent: 101
+
+[category-114]
+name: Medical insurance
+parent: 101

@@ -269,19 +269,19 @@ parent: 60
 name: Impôts
 
 [category-65]
-name: fonciers
+name: Impôts fonciers
 parent: 64
 
 [category-66]
-name: locaux
+name: Impôts locaux
 parent: 64
 
 [category-67]
-name: sur la fortune
+name: Impôts sur la fortune
 parent: 64
 
 [category-68]
-name: sur le revenu
+name: Impôts sur le revenu
 parent: 64
 
 [category-69]
