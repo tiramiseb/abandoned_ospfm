@@ -107,6 +107,7 @@ class Currency(Object):
            transaction.Transaction.query.filter(
                 transaction.Account.currency == currency
            ).count():
+                # TODO: Make this error explicit
                 self.badrequest()
         db.session.delete(currency)
         db.session.commit()

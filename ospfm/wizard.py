@@ -37,6 +37,8 @@ def wizards(wizard, locale, currency):
     try:
         username = authentication.get_username_auth(
                                      request.values.to_dict().get('key', None))
+        if username in config.DEMO_ACCOUNTS:
+            abort(400)
         delete_everything(username)
         return create(username, wizard, locale, currency)
     except StatementError:

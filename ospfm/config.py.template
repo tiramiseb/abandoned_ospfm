@@ -39,3 +39,6 @@ PASSWORD_SALT_COMPLEXITY = 500000
 
 # Path to the wizard data
 WIZARD_DATA = '/opt/ospfm/wizard-data'
+
+# List of demonstration (limited) accounts
+DEMO_ACCOUNTS = ('demo',)

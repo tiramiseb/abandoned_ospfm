@@ -66,7 +66,8 @@ class User(Object):
                 user.first_name = self.args['first_name']
             if 'last_name' in self.args:
                 user.last_name = self.args['last_name']
-            if 'password' in self.args:
+            if 'password' in self.args and \
+               username not in config.DEMO_ACCOUNTS:
                 if 'currentpassword' in self.args and \
                    authentication.authenticate(
                     username,
@@ -112,7 +113,8 @@ class User(Object):
                         previous_notifications.append(address.email_address)
                 if type(emails) == type({}):
                     if 'add' in emails and \
-                       type(emails['add']) == type([]):
+                       type(emails['add']) == type([]) and \
+                       username not in config.DEMO_ACCOUNTS:
                         for address in emails['add']:
                             if address not in previous_emails:
                                 # Use random hash for email confirmation
@@ -216,7 +218,9 @@ class UserContact(Object):
 
     # TODO: Refuse new contacts unless at least one UserEmail is validated
     def create(self):
-        if not 'username' in self.arg:
+        if not 'username' in self.args:
+            self.badrequest()
+        if self.username in config.DEMO_ACCOUNTS:
             self.badrequest()
         # Verify the contact exists
         contactuser = models.User.query.filter(
