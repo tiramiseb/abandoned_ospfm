@@ -75,7 +75,7 @@ class User(Object):
                    ):
                     user.passhash = sha512_crypt.encrypt(
                                         self.args['password'],
-                                        config.PASSWORD_SALT_COMPLEXITY
+                                        rounds=config.PASSWORD_SALT_COMPLEXITY
                                     )
                 else:
                     self.badrequest()
