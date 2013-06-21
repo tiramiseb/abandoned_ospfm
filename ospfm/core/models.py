@@ -33,6 +33,11 @@ class Currency(db.Model):
     name           = db.Column(db.String(50), nullable=False)
     rate           = db.Column(db.Numeric(16, 4))
 
+    def __unicode__(self):
+        return u'Currency name "{0}", isocode "{1}", symbol "{2}", rate "{3}"'.format(
+                        self.name, self.isocode, self.symbol, self.rate
+                    )
+
     def as_dict(self):
         info = {
             'isocode': self.isocode,
@@ -50,8 +55,8 @@ class Currency(db.Model):
 class User(db.Model):
     username              = db.Column(db.String(50), nullable=False,
                                       unique=True, primary_key=True)
-    first_name            = db.Column(db.String(50), nullable=False)
-    last_name             = db.Column(db.String(50), nullable=False)
+    first_name            = db.Column(db.String(50), default='',nullable=False)
+    last_name             = db.Column(db.String(50), default='',nullable=False)
     passhash              = db.Column(db.String(120), nullable=False)
     preferred_currency_id = db.Column(db.ForeignKey('currency.id'),
                                       nullable=False)
@@ -60,6 +65,11 @@ class User(db.Model):
                           'Currency',
                           primaryjoin='User.preferred_currency_id==Currency.id'
                          )
+
+    def __unicode__(self):
+        return u'Username "{0}", first name "{1}", last name "{2}"'.format(
+                    self.username, self.first_name, self.last_name
+                )
 
     def as_dict(self, own=False):
         info = {

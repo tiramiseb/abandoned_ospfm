@@ -40,7 +40,8 @@ def wizards(wizard, locale, currency):
         if username in config.DEMO_ACCOUNTS:
             abort(400)
         delete_everything(username)
-        return create(username, wizard, locale, currency)
+        status, response = create(username, wizard, locale, currency)
+        return jsonify(status=status, response=response)
     except StatementError:
         db.session.rollback()
 
@@ -82,6 +83,7 @@ def delete_everything(username):
     core.Currency.query.filter(
         core.Currency.owner_username == username
     ).delete()
+    # XXX TransactionAccounts are not deleted : problem with SQLite
     # Commit deletes
     db.session.commit()
 
@@ -118,7 +120,7 @@ def create(username, wizard, locale, prefcurrency):
             abort(400)
     sections = data.sections()
     if not sections:
-        return jsonify(status=200, response='OK')
+        return 200, 'OK'
     try:
         preferred_currency = core.Currency.query.filter(
                                     db.and_(
@@ -331,4 +333,4 @@ def create(username, wizard, locale, prefcurrency):
     db.session.commit()
 
     ########## OK, finished
-    return jsonify(status=200, response='OK')
+    return 200, 'OK'

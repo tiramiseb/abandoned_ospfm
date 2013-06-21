@@ -33,10 +33,16 @@ class Account(db.Model):
 
     currency = db.relationship('Currency')
 
+    def __unicode__(self):
+        return u'Account id {0}, name "{1}", currency "{2}", start balance {3}'.format(
+                    self.id, self.name, self.currency.isocode,
+                    self.start_balance
+                )
+
     def balance(self, username):
         """
         Return a list :
-            ( <balance in account currency>, <balance in preferred currency> )
+            [ <balance in account currency>, <balance in preferred currency> ]
         """
         balance = db.session.query(
             db.func.sum(TransactionAccount.amount)
@@ -120,6 +126,14 @@ class Category(db.Model):
 
     children = db.relationship('Category', order_by='Category.name',
                                backref=db.backref('parent', remote_side=[id]))
+
+    def __unicode__(self):
+        if self.parent_id:
+            return u'Category id {0}, name "{1}", parent id {2}'.format(
+                        self.id, self.name, self.parent_id
+                    )
+        else:
+            return u'Category id {0}, name "{1}"'.format(self.id, self.name)
 
     def balance(self, username):
         today = datetime.date.today()
