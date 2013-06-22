@@ -160,6 +160,11 @@ class UserPreference(db.Model):
         UniqueConstraint('user_username', 'name', name='_user_preference_uc'),
     )
 
+    def __unicode__(self):
+        return 'For user {0}, {1} = {2}'.format(
+                    self.user_username, self.name, self.value
+                )
+
     def as_dict(self):
         return {
             'name': self.name,
