@@ -21,25 +21,41 @@ from ospfm import app
 
 @app.errorhandler(400)
 def error400(e):
-    response = jsonify(status=400, response='Bad request')
+    if e.description:
+        response = jsonify(status=400, response='Bad request',
+                           details=e.description)
+    else:
+        response = jsonify(status=400, response='Bad request')
     response.status_code = 400
     return response
 
 @app.errorhandler(401)
 def error401(e):
+    """
+    This error does not return a "WWW-Authenticate" header so a dialog box
+    is not displayed to the user.
+    """
     response = jsonify(status=401, response='Unauthorized')
     response.status_code = 401
     return response
 
 @app.errorhandler(403)
 def error403(e):
-    response = jsonify(status=403, response='Access forbidden')
+    if e.description:
+        response = jsonify(status=403, response='Access forbidden',
+                           details=e.description)
+    else:
+        response = jsonify(status=403, response='Access forbidden')
     response.status_code = 403
     return response
 
 @app.errorhandler(404)
 def error404(e):
-    response = jsonify(status=404, response='Resource not found')
+    if e.description:
+        response = jsonify(status=404, response='Resource not found',
+                           details=e.description)
+    else:
+        response = jsonify(status=404, response='Resource not found')
     response.status_code = 404
     return response
 

@@ -43,7 +43,7 @@ class Object:
         # Empty values are forbidden if they are not in emptyvalid
         for item in self.args.items():
             if item[1] == '' and item[0] not in self.emptyvalid:
-                self.badrequest()
+                self.badrequest("Empty values are forbidden")
 
     def __init_http(self):
         self.args = request.values.to_dict()
@@ -93,7 +93,7 @@ class Object:
                 return jsonify(status=200, response=response)
         except StatementError:
             db.session.rollback()
-            self.badrequest()
+            self.badrequest("Database error")
 
     def list(self):
         """Override this method for objects listing"""
@@ -119,14 +119,14 @@ class Object:
         """Override this method for object search"""
         raise NotImplementedError
 
-    def badrequest(self):
+    def badrequest(self, details=""):
         """Call this message to return a "bad request" response"""
-        abort(400)
+        abort(400, details)
 
-    def forbidden(self):
+    def forbidden(self, details=""):
         """Call this message to return a "forbidden" response"""
-        abort(403)
+        abort(403, details)
 
-    def notfound(self):
+    def notfound(self, details=""):
         """Call this message to return a "not found" response"""
-        abort(404)
+        abort(404, details)

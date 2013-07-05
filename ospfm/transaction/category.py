@@ -49,11 +49,11 @@ class Category(Object):
 
     def create(self):
         if not ('currency' in self.args and 'name' in self.args):
-            self.badrequest()
+            self.badrequest("Please provide category name and currency")
         if 'parent' in self.args:
             parent = self.__own_category(self.args['parent'])
             if not parent:
-                self.badrequest()
+                self.badrequest("This parent category does not exist")
         else:
             parent = None
         currency = core.Currency.query.filter(
@@ -66,7 +66,7 @@ class Category(Object):
             )
         ).first()
         if not currency:
-            self.badrequest()
+            self.badrequest("This currency does not exist")
         category = models.Category(
                         owner_username=self.username,
                         parent=parent,
@@ -81,12 +81,13 @@ class Category(Object):
         category = self.__own_category(categoryid)
         if category:
             return category.as_dict(self.username)
-        self.notfound()
+        self.notfound('This category does not exist or you do not own it')
 
     def update(self, categoryid):
         category = self.__own_category(categoryid)
         if not category:
-            self.notfound()
+            self.notfound(
+              'Nonexistent category cannot be modified (or you do not own it)')
         if 'name' in self.args:
             category.name = self.args['name']
         if 'currency' in self.args:
@@ -116,9 +117,10 @@ class Category(Object):
             else:
                 parent = self.__own_category(self.args['parent'])
                 if not parent:
-                    self.badrequest()
+                    self.badrequest("This parent category does not exist")
                 if category.contains_category(parent.id):
-                    self.badrequest()
+                    self.badrequest(
+                              "The parent is already a child of this category")
                 if parent.id != category.parent_id:
                     allparents = set([parent.id, category.parent_id] + \
                                      parent.all_parents_ids())
@@ -134,6 +136,7 @@ class Category(Object):
     def delete(self, categoryid):
         category = self.__own_category(categoryid)
         if not category:
-            self.notfound()
+            self.notfound(
+               'Nonexistent category cannot be deleted (or you do not own it)')
         db.session.delete(category)
         db.session.commit()

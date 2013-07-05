@@ -42,7 +42,7 @@ class Transaction(Object):
 
     def list(self):
         # Transactions cannot be listed with the API
-        self.forbidden()
+        self.forbidden('Listing all transactions is forbidden')
 
     def create(self):
         if not (
@@ -51,7 +51,8 @@ class Transaction(Object):
             'description' in self.args and \
             'amount' in self.args
         ):
-            self.badrequest()
+            self.badrequest(
+           "Please provide transaction description, currency, amount and date")
         # First, create the transaction object
         currency = core.Currency.query.filter(
             db.and_(
@@ -63,10 +64,10 @@ class Transaction(Object):
             )
         ).first()
         if not currency:
-            self.badrequest()
+            self.badrequest("This currency does not exist")
         date = helpers.date_from_string(self.args['date'])
         if not date:
-            self.badrequest()
+            self.badrequest("This date cannot be understood")
         description = self.args['description']
         if 'original_description' in self.args:
             original_description = self.args['original_description']
@@ -144,12 +145,13 @@ class Transaction(Object):
         transaction = self.__own_transaction(transactionid)
         if transaction:
             return transaction.as_dict(self.username)
-        self.notfound()
+        self.notfound('This transaction does not exist or you do not own it')
 
     def update(self, transactionid):
         transaction = self.__own_transaction(transactionid)
         if not transaction:
-            self.notfound()
+            self.notfound(
+           'Nonexistent transaction cannot be modified (or you do not own it)')
 
         # First, modifications on the Transaction object itself
         if 'description' in self.args:
@@ -293,7 +295,8 @@ class Transaction(Object):
     def delete(self, transactionid):
         transaction = self.__own_transaction(transactionid)
         if not transaction:
-            self.notfound()
+            self.notfound(
+            'Nonexistent transaction cannot be deleted (or you do not own it)')
         self.add_to_response('totalbalance')
         for ta in transaction.transaction_accounts:
             self.add_to_response('accountbalance', ta.account_id)

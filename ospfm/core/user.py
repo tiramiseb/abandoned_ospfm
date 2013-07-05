@@ -30,11 +30,11 @@ class User(Object):
 
     def list(self):
         # Users cannot be listed with the API
-        self.forbidden()
+        self.forbidden("Listing all users is forbidden")
 
     def create(self):
         # A user cannot be created with the API
-        self.forbidden()
+        self.forbidden("A user cannot be created with the API")
 
     def read(self, username):
         if username == 'me' or username == self.username:
@@ -51,7 +51,7 @@ class User(Object):
                 models.User.username == username
             ).first()
             if not user:
-                self.notfound()
+                self.notfound('This user does not exist')
             return user.as_dict()
 
     def update(self, username):
@@ -79,7 +79,8 @@ class User(Object):
                                         rounds=config.PASSWORD_SALT_COMPLEXITY
                                     )
                 else:
-                    self.badrequest()
+                    self.badrequest(
+                                 "Please provide the correct current password")
             if 'preferred_currency' in self.args:
                 currency = models.Currency.query.filter(
                   db.and_(
@@ -165,11 +166,10 @@ class User(Object):
             db.session.commit()
             return self.read(username)
         else:
-            self.forbidden()
+            self.forbidden('The only user you can modify is yourself')
 
     def delete(self, username):
-        # A user cannot be deleted with the API
-        self.forbidden()
+        self.forbidden('A user cannot be deleted with the API')
 
     def __search(self, substring):
         """Search on parts of the users name or on exact email address"""
@@ -219,16 +219,16 @@ class UserContact(Object):
     # TODO: Refuse new contacts unless at least one UserEmail is validated
     def create(self):
         if not 'username' in self.args:
-            self.badrequest()
+            self.badrequest("Please provide the contact username")
         if self.username in config.DEMO_ACCOUNTS:
-            self.badrequest()
+            self.badrequest("Cannot add contacts to demo accounts")
         # Verify the contact exists
         contactuser = models.User.query.filter(
                         models.User.username == self.args['username']
                       ).first()
         if not contactuser:
             # XXX If contactuser does not exist, maybe invite him
-            self.notfound()
+            self.notfound('This user does not exist')
         # Verify the user doesn't already have this contact
         testcontact = models.UserContact.query.filter(
                         db.and_(
@@ -237,7 +237,7 @@ class UserContact(Object):
                         )
                       ).first()
         if testcontact:
-            self.badrequest()
+            self.badrequest("This contact already exists")
         contact = models.UserContact(
                     user_username=self.username,
                     contact=contactuser,
@@ -255,7 +255,7 @@ class UserContact(Object):
             )
         ).first()
         if not contact:
-            self.notfound()
+            self.notfound('This contact does not exist')
         return contact.as_dict()
 
     def update(self, username):
@@ -266,7 +266,7 @@ class UserContact(Object):
             )
         ).first()
         if not contact:
-            self.notfound()
+            self.notfound('Nonexistent contact cannot be modified')
         # Only the comment can be updated
         if 'comment' in self.args:
             contact.comment = self.args['comment']
@@ -281,6 +281,6 @@ class UserContact(Object):
                     )
         ).first()
         if not contact:
-            self.notfound()
+            self.notfound('Nonexistent contact cannot be deleted')
         db.session.delete(contact)
         db.session.commit()

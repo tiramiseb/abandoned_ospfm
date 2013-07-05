@@ -66,7 +66,8 @@ class Account(Object):
             'name' in self.args and
             'start_balance' in self.args
         ):
-            self.badrequest()
+            self.badrequest(
+                 "Please provide the account name, currency and start balance")
         currency = core.Currency.query.filter(
             db.and_(
                 core.Currency.isocode == self.args['currency'],
@@ -77,7 +78,7 @@ class Account(Object):
             )
         ).first()
         if not currency:
-            self.badrequest()
+            self.badrequest("This currency does not exists")
 
         name = self.args['name']
         start_balance = self.args['start_balance']
@@ -97,12 +98,13 @@ class Account(Object):
         account = self.__own_account(accountid)
         if account:
             return account.as_dict(self.username)
-        self.notfound()
+        self.notfound('This account does not exist or you do not own it')
 
     def update(self, accountid):
         account = self.__own_account(accountid)
         if not account:
-            self.notfound()
+            self.notfound(
+               'Nonexistent account cannot be modified (or you do not own it)')
         if 'name' in self.args:
             account.name = self.args['name']
         if 'currency' in self.args:
@@ -130,7 +132,8 @@ class Account(Object):
     def delete(self, accountid):
         account = self.__own_account(accountid)
         if not account:
-            self.notfound()
+            self.notfound(
+                'Nonexistent account cannot be deleted (or you do not own it)')
         db.session.delete(account)
         db.session.commit()
         self.add_to_response('totalbalance')

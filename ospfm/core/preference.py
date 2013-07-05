@@ -39,7 +39,8 @@ class Preference(Object):
 
     def create(self):
         # Do not "create" preferences, just update them...
-        self.forbidden()
+        self.forbidden(
+      'Please update the preference: if it does not exist, it will be created')
 
     def read(self, preferencename):
         preference = self.__own_preference(preferencename)
@@ -63,6 +64,6 @@ class Preference(Object):
     def delete(self, preferencename):
         preference = self.__own_preference(preferencename)
         if not preference:
-            self.notfound()
+            self.notfound('Nonexistent preference cannot be deleted')
         db.session.delete(preference)
         db.session.commit()

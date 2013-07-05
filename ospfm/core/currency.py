@@ -50,7 +50,7 @@ class Currency(Object):
 
         currency_exists = self.__own_currency(symbol).all()
         if currency_exists:
-            self.badrequest()
+            self.badrequest("A currency with this symbol already exists")
         c = models.Currency(
                 owner_username = self.username,
                 isocode = symbol,
@@ -67,14 +67,14 @@ class Currency(Object):
         if currency:
             return currency.as_dict(with_rate=True)
         else:
-            self.notfound()
+            self.notfound('This currency does not exist')
 
     def update(self, isocode):
         currency = self.__own_currency(isocode).first()
         if not currency:
-            self.notfound()
+            self.notfound('Nonexistent currency cannot be modified')
         if not currency.owner_username:
-            self.forbidden()
+            self.forbidden('Globally defined currencies cannot be modified')
 
         if 'symbol' in self.args:
             # With user-defined currencies, isocode=symbol
@@ -94,9 +94,9 @@ class Currency(Object):
     def delete(self, isocode):
         currency = self.__own_currency(isocode).first()
         if not currency:
-            self.notfound()
+            self.notfound('Nonexistent currency cannot be deleted')
         if not currency.owner_username:
-            self.forbidden()
+            self.forbidden('Globally defined currencies cannot be deleted')
         # Only delete the currency if it is not in use
         if transaction.Account.query.filter(
                 transaction.Account.currency == currency
@@ -108,7 +108,7 @@ class Currency(Object):
                 transaction.Account.currency == currency
            ).count():
                 # TODO: Make this error explicit
-                self.badrequest()
+                self.badrequest("This currency is still in use")
         db.session.delete(currency)
         db.session.commit()
 
@@ -120,4 +120,4 @@ class Currency(Object):
                         response=response
                 )
         else:
-            self.badrequest()
+            self.badrequest("Rate cannot be calculated")
