@@ -35,7 +35,11 @@ def error401(e):
     This error does not return a "WWW-Authenticate" header so a dialog box
     is not displayed to the user.
     """
-    response = jsonify(status=401, response='Unauthorized')
+    if e.description:
+        response = jsonify(status=401, response='Unauthorized',
+                           details=e.description)
+    else:
+        response = jsonify(status=401, response='Unauthorized')
     response.status_code = 401
     return response
 
