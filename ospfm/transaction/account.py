@@ -78,7 +78,7 @@ class Account(Object):
             )
         ).first()
         if not currency:
-            self.badrequest("This currency does not exists")
+            self.badrequest("This currency does not exist")
 
         name = self.args['name']
         start_balance = self.args['start_balance']
