@@ -52,20 +52,34 @@ def authenticate(username=None, password=None, http_abort=True):
     if not password:
         password = request.values['password']
 
+    # Refuse the login if there has been 3 previous failed attempts
+    fails = cache.get(request.remote_addr+'-'+username+'-authfails') or 0
+    # Minimal protection against passwords guess attempts
+    if fails > 2:
+        cache.set(request.remote_addr+'-'+username+'-authfails', fails, 120)
+        abort(401, '3 previous attempts failed, please wait 2 minutes')
+
     user = core.User.query.filter(
                 core.User.username == username
             ).first()
     if not user:
         if http_abort:
-            abort(401)
+            cache.set(request.remote_addr+'-'+username+'-authfails',
+                      fails+1, 120)
+            abort(401, 'Wrong username or password')
         else:
             return False
     if sha512_crypt.verify(password, user.passhash):
+        # Last login was not a fail, remove the fail info in the cache
+        cache.delete(request.remote_addr+'-'+username+'-authfails')
         key = str(uuid.uuid4())
         cache.set(request.remote_addr+'---'+key, username, 3600)
         return jsonify(status=200, response={'key': key})
     elif http_abort:
-        abort(401)
+        # Minimal protection against passwords guess attempts: each login
+        # failure increments this counter
+        cache.set(request.remote_addr+'-'+username+'-authfails', fails+1, 120)
+        abort(401, 'Wrong username or password')
     else:
         return False
 
@@ -76,4 +90,4 @@ def get_username_auth(key):
                 return username
         if config.DEVEL and config.DEVEL_USERNAME:
             return config.DEVEL_USERNAME
-        abort(401)
+        abort(401, 'Please login to get a key')
