@@ -69,11 +69,14 @@ class User(Object):
             if 'password' in self.args and \
                username not in config.DEMO_ACCOUNTS:
                 if 'currentpassword' in self.args and \
-                   authentication.authenticate(
-                    username,
-                    self.args['currentpassword'],
-                    False
-                   ):
+                           authentication.authenticate(
+                                username,
+                                self.args['currentpassword'],
+                                False
+                           ):
+                    if len(self.args['password']) < 8:
+                        self.badrequest(
+                               'Password should be at least 8 characters long')
                     user.passhash = sha512_crypt.encrypt(
                                         self.args['password'],
                                         rounds=config.PASSWORD_SALT_COMPLEXITY
