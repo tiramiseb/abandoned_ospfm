@@ -58,6 +58,8 @@ def authenticate(username=None, password=None, http_abort=True):
     if fails > 2:
         cache.set(request.remote_addr+'-'+username+'-authfails', fails, 120)
         abort(401, '3 previous attempts failed, please wait 2 minutes')
+        # The following line is there only for the translation in OSPFM-web
+        # self.forbidden('3 previous attempts failed, please wait 2 minutes')
 
     user = core.User.query.filter(
                 core.User.username == username
@@ -67,6 +69,8 @@ def authenticate(username=None, password=None, http_abort=True):
             cache.set(request.remote_addr+'-'+username+'-authfails',
                       fails+1, 120)
             abort(401, 'Wrong username or password')
+            # The following line is there only for the translation in OSPFM-web
+            # self.forbidden('Wrong username or password')
         else:
             return False
     if sha512_crypt.verify(password, user.passhash):
