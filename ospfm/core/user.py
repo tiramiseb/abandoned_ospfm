@@ -176,6 +176,8 @@ class User(Object):
 
     def __search(self, substring):
         """Search on parts of the users name or on exact email address"""
+        if len(substring) < 3:
+            self.badrequest('Please give at least 3 characters')
         if '@' in substring:
             corresponding_rows = models.User.query.join(
                                     models.UserEmail
@@ -230,7 +232,6 @@ class UserContact(Object):
                         models.User.username == self.args['username']
                       ).first()
         if not contactuser:
-            # XXX If contactuser does not exist, maybe invite him
             self.notfound('This user does not exist')
         # Verify the user doesn't already have this contact
         testcontact = models.UserContact.query.filter(
