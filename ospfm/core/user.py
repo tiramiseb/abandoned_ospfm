@@ -120,6 +120,7 @@ class User(Object):
                        type(emails['add']) == type([]) and \
                        username not in config.DEMO_ACCOUNTS:
                         for address in emails['add']:
+                            # TODO Verify there is a "@" in the email address
                             if address not in previous_emails:
                                 # Use random hash for email confirmation
                                 # Email confirmation is done outside of OSPFM
