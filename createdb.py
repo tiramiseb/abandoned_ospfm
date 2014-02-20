@@ -113,6 +113,7 @@ def populate_currencies():
         core.Currency(isocode='BOB', name=u'Boliviano', symbol=u'Bs'),
         core.Currency(isocode='BRL', name=u'Brazilian real', symbol=u'R$'),
         core.Currency(isocode='BSD', name=u'Bahamian dollar', symbol=u'$'),
+        core.Currency(isocode='BTC', name=u'Bitcoin', symbol=u'Ƀ'),
         core.Currency(isocode='BTN', name=u'Bhutanese ngultrum', symbol=u'Nu'),
         core.Currency(isocode='BWP', name=u'Botswana pula', symbol=u'P'),
         core.Currency(isocode='BYR', name=u'Belarusian ruble', symbol=u'Br'),
@@ -246,7 +247,7 @@ def populate_currencies():
         core.Currency(isocode='XPF', name=u'CFP franc', symbol=u'F'),
         core.Currency(isocode='YER', name=u'Yemeni rial', symbol=u'YER'),
         core.Currency(isocode='ZAR', name=u'South African rand', symbol=u'R'),
-        core.Currency(isocode='ZMK', name=u'Zambian kwacha', symbol=u'ZK'),
+        core.Currency(isocode='ZMW', name=u'Zambian kwacha', symbol=u'ZK'),
         core.Currency(isocode='ZWL', name=u'Zimbabwe dollar', symbol=u'$')
     ))
     db.session.commit()
