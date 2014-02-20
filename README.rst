@@ -39,14 +39,17 @@ OSPFM is  a multi-users  personal finance  "backend" application,  hosting  the
 User management is not a part of OSPFM.
 The frontend clients don't have to be licensed under the AGPL license.
 
-Prerequisite
-============
+Installation tips
+=================
 
-Short list of prerequisite for OSPFM:
+Needs Python 2.7 or newer.
 
-- Python 2.7 or newer (some parts will not work with Python up to 2.6)
-- Flask (Debian package ``python-flask``)
-- SQLAlchemy 0.7 or newer (Debian package ``python-sqlalchemy``)
-- Flask-SQLAlchemy (``pip install flask-sqlalchemy``)
-- SimpleJSON 2.6 or newer (Debian package ``python-simplejson``)
-- a SQL database system compatible with SQLAlchemy
+::
+
+  virtualenv .
+  source bin/activate
+  pip install -r requirements.txt
+
+See requirements.txt for requirements.
+
+Don't forget a database engine :)
