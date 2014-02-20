@@ -2,3 +2,4 @@ Flask
 SQLAlchemy >= 0.7
 Flask-SQLAlchemy
 simplejson >= 2.6
+passlib
