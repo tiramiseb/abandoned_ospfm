@@ -33,16 +33,10 @@ cache = config.CACHE
 # However, to be totally sure an access is legitimate, we also store the remote IP address locally...
 
 
-# Keys are stored in cache. However, we should be careful here. It should
-# work if the user interface stores the username and password and resend them
-# on error 401 automatically.
+# Keys are stored in cache.
 #
-# However, if a user interface does not store username and password, if
-# anything happens with the cache (too much memory used, memcached restart,
-# etc), users (maybe ALL users) will be disconnected.
-#
-# OSPFM-web temporarily stores username and password, so this is not a problem
-# with it.
+# If anything happens with the cache (too much memory used, memcached restart,
+# etc), users will be disconnected.
 #
 # Moving to a database storage is not excluded.
 
@@ -77,7 +71,7 @@ def authenticate(username=None, password=None, http_abort=True):
         # Last login was not a fail, remove the fail info in the cache
         cache.delete(request.remote_addr+'-'+username+'-authfails')
         key = str(uuid.uuid4())
-        cache.set(request.remote_addr+'---'+key, username, 3600)
+        cache.set(request.remote_addr+'---'+key, username, 1800)
         return jsonify(status=200, response={'key': key})
     elif http_abort:
         # Minimal protection against passwords guess attempts: each login
@@ -91,7 +85,9 @@ def get_username_auth(key):
         if key:
             username = cache.get(request.remote_addr+'---'+key)
             if username:
+                # Extend the key validity, 30 more minutes
+                cache.set(request.remote_addr+'---'+key, username, 1800)
                 return username
         if config.DEVEL and config.DEVEL_USERNAME:
             return config.DEVEL_USERNAME
-        abort(401, 'Please login to get a key')
+        abort(401, 'Please login')
