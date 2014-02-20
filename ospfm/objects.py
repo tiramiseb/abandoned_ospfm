@@ -48,7 +48,7 @@ class Object:
     def __init_http(self):
         self.args = request.values.to_dict()
         self.username = authentication.get_username_auth(
-                            self.args.get('key', None)
+                            request.headers.get('Authorization', None)
                         )
 
     def add_to_response(self, *args):
