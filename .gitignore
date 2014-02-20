@@ -2,3 +2,8 @@
 *.sqlite3
 *.html
 config.py
+.kateproject
+bin/
+include/
+lib/
+local/
