@@ -2,6 +2,8 @@
 OSPFM global README
 ###################
 
+**THIS PROJECT HAS BEEN ABANDONED**
+
 *OSPFM* stands for *Open Source Personal Finance Management server*.
 
 OSPFM is the foundation for a future Software-as-a-Service finance application,
